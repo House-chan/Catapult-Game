@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,27 +14,31 @@ namespace Catapult.GameObjects
         float moving;
         public enum Stage
         {
-            Moving, Aiming, Shooting, EndTurn
+            Start, Shooting, EndTurn
         }
         public Stage stage;
+
+        KeyboardState _currentKey;
+        MouseState _mouseState, _previousMouseState;
+
+        int speed;
         //Gun gun;
 
         public Ship(Texture2D texture) : base(texture)
         {
-
+            speed = 5;
+            moving = 100;
+            stage = Stage.Start;
         }
         public override void Update(GameTime gameTime)
         {
             switch (stage)
             {
-                case Stage.Moving:
+                case Stage.Start:
                     moveTo();
-                    stage = Stage.Aiming;
-                    break;
-
-                case Stage.Aiming:
+                    aiming();
+                    
                     //when click change stage save angle and Position
-
                     break;
 
                 case Stage.Shooting:
@@ -51,7 +56,9 @@ namespace Catapult.GameObjects
         public override void Draw(SpriteBatch spriteBatch)
         {
             //Draw ship and method ammo
-            spriteBatch.Draw(_texture, Position, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_texture, Position, null, Color.White, 0f, Vector2.Zero, 0.25f, SpriteEffects.None, 0f);
+
+            //Hud Power, Fuel, Health
         }
 
         public override void Reset()
@@ -61,12 +68,48 @@ namespace Catapult.GameObjects
 
         private void shoot()
         {
-            //Create ball 
+            //Click Mouse
+            
+            //Create ball
+
+            //Change Stage
+        }
+
+        private void aiming()
+        {
+            if (_mouseState.LeftButton == ButtonState.Pressed && _previousMouseState.LeftButton == ButtonState.Released)
+            {
+                stage = Stage.Shooting;
+            }
         }
 
         private void moveTo()
         {
+            //Moving
+            _currentKey = Keyboard.GetState();
+            if (_currentKey.IsKeyDown(Keys.Up) && moving > 0)
+            {
+                Position = new Vector2(Position.X, Position.Y - speed);
+                moving -= 1;
+            }
 
+            else if (_currentKey.IsKeyDown(Keys.Down) && moving > 0)
+            {
+                Position = new Vector2(Position.X, Position.Y + speed);
+                moving -= 1;
+            }
+
+            if (_currentKey.IsKeyDown(Keys.Right) && moving > 0)
+            {
+                Position = new Vector2(Position.X + speed, Position.Y);
+                moving -= 1;
+            }
+
+            else if (_currentKey.IsKeyDown(Keys.Left) && moving > 0)
+            {
+                Position = new Vector2(Position.X - speed, Position.Y);
+                moving -= 1;
+            }
         }
     }
 }

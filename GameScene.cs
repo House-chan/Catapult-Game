@@ -10,7 +10,7 @@ namespace Catapult
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
+        Ship ship;
         enum Stage
         {
             MainMenu, Stage, Pause
@@ -40,7 +40,7 @@ namespace Catapult
             _graphics.PreferredBackBufferHeight = Singleton.SCREENHEIGHT;
             _graphics.ApplyChanges();
 
-            stage = stage
+            stage = Turn.Player;
 
             base.Initialize();
         }
@@ -50,12 +50,12 @@ namespace Catapult
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            PlayerShip = Content.Load<Texture2D>("");
-            Planet = Content.Load<Texture2D>("");
-            EnemyShip = Content.Load<Texture2D>("");
-            guideline = Content.Load<Texture2D>("");
-            meteorite = Content.Load<Texture2D>("");
-            gun = Content.Load<Texture2D>("");
+            PlayerShip = Content.Load<Texture2D>("PlayerShip");
+            //Planet = Content.Load<Texture2D>("");
+            //EnemyShip = Content.Load<Texture2D>("");
+            //guideline = Content.Load<Texture2D>("");
+            //meteorite = Content.Load<Texture2D>("");
+            //gun = Content.Load<Texture2D>("");
 
             Player = new Ship(PlayerShip);
         }
@@ -66,7 +66,7 @@ namespace Catapult
                 Exit();
 
             // TODO: Add your update logic here
-            switch()
+            //switch()
             Player.Update(gameTime);
 
 
@@ -78,7 +78,12 @@ namespace Catapult
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            _spriteBatch.Begin();
 
+            Player.Draw(_spriteBatch);
+
+            _spriteBatch.End();
+            _graphics.BeginDraw();
             base.Draw(gameTime);
         }
     }

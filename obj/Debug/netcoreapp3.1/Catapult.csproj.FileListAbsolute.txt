@@ -22,3 +22,6 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\obj\Debug
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\obj\Debug\netcoreapp3.1\Catapult.dll
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\obj\Debug\netcoreapp3.1\Catapult.pdb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\obj\Debug\netcoreapp3.1\Catapult.genruntimeconfig.cache
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\font.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Playership.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\pngegg (4).xnb
