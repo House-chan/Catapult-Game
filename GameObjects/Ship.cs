@@ -11,37 +11,57 @@ namespace Catapult.GameObjects
     {
         float ShootPower;
         float Health;
-        float moving;
+        float moveRange;
         public enum Stage
         {
             Start, Shooting, EndTurn
         }
         public Stage stage;
 
-        KeyboardState _currentKey;
-        MouseState _mouseState, _previousMouseState;
 
         int speed;
-        //Gun gun;
+        Gun gun;
 
-        public Ship(Texture2D texture) : base(texture)
+        public Ship(Texture2D texture, Texture2D gunTexture) : base(texture)
         {
             speed = 5;
-            moving = 100;
+            moveRange = 10000;
             stage = Stage.Start;
+            gun = new Gun(gunTexture)
+            {
+                Position = new Vector2(this.Position.X + 90, this.Position.Y + 30)
+            };
         }
         public override void Update(GameTime gameTime)
         {
             switch (stage)
             {
                 case Stage.Start:
-                    moveTo();
-                    aiming();
-                    
+                    moving();
+                    Singleton.Instance.CurrentMouse = Mouse.GetState();
+                    gun.aiming();
                     //when click change stage save angle and Position
+                    if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
+                    {
+                        //ShootPower++
+                        stage = Stage.Shooting;
+                    }
+                
                     break;
 
                 case Stage.Shooting:
+                    Singleton.Instance.PreviousMouse = Singleton.Instance.CurrentMouse;
+                    Singleton.Instance.CurrentMouse = Mouse.GetState();
+                    gun.aiming();
+                    if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
+                    {
+                        //ShootPower++
+                        //stage = Stage.Shooting;
+                    }
+                    if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+                    {
+
+                    }
                     shoot();
                     break;
 
@@ -56,8 +76,8 @@ namespace Catapult.GameObjects
         public override void Draw(SpriteBatch spriteBatch)
         {
             //Draw ship and method ammo
-            spriteBatch.Draw(_texture, Position, null, Color.White, 0f, Vector2.Zero, 0.25f, SpriteEffects.None, 0f);
-
+            spriteBatch.Draw(_texture, Position, null, Color.White, 0f, new Vector2(_texture.Width/2, _texture.Height/2), 1, SpriteEffects.None, 0f);
+            gun.Draw(spriteBatch);
             //Hud Power, Fuel, Health
         }
 
@@ -71,44 +91,43 @@ namespace Catapult.GameObjects
             //Click Mouse
             
             //Create ball
-
+            //bullet create 
+            //bullet.update();
             //Change Stage
         }
 
-        private void aiming()
-        {
-            if (_mouseState.LeftButton == ButtonState.Pressed && _previousMouseState.LeftButton == ButtonState.Released)
-            {
-                stage = Stage.Shooting;
-            }
-        }
 
-        private void moveTo()
+
+        private void moving()
         {
             //Moving
-            _currentKey = Keyboard.GetState();
-            if (_currentKey.IsKeyDown(Keys.Up) && moving > 0)
+            Singleton.Instance.CurrentKey= Keyboard.GetState();
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Up) && moveRange > 0)
             {
                 Position = new Vector2(Position.X, Position.Y - speed);
-                moving -= 1;
+                gun.Position = new Vector2(gun.Position.X, gun.Position.Y - speed);
+                moveRange -= 1;
             }
 
-            else if (_currentKey.IsKeyDown(Keys.Down) && moving > 0)
+            else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Down) && moveRange > 0)
             {
                 Position = new Vector2(Position.X, Position.Y + speed);
-                moving -= 1;
+                gun.Position = new Vector2(gun.Position.X, gun.Position.Y + speed);
+                moveRange -= 1;
             }
 
-            if (_currentKey.IsKeyDown(Keys.Right) && moving > 0)
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Right) && moveRange > 0)
             {
                 Position = new Vector2(Position.X + speed, Position.Y);
-                moving -= 1;
+                gun.Position = new Vector2(gun.Position.X + speed, gun.Position.Y);
+                moveRange -= 1;
             }
 
-            else if (_currentKey.IsKeyDown(Keys.Left) && moving > 0)
+            else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Left) && moveRange > 0)
             {
                 Position = new Vector2(Position.X - speed, Position.Y);
-                moving -= 1;
+                gun.Position = new Vector2(gun.Position.X - speed, gun.Position.Y);
+                moveRange -= 1;
             }
         }
     }

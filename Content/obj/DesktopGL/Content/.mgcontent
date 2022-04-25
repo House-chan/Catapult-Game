@@ -5,9 +5,15 @@
   <Config />
   <SourceFiles>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/font.fx</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/PlayerShip.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/EnemyCanon.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/EnemyShip.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/PlayerCanon.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/PlayerShip.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

@@ -50,14 +50,14 @@ namespace Catapult
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            PlayerShip = Content.Load<Texture2D>("PlayerShip");
+            PlayerShip = Content.Load<Texture2D>("Ship/PlayerShip");
             //Planet = Content.Load<Texture2D>("");
-            //EnemyShip = Content.Load<Texture2D>("");
+            EnemyShip = Content.Load<Texture2D>("Ship/EnemyShip");
             //guideline = Content.Load<Texture2D>("");
             //meteorite = Content.Load<Texture2D>("");
-            //gun = Content.Load<Texture2D>("");
+            gun = Content.Load<Texture2D>("Ship/PlayerCanon");
 
-            Player = new Ship(PlayerShip);
+            Player = new Ship(PlayerShip, gun);
         }
 
         protected override void Update(GameTime gameTime)

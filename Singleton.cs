@@ -11,6 +11,10 @@ namespace Catapult
         public const int SCREENHEIGHT = 900;
         private static Singleton instance;
 
+        public KeyboardState PreviousKey, CurrentKey;
+        public MouseState PreviousMouse, CurrentMouse;
+
+
         private Singleton()
         {
         }

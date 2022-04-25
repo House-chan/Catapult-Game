@@ -25,3 +25,8 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\obj\Debug
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\font.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Playership.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\pngegg (4).xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Ship\EnemyShip.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Ship\PlayerShip.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Ship\Cannon.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Ship\EnemyCanon.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Ship\PlayerCanon.xnb
