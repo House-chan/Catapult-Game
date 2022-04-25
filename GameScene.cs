@@ -23,7 +23,7 @@ namespace Catapult
 
         Turn stage;
 
-        Texture2D PlayerShip, Planet, EnemyShip, guideline, meteorite, gun;
+        Texture2D PlayerShip, Planet, EnemyShip, guideline, meteorite, gun, bullet;
         Ship Player;
 
         public GameScene()
@@ -56,8 +56,9 @@ namespace Catapult
             //guideline = Content.Load<Texture2D>("");
             //meteorite = Content.Load<Texture2D>("");
             gun = Content.Load<Texture2D>("Ship/PlayerCanon");
+            bullet = Content.Load<Texture2D>("Bullet/Projectile-CannonBalll");
 
-            Player = new Ship(PlayerShip, gun);
+            Player = new Ship(PlayerShip, gun, bullet);
         }
 
         protected override void Update(GameTime gameTime)

@@ -12,6 +12,7 @@ namespace Catapult.GameObjects
         float ShootPower;
         float Health;
         float moveRange;
+
         public enum Stage
         {
             Start, Shooting, EndTurn
@@ -22,12 +23,12 @@ namespace Catapult.GameObjects
         int speed;
         Gun gun;
 
-        public Ship(Texture2D texture, Texture2D gunTexture) : base(texture)
+        public Ship(Texture2D texture, Texture2D gunTexture, Texture2D bulletTexture) : base(texture)
         {
             speed = 5;
             moveRange = 10000;
             stage = Stage.Start;
-            gun = new Gun(gunTexture)
+            gun = new Gun(gunTexture, bulletTexture)
             {
                 Position = new Vector2(this.Position.X + 90, this.Position.Y + 30)
             };

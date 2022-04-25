@@ -9,9 +9,12 @@ namespace Catapult.GameObjects
     class Gun : GameObject
     {
         Vector2 Distance;
-        public Gun(Texture2D texture) : base(texture)
-        {
+        Bullet bullet;
 
+        Texture2D bulletTexture;
+        public Gun(Texture2D texture, Texture2D bulletTexture) : base(texture)
+        {
+            this.bulletTexture = bulletTexture;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -33,7 +36,8 @@ namespace Catapult.GameObjects
 
         public void shoot()
         {
-
+            //bullet = new Bullet();
+            bullet = null;
         }
 
         public void aiming()
