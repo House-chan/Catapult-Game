@@ -15,7 +15,7 @@ namespace Catapult.GameObjects
 
         public enum Stage
         {
-            Start, Shooting, EndTurn
+            Start, Shooting, Move, EndTurn
         }
         public Stage stage;
 
@@ -27,6 +27,7 @@ namespace Catapult.GameObjects
         {
             speed = 5;
             moveRange = 10000;
+            Health = 100;
             stage = Stage.Start;
             gun = new Gun(gunTexture, bulletTexture)
             {
@@ -40,12 +41,19 @@ namespace Catapult.GameObjects
                 case Stage.Start:
                     moving();
                     Singleton.Instance.CurrentMouse = Mouse.GetState();
+                    //Aiming Gun
                     gun.aiming();
+
+                    //Select Ammo
+                    gun.changeAmmo();
+
                     //when click change stage save angle and Position
                     if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
-                    {
-                        //ShootPower++
+                    {   
+                        //Start Charge Gun
                         stage = Stage.Shooting;
+                        //Reload Ammo (Create Ammo)
+                        gun.reload();
                     }
                 
                     break;
@@ -53,21 +61,21 @@ namespace Catapult.GameObjects
                 case Stage.Shooting:
                     Singleton.Instance.PreviousMouse = Singleton.Instance.CurrentMouse;
                     Singleton.Instance.CurrentMouse = Mouse.GetState();
+                    //Aim Until shoot
                     gun.aiming();
-                    if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
-                    {
-                        //ShootPower++
-                        //stage = Stage.Shooting;
-                    }
-                    if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
-                    {
 
-                    }
+                    //Charge Power
                     shoot();
+                    
+                    break;
+
+                case Stage.Move:
+                    gun.Update(gameTime);
+                    //if(gun.bullet.end)
                     break;
 
                 case Stage.EndTurn:
-
+                    //Swap Turn
                     break;
 
             }
@@ -85,12 +93,24 @@ namespace Catapult.GameObjects
         public override void Reset()
         {
             //Restart ship 
+
+            //Position
+
+            //Ammo
         }
 
         private void shoot()
         {
             //Click Mouse
-            
+            if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
+            {
+                //ShootPower++
+                //stage = Stage.Shooting;
+            }
+            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+            {
+                gun.power = ShootPower;
+            }
             //Create ball
             //bullet create 
             //bullet.update();

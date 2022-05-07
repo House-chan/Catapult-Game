@@ -6,10 +6,14 @@ using System.Collections.Generic;
 
 namespace Catapult.GameObjects
 {
+
+
     class Gun : GameObject
     {
+        int bulletType;
         Vector2 Distance;
         Bullet bullet;
+        public float power;
 
         Texture2D bulletTexture;
         public Gun(Texture2D texture, Texture2D bulletTexture) : base(texture)
@@ -30,14 +34,15 @@ namespace Catapult.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-
+            bullet.Update(gameTime);
+            
             base.Update(gameTime);
         }
 
         public void shoot()
         {
-            //bullet = new Bullet();
-            bullet = null;
+            //bullet
+            //bullet = null;
         }
 
         public void aiming()
@@ -53,6 +58,34 @@ namespace Catapult.GameObjects
             //}
             //check angle
             //gun.update()
+        }
+
+        public void reload()
+        {
+            bullet = new Bullet(bulletTexture, Rotation, bulletType);
+            //bullet = null;
+        }
+
+        public void changeAmmo()
+        {
+            //change Ammo
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Right))
+            {
+                bulletType++;
+                if (bulletType > 6)
+                {
+                    bulletType = 0;
+                }
+            }
+
+            else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Left))
+            {
+                bulletType--;
+                if (bulletType < 0)
+                {
+                    bulletType = 6;
+                }
+            }
         }
     }
 }
