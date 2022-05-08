@@ -28,6 +28,7 @@ namespace Catapult.GameObjects
             speed = 5;
             moveRange = 10000;
             Health = 100;
+            ShootPower = 0.0f;
             stage = Stage.Start;
             gun = new Gun(gunTexture, bulletTexture)
             {
@@ -105,11 +106,14 @@ namespace Catapult.GameObjects
             if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
             {
                 //ShootPower++
-                //stage = Stage.Shooting;
+                ShootPower += 10f;
             }
-            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released || ShootPower > 1000)
             {
+                stage = Stage.Move;
                 gun.power = ShootPower;
+                ShootPower = 0.0f;
+                gun.shoot();
             }
             //Create ball
             //bullet create 

@@ -30,3 +30,4 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Ship\Cannon.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Ship\EnemyCanon.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Ship\PlayerCanon.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Bullet\Projectile-CannonBalll.xnb

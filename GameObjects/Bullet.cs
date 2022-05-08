@@ -11,10 +11,10 @@ namespace Catapult.GameObjects
         Texture2D _texture;
         Texture2D satellite;
         Vector2 Position;
+        Vector2 Velocity;
         float Rotation;
         Vector2 Scale;
         float speed;
-        float[,] Velocity;//Vector2?
         Boolean isActive;
         Boolean isPlayerBullet;
 
@@ -35,7 +35,7 @@ namespace Catapult.GameObjects
 
         BulletType bulletType;
 
-        public Bullet(Texture2D texture, float Rotation, int bullet)
+        public Bullet(Texture2D texture, float Rotation, int bullet, float power, Vector2 Position)
         {
             if(bullet == 0)
             {
@@ -78,44 +78,22 @@ namespace Catapult.GameObjects
 
             }
             _texture = texture;
-            //switch (bulletType)
-            //{
-            //    case BulletType.Normal:
-                    
-            //        break;
-            //    case BulletType.Heavy:
-            //        _texture = texture[1];
-            //        break;
-            //    case BulletType.Missile:
-            //        _texture = texture[2];
-            //        break;
-            //    case BulletType.Cluster:
-            //        _texture = texture[3];
-            //        break;
-            //    case BulletType.Laser:
-            //        _texture = texture[4];
-            //        break;
-            //    case BulletType.Satellite:
-                    
-            //        break;
-            //    case BulletType.NyanCat:
-            //        _texture = texture[6];
-            //        break;
-            //    case BulletType.Nuclear:
-            //        _texture = texture[7];
-            //        break;
-            //}
+
+            speed = power;
+
             //satellite = texture[5];
-            //Position = Vector2.Zero;
+            this.Position = Position;
             Scale = Vector2.One;
             //Rotation = 0f;
             this.Rotation = Rotation;
             //this.bullet = bullet;
+            Velocity.X = (float)(-speed * Math.Cos(Rotation));
+            Velocity.Y = (float)(-speed * Math.Sin(Rotation));
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation, new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation, new Vector2(_texture.Width / 2, _texture.Height / 2), 10, SpriteEffects.None, 0f);
         }
 
         public void Reset()
@@ -123,35 +101,36 @@ namespace Catapult.GameObjects
 
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
-            switch (bulletType)
-            {
-                case BulletType.Normal:
-
-                    break;
-                case BulletType.Heavy:
-
-                    break;
-                case BulletType.Missile:
-
-                    break;
-                case BulletType.Cluster:
-
-                    break;
-                case BulletType.Laser:
-
-                    break;
-                case BulletType.NyanCat:
-
-                    break;
-                case BulletType.Nuclear:
-
-                    break;
-                case BulletType.Satellite:
-
-                    break;
-            }
+            Position += Velocity;
+            //switch (bulletType)
+            //{
+            //    case BulletType.Normal:
+            //        Position += Velocity;
+            //        break;
+            //    case BulletType.Heavy:
+            //        Position += Velocity;
+            //        break;
+            //    case BulletType.Missile:
+            //        Position += Velocity;
+            //        break;
+            //    case BulletType.Cluster:
+            //        Position += Velocity;
+            //        break;
+            //    case BulletType.Laser:
+            //        Position += Velocity;
+            //        break;
+            //    case BulletType.NyanCat:
+            //        Position += Velocity;
+            //        break;
+            //    case BulletType.Nuclear:
+            //        Position += Velocity;
+            //        break;
+            //    case BulletType.Satellite:
+            //        Position += Velocity;
+            //        break;
+            //}
         }
     }
 }

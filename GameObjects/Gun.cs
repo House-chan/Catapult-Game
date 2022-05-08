@@ -14,17 +14,29 @@ namespace Catapult.GameObjects
         Vector2 Distance;
         Bullet bullet;
         public float power;
-
+        bool bulletCreate = false;
+        int[] ammo = { 99, 3, 2, 2, 1, 1, 1 };
         Texture2D bulletTexture;
         public Gun(Texture2D texture, Texture2D bulletTexture) : base(texture)
         {
             this.bulletTexture = bulletTexture;
+            //Normal,
+            //Heavy,
+            //Missile,
+            //Cluster,
+            //Laser,
+            //NyanCat,
+            //Nuclear,
+            //Satellite
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f), new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
-            base.Draw(spriteBatch);
+            if (bulletCreate)
+            {
+                bullet.Draw(spriteBatch);
+            }
         }
 
         public override void Reset()
@@ -35,8 +47,6 @@ namespace Catapult.GameObjects
         public override void Update(GameTime gameTime)
         {
             bullet.Update(gameTime);
-            
-            base.Update(gameTime);
         }
 
         public void shoot()
@@ -62,7 +72,8 @@ namespace Catapult.GameObjects
 
         public void reload()
         {
-            bullet = new Bullet(bulletTexture, Rotation, bulletType);
+            bullet = new Bullet(bulletTexture, Rotation, 0, power, Position);
+            bulletCreate = true;
             //bullet = null;
         }
 
