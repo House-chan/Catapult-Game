@@ -56,7 +56,7 @@ namespace Catapult
             //guideline = Content.Load<Texture2D>("");
             //meteorite = Content.Load<Texture2D>("");
             gun = Content.Load<Texture2D>("Ship/PlayerCanon");
-            bullet = Content.Load<Texture2D>("Bullet/Projectile-CannonBalll");
+            bullet = Content.Load<Texture2D>("Bullet/bullet1");
 
             Player = new Ship(PlayerShip, gun, bullet);
         }

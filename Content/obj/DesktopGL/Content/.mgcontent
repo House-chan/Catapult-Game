@@ -4,7 +4,10 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/Projectile-CannonBalll.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet1.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet2.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet3.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet4.png</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/font.fx</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/EnemyCanon.png</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/EnemyShip.png</File>
@@ -12,6 +15,9 @@
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/PlayerShip.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
