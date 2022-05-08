@@ -23,7 +23,8 @@ namespace Catapult
 
         Turn stage;
 
-        Texture2D PlayerShip, Planet, EnemyShip, guideline, meteorite, gun, bullet;
+        Texture2D PlayerShip, EnemyShip, guideline, meteorite, gun;
+        Texture2D[] Planet, Bullet;
         Ship Player;
 
         public GameScene()
@@ -51,14 +52,28 @@ namespace Catapult
 
             // TODO: use this.Content to load your game content here
             PlayerShip = Content.Load<Texture2D>("Ship/PlayerShip");
-            //Planet = Content.Load<Texture2D>("");
+            Planet[0] = Content.Load<Texture2D>("Planet/barren");
+            Planet[1] = Content.Load<Texture2D>("Planet/barren-charred");
+            Planet[2] = Content.Load<Texture2D>("Planet/barren-icy");
+            Planet[3] = Content.Load<Texture2D>("Planet/chlorine");
+            Planet[4] = Content.Load<Texture2D>("Planet/chlorine-barren");
+            Planet[5] = Content.Load<Texture2D>("Planet/desert");
+            Planet[6] = Content.Load<Texture2D>("Planet/inferno");
+            Planet[7] = Content.Load<Texture2D>("Planet/methane");
+            Planet[8] = Content.Load<Texture2D>("Planet/methane-barren");
+            Planet[9] = Content.Load<Texture2D>("Planet/methane-ice");
+            Planet[10] = Content.Load<Texture2D>("Planet/tundra");
             EnemyShip = Content.Load<Texture2D>("Ship/EnemyShip");
             //guideline = Content.Load<Texture2D>("");
             //meteorite = Content.Load<Texture2D>("");
             gun = Content.Load<Texture2D>("Ship/PlayerCanon");
-            bullet = Content.Load<Texture2D>("Bullet/bullet1");
+            Bullet[0] = Content.Load<Texture2D>("Bullet/bullet1");
+            Bullet[1] = Content.Load<Texture2D>("Bullet/bullet2");
+            Bullet[2] = Content.Load<Texture2D>("Bullet/bullet3");
+            Bullet[3] = Content.Load<Texture2D>("Bullet/bullet4");
 
-            Player = new Ship(PlayerShip, gun, bullet);
+
+            Player = new Ship(PlayerShip, gun, Bullet[0]);
         }
 
         protected override void Update(GameTime gameTime)
