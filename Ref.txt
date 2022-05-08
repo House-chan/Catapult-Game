@@ -1,0 +1,3 @@
+Bullet:https://opengameart.org/content/bullets-game-asset
+Planet:https://opengameart.org/content/11-planet-sci-fi-set
+Ship & Canon:https://opengameart.org/content/free-pirates-game-assets-by-unlucky-studio

@@ -47,6 +47,7 @@ namespace Catapult.GameObjects
         public override void Update(GameTime gameTime)
         {
             bullet.Update(gameTime);
+
         }
 
         public void shoot()
