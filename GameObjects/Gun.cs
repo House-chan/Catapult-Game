@@ -13,7 +13,7 @@ namespace Catapult.GameObjects
         int bulletType;
         Vector2 Distance;
         Bullet bullet;
-        public float power;
+        //public float power;
         bool bulletCreate = false;
         int[] ammo = { 99, 3, 2, 2, 1, 1, 1 };
         Texture2D bulletTexture;
@@ -50,10 +50,12 @@ namespace Catapult.GameObjects
 
         }
 
-        public void shoot()
+        public void shoot(float power)
         {
             //bullet
             //bullet = null;
+            //speed, rotation
+            bullet.shooting(Rotation, power);
         }
 
         public void aiming()
@@ -73,7 +75,7 @@ namespace Catapult.GameObjects
 
         public void reload()
         {
-            bullet = new Bullet(bulletTexture, Rotation, 0, power, Position);
+            bullet = new Bullet(bulletTexture, 0, Position);
             bulletCreate = true;
             //bullet = null;
         }

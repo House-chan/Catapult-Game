@@ -28,7 +28,7 @@ namespace Catapult.GameObjects
             speed = 5;
             moveRange = 10000;
             Health = 100;
-            ShootPower = 0.0f;
+            ShootPower = 1.0f;
             stage = Stage.Start;
             gun = new Gun(gunTexture, bulletTexture)
             {
@@ -54,7 +54,6 @@ namespace Catapult.GameObjects
                         //Start Charge Gun
                         stage = Stage.Shooting;
                         //Reload Ammo (Create Ammo)
-                        gun.reload();
                     }
                 
                     break;
@@ -106,14 +105,14 @@ namespace Catapult.GameObjects
             if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
             {
                 //ShootPower++
-                ShootPower += 10f;
+                ShootPower += 0.1f;
             }
-            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released || ShootPower > 1000)
+            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released || ShootPower > 10)
             {
                 stage = Stage.Move;
-                gun.power = ShootPower;
+                gun.reload();
+                gun.shoot(ShootPower);
                 ShootPower = 0.0f;
-                gun.shoot();
             }
             //Create ball
             //bullet create 

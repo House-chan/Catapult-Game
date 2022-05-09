@@ -24,7 +24,7 @@ namespace Catapult
         Turn stage;
 
         Texture2D PlayerShip, EnemyShip, guideline, meteorite, gun;
-        Texture2D[] Planet, Bullet;
+        Texture2D[] Planet = new Texture2D[11], Bullet = new Texture2D[7];
         Ship Player;
 
         public GameScene()

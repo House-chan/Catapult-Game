@@ -28,7 +28,7 @@ namespace Catapult.GameObjects
 
         BulletType bulletType;
 
-        public Bullet(Texture2D texture, float Rotation, int bullet, float power, Vector2 Position) : base(texture)
+        public Bullet(Texture2D texture, int bullet, Vector2 Position) : base(texture)
         {
             if(bullet == 0)
             {
@@ -72,16 +72,10 @@ namespace Catapult.GameObjects
             }
             _texture = texture;
 
-            speed = power;
-
             //satellite = texture[5];
             this.Position = Position;
-            Scale = Vector2.One;
-            //Rotation = 0f;
-            this.Rotation = Rotation;
             //this.bullet = bullet;
-            Velocity.X = (float)(speed * Math.Cos(Rotation));
-            Velocity.Y = (float)(speed * Math.Sin(Rotation));
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -97,7 +91,7 @@ namespace Catapult.GameObjects
         public override void Update(GameTime gameTime)
         {
             Position += Velocity;
-            //Position += new Vector2(10, 10);
+            //Position += new Vector2(speed, speed);
             //switch (bulletType)
             //{
             //    case BulletType.Normal:
@@ -132,6 +126,14 @@ namespace Catapult.GameObjects
             //        Position += Velocity;
             //        break;
             //}
+        }
+
+        public void shooting(float Rotation, float speed)
+        {
+            this.Rotation = Rotation;
+            this.speed = speed;
+            Velocity.X = (float)(-speed * Math.Cos(Rotation));
+            Velocity.Y = (float)(-speed * Math.Sin(Rotation));
         }
     }
 }
