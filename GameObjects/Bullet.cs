@@ -135,5 +135,17 @@ namespace Catapult.GameObjects
             Velocity.X = (float)(-speed * Math.Cos(Rotation));
             Velocity.Y = (float)(-speed * Math.Sin(Rotation));
         }
+
+        public bool hit()
+        {
+            if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

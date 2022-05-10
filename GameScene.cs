@@ -10,23 +10,22 @@ namespace Catapult
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        Ship ship;
         enum Stage
         {
             MainMenu, Stage, Pause
         }
-
+        Stage Game;
         enum Turn
         {
             Player, Enemy
         }
 
-        Turn stage;
+        Turn turn;
 
-        Texture2D PlayerShip, EnemyShip, guideline, meteorite, gun;
+        Texture2D PlayerShip, EnemyShip, guideline, meteorite, gun, EnemyGun;
         Texture2D[] Planet = new Texture2D[11], Bullet = new Texture2D[7];
         Ship Player;
-
+        EnemyShip Enemy;
         public GameScene()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -41,7 +40,8 @@ namespace Catapult
             _graphics.PreferredBackBufferHeight = Singleton.SCREENHEIGHT;
             _graphics.ApplyChanges();
 
-            stage = Turn.Player;
+            turn = Turn.Player;
+            Game = Stage.Stage;
 
             base.Initialize();
         }
@@ -67,6 +67,7 @@ namespace Catapult
             //guideline = Content.Load<Texture2D>("");
             //meteorite = Content.Load<Texture2D>("");
             gun = Content.Load<Texture2D>("Ship/PlayerCanon");
+            EnemyGun = Content.Load<Texture2D>("Ship/EnemyCanon");
             Bullet[0] = Content.Load<Texture2D>("Bullet/bullet1");
             Bullet[1] = Content.Load<Texture2D>("Bullet/bullet2");
             Bullet[2] = Content.Load<Texture2D>("Bullet/bullet3");
@@ -74,6 +75,7 @@ namespace Catapult
 
 
             Player = new Ship(PlayerShip, gun, Bullet[0]);
+            Enemy = new EnemyShip(EnemyShip, EnemyGun);
         }
 
         protected override void Update(GameTime gameTime)
@@ -82,9 +84,37 @@ namespace Catapult
                 Exit();
 
             // TODO: Add your update logic here
-            //switch()
-            Player.Update(gameTime);
+            switch (Game)
+            {
+                case Stage.MainMenu:
+                    break;
+                case Stage.Stage:
+                    switch (turn)
+                    {
+                        case Turn.Player:
+                            Player.Update(gameTime);
+                            switch(Player.stage)
+                            {
+                                case GameObjects.Ship.Stage.EndTurn:
+                                    turn = Turn.Enemy;
+                                    break;
+                            }
+                            break;
+                        case Turn.Enemy:
+                            Enemy.Update(gameTime);
+                            switch(Enemy.stage)
+                            {
+                                case GameObjects.EnemyShip.Stage.EndTurn:
+                                    turn = Turn.Player;
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
 
+                case Stage.Pause:
+                    break;
+            }
 
             base.Update(gameTime);
         }
@@ -96,7 +126,18 @@ namespace Catapult
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
 
-            Player.Draw(_spriteBatch);
+            switch (Game)
+            {
+                case Stage.MainMenu:
+                    break;
+                case Stage.Stage:
+                    Player.Draw(_spriteBatch);
+                    Enemy.Draw(_spriteBatch);
+                    break;
+                case Stage.Pause:
+
+                    break;
+            }
 
             _spriteBatch.End();
             _graphics.BeginDraw();

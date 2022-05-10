@@ -28,7 +28,7 @@ namespace Catapult.GameObjects
             speed = 5;
             moveRange = 10000;
             Health = 100;
-            ShootPower = 1.0f;
+            ShootPower = 5.0f;
             stage = Stage.Start;
             gun = new Gun(gunTexture, bulletTexture)
             {
@@ -71,8 +71,12 @@ namespace Catapult.GameObjects
 
                 case Stage.Move:
                     gun.Update(gameTime);
-                    //if(gun.bullet.end)
-                    break;
+                    if (gun.bullet.hit())
+                    {
+                        gun.clearBullet();
+                        stage = Stage.EndTurn;
+                    }
+                        break;
 
                 case Stage.EndTurn:
                     //Swap Turn
@@ -153,6 +157,11 @@ namespace Catapult.GameObjects
                 gun.Position = new Vector2(gun.Position.X - speed, gun.Position.Y);
                 moveRange -= 1;
             }
+        }
+
+        public Stage getStage()
+        {
+            return stage;
         }
     }
 }

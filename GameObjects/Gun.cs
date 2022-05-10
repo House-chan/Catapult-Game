@@ -12,7 +12,7 @@ namespace Catapult.GameObjects
     {
         int bulletType;
         Vector2 Distance;
-        Bullet bullet;
+        public Bullet bullet;
         //public float power;
         bool bulletCreate = false;
         int[] ammo = { 99, 3, 2, 2, 1, 1, 1 };
@@ -100,6 +100,12 @@ namespace Catapult.GameObjects
                     bulletType = 6;
                 }
             }
+        }
+
+        public void clearBullet()
+        {
+            bulletCreate = false;
+            bullet = null;
         }
     }
 }
