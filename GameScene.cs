@@ -95,9 +95,10 @@ namespace Catapult
 
 
             Player = new Ship(PlayerShip, gun, Bullet[0]);
+            Player.SetPosition(new Vector2(100, 500));
             //Enemy = new EnemyShip(EnemyShip, EnemyGun);
-            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun));
-            Enemy[0].Position = new Vector2(800, 800);
+            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet[0]));
+            Enemy[0].SetPosition(new Vector2(800, 800));
             Planet.Add(new Planet(PlanetTexture[0]));
             Planet[0].Position = new Vector2(800, 300);
 
@@ -133,6 +134,7 @@ namespace Catapult
                                 turn = Turn.Enemy;
                                 for (int i = 0; i < Enemy.Count; i++)
                                 {
+                                    Enemy[i].ResetAction();
                                     if (
                                         ((Player.bullet.X + Singleton.BULLETSIZE >= Enemy[i].Position.X && Player.bullet.Y + Singleton.BULLETSIZE >= Enemy[i].Position.Y) &&
                                         (Player.bullet.X < (Enemy[i] .Position.X + Singleton.SHIPSIZE) && Player.bullet.Y < Enemy[i].Position.Y + Singleton.SHIPSIZE)) ||
@@ -141,7 +143,6 @@ namespace Catapult
                                         )
                                     {
                                         Enemy[i].Health -= 50;
-                                        Enemy[i].ResetAction();
                                         if (Enemy[i].Health <= 0)
                                         {
                                             Enemy.RemoveAt(i);
@@ -166,6 +167,7 @@ namespace Catapult
                                     }
                                 }
                                 
+                                
                                 if(Enemy.Count == 0)
                                 {
                                     Game = Stage.Pause;
@@ -175,12 +177,52 @@ namespace Catapult
                             break;
 
                         case Turn.Enemy:
-                            //foreach 
-                            Enemy[0].Update(gameTime);
-                            if (Enemy[0].stage == GameObjects.EnemyShip.Stage.EndTurn)
+                            foreach (EnemyShip list in Enemy)
+                            {
+                                list.Update(gameTime, Player.Position, PlanetPosition);
+                                //list.Position = new Vector2(500, 100);
+                                if(list.stage == GameObjects.EnemyShip.Stage.EndTurn)
+                                {
+                                    if (
+                                            ((list.bullet.X + Singleton.BULLETSIZE >= Player.Position.X && list.bullet.Y + Singleton.BULLETSIZE >= Player.Position.Y) &&
+                                            (list.bullet.X < (Player.Position.X + Singleton.SHIPSIZE) && list.bullet.Y < Player.Position.Y + Singleton.SHIPSIZE)) ||
+                                            ((list.bullet.X + Singleton.BULLETSIZE >= Player.Position.X && list.bullet.Y < (Player.Position.Y + Singleton.SHIPSIZE)) &&
+                                            (list.bullet.X < (Player.Position.X + Singleton.SHIPSIZE) && list.bullet.Y + Singleton.BULLETSIZE >= Player.Position.Y))
+                                            )
+                                    {
+                                        Player.Health -= 50;
+                                        if(Player.Health <= 0)
+                                        {
+                                            Player = null;
+                                        }
+                                    }
+                                    for (int i = 0; i < Planet.Count; i++)
+                                    {
+                                            if (
+                                            ((list.bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && list.bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y) &&
+                                            (list.bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && list.bullet.Y < Planet[i].Position.Y + Singleton.SHIPSIZE)) ||
+                                            ((list.bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && list.bullet.Y < (Planet[i].Position.Y + Singleton.SHIPSIZE)) &&
+                                            (list.bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && list.bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y))
+                                            )
+                                        {
+                                            Planet[i].Health -= 50;
+                                            if (Planet[i].Health <= 0)
+                                            {
+
+                                                Planet.RemoveAt(i);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if (Player != null)
                             {
                                 turn = Turn.Player;
                                 Player.ResetAction();
+                            }
+                            else
+                            {
+                                Game = Stage.Pause;
                             }
                             break;
                     }

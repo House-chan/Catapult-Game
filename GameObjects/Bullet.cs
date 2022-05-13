@@ -136,6 +136,7 @@ namespace Catapult.GameObjects
             Velocity.Y = (float)(-speed * Math.Sin(Rotation));
         }
 
+        //Player Bullet
         public bool hit(List<Vector2> EnemyPosition, List<Vector2> PlanetPosition)
         {
             
@@ -172,6 +173,49 @@ namespace Catapult.GameObjects
                 return true;
             }
                 
+            //not hit
+            else
+            {
+                return false;
+            }
+        }
+
+        //Overide Enemy Bullet
+        public bool hit(Vector2 EnemyPosition, List<Vector2> PlanetPosition)
+        {
+
+            //hit enemy
+            
+            if (
+                ((Position.X + Singleton.BULLETSIZE >= EnemyPosition.X && Position.Y + Singleton.BULLETSIZE >= EnemyPosition.Y) &&
+                (Position.X < (EnemyPosition.X + Singleton.SHIPSIZE) && Position.Y < EnemyPosition.Y + Singleton.SHIPSIZE)) ||
+                ((Position.X + Singleton.BULLETSIZE >= EnemyPosition.X && Position.Y < (EnemyPosition.Y + Singleton.SHIPSIZE)) &&
+                (Position.X < (EnemyPosition.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= EnemyPosition.Y))
+                )
+            {
+                return true;
+            }
+            
+
+            foreach (Vector2 Pos in PlanetPosition)
+            {
+                if (
+                    ((Position.X + Singleton.BULLETSIZE >= Pos.X && Position.Y + Singleton.BULLETSIZE >= Pos.Y) &&
+                    (Position.X < (Pos.X + Singleton.SHIPSIZE) && Position.Y < Pos.Y + Singleton.SHIPSIZE)) ||
+                    ((Position.X + Singleton.BULLETSIZE >= Pos.X && Position.Y < (Pos.Y + Singleton.SHIPSIZE)) &&
+                    (Position.X < (Pos.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= Pos.Y))
+                    )
+                {
+                    return true;
+                }
+            }
+
+            //outscreen
+            if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
+            {
+                return true;
+            }
+
             //not hit
             else
             {

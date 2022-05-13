@@ -12,29 +12,34 @@ namespace Catapult.GameObjects
         public float Health;
         float moveRange;
 
-        Vector2 PlayerPosition;
         Vector2 Distance;
         float angle;
-        Texture2D gunTexture;
+
         public enum Stage
         {
             Start, Shooting, Move, EndTurn
         }
 
         public Stage stage;
+        public Vector2 bullet;
+        Gun gun;
 
-        public EnemyShip(Texture2D texture, Texture2D gun) : base(texture)
+        public EnemyShip(Texture2D texture, Texture2D gunTexture, Texture2D bulletTexture) : base(texture)
         {
             Health = 100;
             moveRange = 100;
+            ShootPower = 10;
             stage = Stage.Start;
-            gunTexture = gun;
+            gun = new Gun(gunTexture, bulletTexture)
+            {
+                Position = new Vector2(Position.X + 10, Position.Y + 30)
+            };
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Position, null, Color.White, Rotation, new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
-            spriteBatch.Draw(gunTexture, new Vector2(this.Position.X + 90, this.Position.Y + 30), null, Color.White, angle + MathHelper.ToRadians(-160f), new Vector2(gunTexture.Width / 2, gunTexture.Height / 2), 1, SpriteEffects.None, 0f);
+            gun.Draw(spriteBatch);
         }
 
         public override void Reset()
@@ -42,29 +47,44 @@ namespace Catapult.GameObjects
             base.Reset();
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Vector2 PlayerPosition, List<Vector2> PlanetPosition)
         {
             switch (stage)
             {
                 case Stage.Start:
-                    if (moveRange > 0)
+                    //Moving
+                    for (float i = moveRange; i > 0; i--)
                     {
                         Position += new Vector2(-1, 0);
-                        moveRange -= 1;
+                        gun.Position += new Vector2(-1, 0);
                     }
-                    else
-                    {
-                        stage = Stage.Shooting;
-                    }
+                    gun.aiming(PlayerPosition);
+                    stage = Stage.Shooting;
+                    //if (moveRange > 0)
+                    //{
+                        
+                    //}
+                    //else
+                    //{
+                    //}
                     break;
                 case Stage.Shooting:
-                    Distance.Y = -Singleton.Instance.CurrentMouse.Position.Y + (_texture.Height / 2) + PlayerPosition.Y;
-                    Distance.X = -Singleton.Instance.CurrentMouse.Position.X + (_texture.Width / 2) + PlayerPosition.X;
-                    angle = (float)Math.Atan2(Distance.Y, Distance.X);
+                    Position = new Vector2(1000, 500);
+                    gun.Position = new Vector2(1030, 590);
+                    //gun.reload();
+                    //gun.shoot(ShootPower);
                     stage = Stage.Move;
                     break;
+
                 case Stage.Move:
-                    stage = Stage.EndTurn;
+                    //bullet.shooting(Rotation, power);
+                    gun.Update(gameTime);
+                    if (gun.bullet.hit(PlayerPosition, PlanetPosition))
+                    {
+                        bullet = gun.bullet.Position;
+                        gun.clearBullet();
+                        stage = Stage.EndTurn;
+                    }
                     break;
                 case Stage.EndTurn:
                     break;
@@ -74,7 +94,16 @@ namespace Catapult.GameObjects
 
         public void ResetAction()
         {
+            //Action
             stage = Stage.Start;
+            //Stat Moving
+            moveRange = 100;
+        }
+
+        public void SetPosition(Vector2 pos)
+        {
+            Position = pos;
+            gun.Position = new Vector2(pos.X + 10, pos.Y + 30);
         }
     }
 }

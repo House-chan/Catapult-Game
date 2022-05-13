@@ -167,9 +167,10 @@ namespace Catapult.GameObjects
             stage = Stage.Start;
         }
 
-        public void setPosition(Vector2 Position)
+        public void SetPosition(Vector2 pos)
         {
-            this.Position = Position;
+            Position = pos;
+            gun.Position = new Vector2(pos.X + 90, pos.Y + 30);
         }
 
     }

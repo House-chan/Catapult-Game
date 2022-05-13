@@ -80,6 +80,23 @@ namespace Catapult.GameObjects
             //gun.update()
         }
 
+        public void aiming(Vector2 PlayerPosition)
+        {
+
+            //if (Singleton.Instance.CurrentMouse.Position.Y <= 560)
+            //{
+            Distance.Y = -PlayerPosition.Y + (_texture.Height / 2) + Position.Y;
+            Distance.X = -PlayerPosition.X + (_texture.Width / 2) + Position.X;
+
+            Rotation = (float)Math.Atan2(-Distance.Y, -Distance.X);
+            Velocity.X = (float)(Math.Cos(Rotation));
+            Velocity.Y = (float)(Math.Sin(Rotation));
+            //if(angle > )
+            //}
+            //check angle
+            //gun.update()
+        }
+
         public void reload()
         {
             bullet = new Bullet(bulletTexture, 0, Position);
