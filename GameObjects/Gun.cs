@@ -85,8 +85,8 @@ namespace Catapult.GameObjects
 
             //if (Singleton.Instance.CurrentMouse.Position.Y <= 560)
             //{
-            Distance.Y = -PlayerPosition.Y + (_texture.Height / 2) + Position.Y;
-            Distance.X = -PlayerPosition.X + (_texture.Width / 2) + Position.X;
+            Distance.Y = PlayerPosition.Y + (_texture.Height / 2) + Position.Y;
+            Distance.X = PlayerPosition.X + (_texture.Width / 2) + Position.X;
 
             Rotation = (float)Math.Atan2(-Distance.Y, -Distance.X);
             Velocity.X = (float)(Math.Cos(Rotation));

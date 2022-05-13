@@ -53,13 +53,18 @@ namespace Catapult.GameObjects
             {
                 case Stage.Start:
                     //Moving
-                    for (float i = moveRange; i > 0; i--)
+
+                    if (moveRange > 0)
                     {
                         Position += new Vector2(-1, 0);
                         gun.Position += new Vector2(-1, 0);
+                        moveRange -= 1;
                     }
-                    gun.aiming(PlayerPosition);
-                    stage = Stage.Shooting;
+                    else
+                    {
+                        gun.aiming(PlayerPosition);
+                        stage = Stage.Shooting;
+                    }
                     //if (moveRange > 0)
                     //{
                         
@@ -69,10 +74,8 @@ namespace Catapult.GameObjects
                     //}
                     break;
                 case Stage.Shooting:
-                    Position = new Vector2(1000, 500);
-                    gun.Position = new Vector2(1030, 590);
-                    //gun.reload();
-                    //gun.shoot(ShootPower);
+                    gun.reload();
+                    gun.shoot(ShootPower);
                     stage = Stage.Move;
                     break;
 
