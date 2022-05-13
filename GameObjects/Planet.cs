@@ -8,7 +8,8 @@ namespace Catapult.GameObjects
 {
     class Planet : GameObject
     {
-        float Health;
+        public float Health;
+        public float Mass;
         
         public Planet(Texture2D texture) : base(texture)
         {
