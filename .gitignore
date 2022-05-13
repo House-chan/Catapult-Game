@@ -1,5 +1,7 @@
 .vs/*
 .vs/Catapult/v16/Browse.VC.db
 
+
+obj/
 Content/bin
 Content/obj/DesktopGL/Content

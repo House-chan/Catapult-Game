@@ -13,42 +13,60 @@ namespace Catapult
 
         const float G = 1;
         Planet[] planets;
-        Planet planet;
-        Gravity(Planet[] planets) {
-            planets = planets;  
-        }
-
-        Gravity(Planet planet)
+        Bullet[] bullets;
+        public Gravity(Bullet[] bullets, Planet[] planets)
         {
-            planet = planet;
+            planets = planets;
+            bullets = bullets;
         }
 
-        public Vector2 get_velocity(Bullet bullet, float elapsedTime)
+        public Gravity(Bullet bullet, Planet[] planets)
+        {
+            Array.Resize(ref bullets, bullets.Length + 1);
+            bullets[bullets.Length - 1] = bullet;
+            
+            planets = planets;
+        }
+
+        public Gravity(Bullet[] bullets, Planet planet)
+        {
+            bullets = bullets;
+
+            Array.Resize(ref planets, planets.Length + 1);
+            planets[planets.Length - 1] = planet;
+        }
+
+        public Gravity(Bullet bullet, Planet planet)
+        {
+            Array.Resize(ref bullets, bullets.Length + 1);
+            bullets[bullets.Length - 1] = bullet;
+
+            Array.Resize(ref planets, planets.Length + 1);
+            planets[planets.Length - 1] = planet;
+
+        }
+
+        protected Vector2 cal_velocity(Bullet bullet, float elapsedTime)
         {
             //calculate sum of gravity forces on bullet
             Vector2 new_Velocity = bullet.Velocity;
             Vector2 r_hat, sum = Vector2.Zero;
-            float r;
+            Vector2 r;
+            float dis;
+
             
-            if (bullet.isActive)
+            if (planets.Length > 0)
             {
-                if (planets.Length > 0)
+                foreach (Planet planet in planets)
                 {
-                    foreach (Planet planet in planets)
-                    {
-                        r = Vector2.Distance(bullet.Position, planet.Position);
-                        r_hat = Vector2.Normalize(bullet.Position - planet.Position);
-                        sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / (float)Math.Pow(r, 2)));
-                    }
-                    new_Velocity = Vector2.Multiply(sum, G * elapsedTime) + bullet.Velocity;
+                    r = planet.Position - bullet.Position;
+                    dis = Vector2.Distance(bullet.Position, planet.Position);
+                    // might use Vector2.Subtract
+                    r_hat = Vector2.Normalize(planet.Position - bullet.Position);   
+                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / (float)Math.Pow(dis, 2)));
                 }
-
+                new_Velocity = Vector2.Multiply(sum, G * elapsedTime) + bullet.Velocity;
             }
-            else
-            {
-                new_Velocity = Vector2.Zero;
-            }
-
 
             return new_Velocity;
         }
@@ -58,7 +76,38 @@ namespace Catapult
             //calculate sum of gravity forces on bullet
             if (bullet.isActive)
             {
-                bullet.Velocity = get_velocity(bullet, elapsedTime);
+                bullet.Velocity = cal_velocity(bullet, elapsedTime);
+            }
+        }
+
+        public void update(Bullet bullet)
+        {
+            //calculate sum of gravity forces on bullet
+            if (bullet.isActive)
+            {
+                bullet.Velocity = cal_velocity(bullet, 1);
+            }
+        }
+        public void update(float elapsedTime)
+        {
+            //calculate sum of gravity forces on bullet
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet.isActive)
+                {
+                    bullet.Velocity = cal_velocity(bullet, elapsedTime);
+                }
+            }
+        }
+        public void update()
+        {
+            //calculate sum of gravity forces on bullet
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet.isActive)
+                {
+                    bullet.Velocity = cal_velocity(bullet, 1);
+                }
             }
         }
     }

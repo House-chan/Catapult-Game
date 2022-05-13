@@ -23,9 +23,11 @@ namespace Catapult
         Turn turn;
 
         Texture2D PlayerShip, EnemyShip, guideline, meteorite, gun, EnemyGun;
-        Texture2D[] Planet = new Texture2D[11], Bullet = new Texture2D[7];
+        Texture2D[] PlanetTexture = new Texture2D[11], Bullet = new Texture2D[7];
         Ship Player;
         EnemyShip Enemy;
+        Planet Planet;
+        Gravity Gravity;
         public GameScene()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -52,17 +54,17 @@ namespace Catapult
 
             // TODO: use this.Content to load your game content here
             PlayerShip = Content.Load<Texture2D>("Ship/PlayerShip");
-            Planet[0] = Content.Load<Texture2D>("Planet/barren");
-            Planet[1] = Content.Load<Texture2D>("Planet/barren-charred");
-            Planet[2] = Content.Load<Texture2D>("Planet/barren-icy");
-            Planet[3] = Content.Load<Texture2D>("Planet/chlorine");
-            Planet[4] = Content.Load<Texture2D>("Planet/chlorine-barren");
-            Planet[5] = Content.Load<Texture2D>("Planet/desert");
-            Planet[6] = Content.Load<Texture2D>("Planet/inferno");
-            Planet[7] = Content.Load<Texture2D>("Planet/methane");
-            Planet[8] = Content.Load<Texture2D>("Planet/methane-barren");
-            Planet[9] = Content.Load<Texture2D>("Planet/methane-ice");
-            Planet[10] = Content.Load<Texture2D>("Planet/tundra");
+            PlanetTexture[0] = Content.Load<Texture2D>("Planet/barren");
+            PlanetTexture[1] = Content.Load<Texture2D>("Planet/barren-charred");
+            PlanetTexture[2] = Content.Load<Texture2D>("Planet/barren-icy");
+            PlanetTexture[3] = Content.Load<Texture2D>("Planet/chlorine");
+            PlanetTexture[4] = Content.Load<Texture2D>("Planet/chlorine-barren");
+            PlanetTexture[5] = Content.Load<Texture2D>("Planet/desert");
+            PlanetTexture[6] = Content.Load<Texture2D>("Planet/inferno");
+            PlanetTexture[7] = Content.Load<Texture2D>("Planet/methane");
+            PlanetTexture[8] = Content.Load<Texture2D>("Planet/methane-barren");
+            PlanetTexture[9] = Content.Load<Texture2D>("Planet/methane-ice");
+            PlanetTexture[10] = Content.Load<Texture2D>("Planet/tundra");
             EnemyShip = Content.Load<Texture2D>("Ship/EnemyShip");
             //guideline = Content.Load<Texture2D>("");
             //meteorite = Content.Load<Texture2D>("");
@@ -76,12 +78,15 @@ namespace Catapult
 
             Player = new Ship(PlayerShip, gun, Bullet[0]);
             Enemy = new EnemyShip(EnemyShip, EnemyGun);
+            Planet = new Planet(PlanetTexture[0]);
+            Gravity = new Gravity();
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            
 
             // TODO: Add your update logic here
             switch (Game)
