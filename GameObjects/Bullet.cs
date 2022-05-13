@@ -10,7 +10,7 @@ namespace Catapult.GameObjects
     { 
         Texture2D satellite;
         float speed;
-        Boolean isActive;
+        public Boolean isActive;
         Boolean isPlayerBullet;
 
 
@@ -30,6 +30,7 @@ namespace Catapult.GameObjects
 
         public Bullet(Texture2D texture, int bullet, Vector2 Position) : base(texture)
         {
+            isActive = true;
             if(bullet == 0)
             {
                 bulletType = BulletType.Normal;
@@ -80,7 +81,11 @@ namespace Catapult.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f),new Vector2(_texture.Width / 2, _texture.Height / 2), 0.1f, SpriteEffects.None, 0f);
+            if (isActive)
+            {
+                spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f), new Vector2(_texture.Width / 2, _texture.Height / 2), 0.1f, SpriteEffects.None, 0f);
+
+            }
         }
 
         public override void Reset()
@@ -90,7 +95,11 @@ namespace Catapult.GameObjects
 
         public override void Update(GameTime gameTime)
         {
-            Position += Velocity;
+            if (isActive)
+            {
+                Position += Velocity;
+                Rotation = (float) Math.Acos(Velocity.X / Vector2.Distance(Velocity, Vector2.Zero)) - MathHelper.ToRadians(-160f);
+            }
             //Position += new Vector2(speed, speed);
             //switch (bulletType)
             //{
