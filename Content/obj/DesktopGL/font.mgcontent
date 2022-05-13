@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/font.fx</SourceFile>
+  <SourceFile>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Font.spritefont</SourceFile>
   <SourceTime>2020-08-10T23:17:28+07:00</SourceTime>
-  <DestFile>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/bin/DesktopGL/font.xnb</DestFile>
-  <DestTime>2022-05-08T18:36:24.9336733+07:00</DestTime>
-  <Importer>EffectImporter</Importer>
+  <DestFile>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/bin/DesktopGL/Font.xnb</DestFile>
+  <DestTime>2022-05-12T21:20:50.3312492+07:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2020-08-10T23:17:54+07:00</ImporterTime>
-  <Processor>EffectProcessor</Processor>
+  <Processor>FontDescriptionProcessor</Processor>
   <ProcessorTime>2020-08-10T23:17:54+07:00</ProcessorTime>
   <Parameters>
-    <Key>DebugMode</Key>
-    <Value>Auto</Value>
+    <Key>PremultiplyAlpha</Key>
+    <Value>True</Value>
+  </Parameters>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
   </Parameters>
   <Dependencies />
   <BuildAsset />

@@ -10,7 +10,7 @@ namespace Catapult.GameObjects
     class Ship : GameObject
     {
         float ShootPower;
-        float Health;
+        public float Health;
         float moveRange;
 
         public enum Stage
@@ -19,7 +19,7 @@ namespace Catapult.GameObjects
         }
         public Stage stage;
 
-
+        public Vector2 bullet;
         int speed;
         Gun gun;
 
@@ -35,7 +35,7 @@ namespace Catapult.GameObjects
                 Position = new Vector2(this.Position.X + 90, this.Position.Y + 30)
             };
         }
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, List<Vector2> EnemyPosition, List<Vector2> PlanetPosition)
         {
             switch (stage)
             {
@@ -68,11 +68,12 @@ namespace Catapult.GameObjects
                     shoot();
                     
                     break;
-
+                    
                 case Stage.Move:
                     gun.Update(gameTime);
-                    if (gun.bullet.hit())
+                    if (gun.bullet.hit(EnemyPosition, PlanetPosition))
                     {
+                        bullet = gun.bullet.Position;
                         gun.clearBullet();
                         stage = Stage.EndTurn;
                     }
@@ -97,10 +98,12 @@ namespace Catapult.GameObjects
         public override void Reset()
         {
             //Restart ship 
-
+            Position = new Vector2(200, 500);
+            gun.Position = new Vector2(290, 530);
             //Position
 
             //Ammo
+
         }
 
         private void shoot()
@@ -130,28 +133,28 @@ namespace Catapult.GameObjects
         {
             //Moving
             Singleton.Instance.CurrentKey= Keyboard.GetState();
-            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Up) && moveRange > 0)
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.W) && moveRange > 0)
             {
                 Position = new Vector2(Position.X, Position.Y - speed);
                 gun.Position = new Vector2(gun.Position.X, gun.Position.Y - speed);
                 moveRange -= 1;
             }
 
-            else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Down) && moveRange > 0)
+            else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.S) && moveRange > 0)
             {
                 Position = new Vector2(Position.X, Position.Y + speed);
                 gun.Position = new Vector2(gun.Position.X, gun.Position.Y + speed);
                 moveRange -= 1;
             }
 
-            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Right) && moveRange > 0)
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.D) && moveRange > 0)
             {
                 Position = new Vector2(Position.X + speed, Position.Y);
                 gun.Position = new Vector2(gun.Position.X + speed, gun.Position.Y);
                 moveRange -= 1;
             }
 
-            else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Left) && moveRange > 0)
+            else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.A) && moveRange > 0)
             {
                 Position = new Vector2(Position.X - speed, Position.Y);
                 gun.Position = new Vector2(gun.Position.X - speed, gun.Position.Y);
@@ -159,9 +162,15 @@ namespace Catapult.GameObjects
             }
         }
 
-        public Stage getStage()
+        public void ResetAction()
         {
-            return stage;
+            stage = Stage.Start;
         }
+
+        public void setPosition(Vector2 Position)
+        {
+            this.Position = Position;
+        }
+
     }
 }

@@ -17,6 +17,8 @@ namespace Catapult.GameObjects
         bool bulletCreate = false;
         int[] ammo = { 99, 3, 2, 2, 1, 1, 1 };
         Texture2D bulletTexture;
+        float velocity;
+
         public Gun(Texture2D texture, Texture2D bulletTexture) : base(texture)
         {
             this.bulletTexture = bulletTexture;
@@ -33,6 +35,10 @@ namespace Catapult.GameObjects
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f), new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
+            //for(int i = 0; i < 10; i++)
+            //{
+            //    spriteBatch.Draw(guideline, Position + (Velocity), Velocity.Y = (float)(-speed * Math.Sin(Rotation))))
+            //}
             if (bulletCreate)
             {
                 bullet.Draw(spriteBatch);
@@ -47,7 +53,6 @@ namespace Catapult.GameObjects
         public override void Update(GameTime gameTime)
         {
             bullet.Update(gameTime);
-
         }
 
         public void shoot(float power)
@@ -67,6 +72,8 @@ namespace Catapult.GameObjects
             Distance.X = -Singleton.Instance.CurrentMouse.Position.X + (_texture.Width / 2) + Position.X;
 
             Rotation = (float)Math.Atan2(Distance.Y, Distance.X);
+            Velocity.X = (float)(Math.Cos(Rotation));
+            Velocity.Y = (float)(Math.Sin(Rotation));
             //if(angle > )
             //}
             //check angle

@@ -136,12 +136,43 @@ namespace Catapult.GameObjects
             Velocity.Y = (float)(-speed * Math.Sin(Rotation));
         }
 
-        public bool hit()
+        public bool hit(List<Vector2> EnemyPosition, List<Vector2> PlanetPosition)
         {
+            
+            //hit enemy
+            foreach (Vector2 Pos in EnemyPosition)
+            {
+                if(
+                    ((Position.X + Singleton.BULLETSIZE >= Pos.X && Position.Y + Singleton.BULLETSIZE >= Pos.Y) &&
+                    (Position.X < (Pos.X + Singleton.SHIPSIZE) && Position.Y < Pos.Y + Singleton.SHIPSIZE)) ||
+                    ((Position.X + Singleton.BULLETSIZE >= Pos.X && Position.Y < (Pos.Y + Singleton.SHIPSIZE)) &&
+                    (Position.X < (Pos.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= Pos.Y))
+                    )
+                {
+                    return true;
+                }
+            }
+
+            foreach (Vector2 Pos in PlanetPosition)
+            {
+                if (
+                    ((Position.X + Singleton.BULLETSIZE >= Pos.X && Position.Y + Singleton.BULLETSIZE >= Pos.Y) &&
+                    (Position.X < (Pos.X + Singleton.SHIPSIZE) && Position.Y < Pos.Y + Singleton.SHIPSIZE)) ||
+                    ((Position.X + Singleton.BULLETSIZE >= Pos.X && Position.Y < (Pos.Y + Singleton.SHIPSIZE)) &&
+                    (Position.X < (Pos.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= Pos.Y))
+                    )
+                {
+                    return true;
+                }
+            }
+
+            //outscreen
             if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
             {
                 return true;
             }
+                
+            //not hit
             else
             {
                 return false;

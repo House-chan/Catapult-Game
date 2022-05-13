@@ -4,26 +4,26 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet1.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet2.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet3.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet4.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/font.fx</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/barren.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/barren-charred.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/barren-icy.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/chlorine.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/chlorine-barren.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/desert.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/inferno.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/methane.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/methane-barren.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/methane-ice.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/tundra.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/EnemyCanon.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/EnemyShip.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/PlayerCanon.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/PlayerShip.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet1.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet2.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet3.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet4.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Font.spritefont</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/barren.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/barren-charred.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/barren-icy.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/chlorine.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/chlorine-barren.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/desert.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/inferno.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/methane.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/methane-barren.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/methane-ice.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/tundra.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/EnemyCanon.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/EnemyShip.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/PlayerCanon.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/PlayerShip.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

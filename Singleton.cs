@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,7 +15,8 @@ namespace Catapult
         public KeyboardState PreviousKey, CurrentKey;
         public MouseState PreviousMouse, CurrentMouse;
 
-
+        public const int SHIPSIZE = 125;
+        public const int BULLETSIZE = 15;
         private Singleton()
         {
         }

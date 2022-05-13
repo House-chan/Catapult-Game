@@ -9,7 +9,7 @@ namespace Catapult.GameObjects
     class EnemyShip : GameObject
     {
         float ShootPower;
-        float Health;
+        public float Health;
         float moveRange;
 
         Vector2 PlayerPosition;
@@ -61,18 +61,20 @@ namespace Catapult.GameObjects
                     Distance.Y = -Singleton.Instance.CurrentMouse.Position.Y + (_texture.Height / 2) + PlayerPosition.Y;
                     Distance.X = -Singleton.Instance.CurrentMouse.Position.X + (_texture.Width / 2) + PlayerPosition.X;
                     angle = (float)Math.Atan2(Distance.Y, Distance.X);
+                    stage = Stage.Move;
                     break;
                 case Stage.Move:
+                    stage = Stage.EndTurn;
                     break;
                 case Stage.EndTurn:
                     break;
             }
             
         }
-        public Stage getStage()
-        {
-            return stage;
-        }
 
+        public void ResetAction()
+        {
+            stage = Stage.Start;
+        }
     }
 }
