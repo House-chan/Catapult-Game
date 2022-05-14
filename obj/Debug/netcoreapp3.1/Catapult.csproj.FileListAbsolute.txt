@@ -81,3 +81,14 @@ E:\Year_2\Semester_2\Computer_Game\Catapult-Game\obj\Debug\netcoreapp3.1\Catapul
 E:\Year_2\Semester_2\Computer_Game\Catapult-Game\obj\Debug\netcoreapp3.1\Catapult.dll
 E:\Year_2\Semester_2\Computer_Game\Catapult-Game\obj\Debug\netcoreapp3.1\Catapult.pdb
 E:\Year_2\Semester_2\Computer_Game\Catapult-Game\obj\Debug\netcoreapp3.1\Catapult.genruntimeconfig.cache
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\barren-charred.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\barren-icy.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\barren.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\chlorine-barren.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\chlorine.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\desert.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\inferno.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\methane-barren.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\methane-ice.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\methane.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\tundra.xnb
