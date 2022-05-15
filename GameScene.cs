@@ -27,7 +27,7 @@ namespace Catapult
         Ship Player;
         EnemyShip Enemy;
         Planet Planet;
-        Gravity Gravity;
+        GravityDemo Gravity;
         public GameScene()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -79,7 +79,7 @@ namespace Catapult
             Player = new Ship(PlayerShip, gun, Bullet[0]);
             Enemy = new EnemyShip(EnemyShip, EnemyGun);
             Planet = new Planet(PlanetTexture[0]);
-            Gravity = new Gravity();
+            Gravity = new GravityDemo();
         }
 
         protected override void Update(GameTime gameTime)
@@ -120,6 +120,7 @@ namespace Catapult
                 case Stage.Pause:
                     break;
             }
+            Gravity.Update(Player.gun.bullet);
 
             base.Update(gameTime);
         }
