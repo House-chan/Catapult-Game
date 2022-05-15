@@ -5,3 +5,6 @@
 obj/
 Content/bin
 Content/obj/DesktopGL/Content
+.vs/Catapult/v16/.suo
+bin/Debug/netcoreapp3.1/Catapult.dll
+bin/Debug/netcoreapp3.1/Catapult.exe
