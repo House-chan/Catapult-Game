@@ -21,7 +21,7 @@ namespace Catapult.GameObjects
 
 
         int speed;
-        Gun gun;
+        public Gun gun;
 
         public Ship(Texture2D texture, Texture2D gunTexture, Texture2D bulletTexture) : base(texture)
         {

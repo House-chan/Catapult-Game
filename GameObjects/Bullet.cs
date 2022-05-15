@@ -83,7 +83,7 @@ namespace Catapult.GameObjects
         {
             if (isActive)
             {
-                spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f), new Vector2(_texture.Width / 2, _texture.Height / 2), 0.1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f), new Vector2(_texture.Width / 2, _texture.Height / 2), 0.06f, SpriteEffects.None, 0f);
 
             }
         }
