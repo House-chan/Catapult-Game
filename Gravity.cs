@@ -11,9 +11,12 @@ namespace Catapult
     class Gravity
     {
 
-        const float G = 1;
-        Planet[] planets;
-        Bullet[] bullets;
+        protected float G = 1;
+        protected Planet[] planets;
+        protected Bullet[] bullets;
+        
+        protected Gravity(){}
+        
         public Gravity(Bullet[] bullets, Planet[] planets)
         {
             planets = planets;
@@ -22,8 +25,8 @@ namespace Catapult
 
         public Gravity(Bullet bullet, Planet[] planets)
         {
-            Array.Resize(ref bullets, bullets.Length + 1);
-            bullets[bullets.Length - 1] = bullet;
+            bullets = new Bullet[1];
+            bullets[0] = bullet;
             
             planets = planets;
         }
@@ -32,17 +35,17 @@ namespace Catapult
         {
             bullets = bullets;
 
-            Array.Resize(ref planets, planets.Length + 1);
-            planets[planets.Length - 1] = planet;
+            planets = new Planet[1];
+            planets[0] = planet;
         }
 
         public Gravity(Bullet bullet, Planet planet)
         {
-            Array.Resize(ref bullets, bullets.Length + 1);
-            bullets[bullets.Length - 1] = bullet;
+            bullets = new Bullet[1];
+            bullets[0] = bullet;
 
-            Array.Resize(ref planets, planets.Length + 1);
-            planets[planets.Length - 1] = planet;
+            planets = new Planet[1];
+            planets[0] = planet;
 
         }
 
@@ -61,8 +64,7 @@ namespace Catapult
                 {
                     r = planet.Position - bullet.Position;
                     dis = Vector2.Distance(bullet.Position, planet.Position);
-                    // might use Vector2.Subtract
-                    r_hat = Vector2.Normalize(planet.Position - bullet.Position);   
+                    r_hat = Vector2.Normalize(Vector2.Subtract(planet.Position, bullet.Position));
                     sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / (float)Math.Pow(dis, 2)));
                 }
                 new_Velocity = Vector2.Multiply(sum, G * elapsedTime) + bullet.Velocity;
@@ -71,44 +73,59 @@ namespace Catapult
             return new_Velocity;
         }
 
-        public void update(Bullet bullet, float elapsedTime)
+        public void Update(Bullet bullet, float elapsedTime)
         {
             //calculate sum of gravity forces on bullet
-            if (bullet.isActive)
-            {
-                bullet.Velocity = cal_velocity(bullet, elapsedTime);
-            }
-        }
-
-        public void update(Bullet bullet)
-        {
-            //calculate sum of gravity forces on bullet
-            if (bullet.isActive)
-            {
-                bullet.Velocity = cal_velocity(bullet, 1);
-            }
-        }
-        public void update(float elapsedTime)
-        {
-            //calculate sum of gravity forces on bullet
-            foreach (Bullet bullet in bullets)
-            {
-                if (bullet.isActive)
-                {
-                    bullet.Velocity = cal_velocity(bullet, elapsedTime);
-                }
-            }
-        }
-        public void update()
-        {
-            //calculate sum of gravity forces on bullet
-            foreach (Bullet bullet in bullets)
+            if (bullet != null)
             {
                 if (bullet.isActive)
                 {
                     bullet.Velocity = cal_velocity(bullet, 1);
                 }
             }
+        }
+
+        public void Update(Bullet bullet)
+        {
+            //calculate sum of gravity forces on bullet
+            if (bullet != null)
+            {
+                if (bullet.isActive)
+                {
+                    bullet.Velocity = cal_velocity(bullet, 1);
+                }
+            }
+        }
+
+        // Update all bullets in array.
+        public void Update(float elapsedTime)
+        {
+            //calculate sum of gravity forces on bullet
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet != null)
+                {
+                    if (bullet.isActive)
+                    {
+                        bullet.Velocity = cal_velocity(bullet, 1);
+                    }
+                }
+            }
+        }
+        public void Update()
+        {
+            //calculate sum of gravity forces on bullet
+            foreach (Bullet bullet in bullets)
+            {
+                if (bullet != null)
+                {
+                    if (bullet.isActive)
+                    {
+                        bullet.Velocity = cal_velocity(bullet, 1);
+                    }
+                }
+            }
+
         }
     }
 }
