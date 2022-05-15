@@ -1,0 +1,17 @@
+﻿MainMenu
+Setting***
+Gravity
+Planet Gravity Range
+Machanic Enemy Ship
+Ship Move Range
+Collision in sphere
+Ammo Change
+Health Bar
+Power Bar
+Pause Menu
+Planet Enemy**
+Aim Guideline
+Insert Sound
+Fix Collision
+Fix Angle
+Clean Code*********

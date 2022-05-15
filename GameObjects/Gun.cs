@@ -50,9 +50,9 @@ namespace Catapult.GameObjects
             base.Reset();
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, List<Planet> planet)
         {
-            bullet.Update(gameTime);
+            bullet.Update(gameTime, planet);
         }
 
         public void shoot(float power)
@@ -85,10 +85,10 @@ namespace Catapult.GameObjects
 
             //if (Singleton.Instance.CurrentMouse.Position.Y <= 560)
             //{
-            Distance.Y = PlayerPosition.Y + (_texture.Height / 2) + Position.Y;
-            Distance.X = PlayerPosition.X + (_texture.Width / 2) + Position.X;
+            Distance.Y = -PlayerPosition.Y + (_texture.Height / 2) + Position.Y;
+            Distance.X = -PlayerPosition.X + (_texture.Width / 2) + Position.X;
 
-            Rotation = (float)Math.Atan2(-Distance.Y, -Distance.X);
+            Rotation = (float)Math.Atan2(Distance.Y, Distance.X);
             Velocity.X = (float)(Math.Cos(Rotation));
             Velocity.Y = (float)(Math.Sin(Rotation));
             //if(angle > )

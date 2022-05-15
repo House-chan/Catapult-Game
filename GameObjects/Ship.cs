@@ -20,8 +20,9 @@ namespace Catapult.GameObjects
         public Stage stage;
 
         public Vector2 bullet;
-        int speed;
         Gun gun;
+
+        int speed;
 
         public Ship(Texture2D texture, Texture2D gunTexture, Texture2D bulletTexture) : base(texture)
         {
@@ -35,12 +36,15 @@ namespace Catapult.GameObjects
                 Position = new Vector2(this.Position.X + 90, this.Position.Y + 30)
             };
         }
-        public void Update(GameTime gameTime, List<Vector2> EnemyPosition, List<Vector2> PlanetPosition)
+        public void Update(GameTime gameTime, List<EnemyShip> Enemy, List<Planet> Planet)
         {
             switch (stage)
             {
                 case Stage.Start:
-                    moving();
+                    moving(Enemy, Planet);
+
+                    
+
                     Singleton.Instance.CurrentMouse = Mouse.GetState();
                     //Aiming Gun
                     gun.aiming();
@@ -70,8 +74,8 @@ namespace Catapult.GameObjects
                     break;
                     
                 case Stage.Move:
-                    gun.Update(gameTime);
-                    if (gun.bullet.hit(EnemyPosition, PlanetPosition))
+                    gun.Update(gameTime, Planet);
+                    if (gun.bullet.hit(Enemy, Planet))
                     {
                         bullet = gun.bullet.Position;
                         gun.clearBullet();
@@ -129,37 +133,87 @@ namespace Catapult.GameObjects
 
 
 
-        private void moving()
+        private void moving(List<EnemyShip> Enemy, List<Planet> Planet)
         {
             //Moving
             Singleton.Instance.CurrentKey= Keyboard.GetState();
             if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.W) && moveRange > 0)
             {
-                Position = new Vector2(Position.X, Position.Y - speed);
-                gun.Position = new Vector2(gun.Position.X, gun.Position.Y - speed);
-                moveRange -= 1;
+                Velocity.Y -= speed;   
             }
 
             else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.S) && moveRange > 0)
             {
-                Position = new Vector2(Position.X, Position.Y + speed);
-                gun.Position = new Vector2(gun.Position.X, gun.Position.Y + speed);
-                moveRange -= 1;
+                Velocity.Y += speed;
             }
 
             if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.D) && moveRange > 0)
             {
-                Position = new Vector2(Position.X + speed, Position.Y);
-                gun.Position = new Vector2(gun.Position.X + speed, gun.Position.Y);
-                moveRange -= 1;
+                Velocity.X += speed;
             }
 
             else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.A) && moveRange > 0)
             {
-                Position = new Vector2(Position.X - speed, Position.Y);
-                gun.Position = new Vector2(gun.Position.X - speed, gun.Position.Y);
-                moveRange -= 1;
+                Velocity.X -= speed;
             }
+
+            foreach (var sprite in Enemy)
+            {
+                if ((this.Velocity.X > 0 && this.IsTouchingLeft(sprite)) ||
+                    (this.Velocity.X < 0 && this.IsTouchingRight(sprite)))
+                {
+                    this.Velocity.X = 0;
+                }
+
+                if ((this.Velocity.Y > 0 && this.IsTouchingTop(sprite)) ||
+                    (this.Velocity.Y < 0 && this.IsTouchingBottom(sprite)))
+                {
+                    this.Velocity.Y = 0;
+                }
+            }
+
+            foreach (var sprite in Planet)
+            {
+                if ((this.Velocity.X > 0 && this.IsTouchingLeft(sprite)) ||
+                    (this.Velocity.X < 0 && this.IsTouchingRight(sprite)))
+                {
+                    this.Velocity.X = 0;
+                }
+
+                if ((this.Velocity.Y > 0 && this.IsTouchingTop(sprite)) ||
+                    (this.Velocity.Y < 0 && this.IsTouchingBottom(sprite)))
+                {
+                    this.Velocity.Y = 0;
+                }
+            }
+
+
+            if ((this.Velocity.X > 0 && Position.X > Singleton.SCREENWIDTH - Singleton.SHIPSIZE / 2) ||
+                    (this.Velocity.X < 0 && Position.X < Singleton.SHIPSIZE / 2))
+            {
+                this.Velocity.X = 0;
+            }
+
+            if ((this.Velocity.Y > 0 && Position.Y > Singleton.SCREENHEIGHT - Singleton.SHIPSIZE / 2) ||
+                (this.Velocity.Y < 0 && Position.Y < Singleton.SHIPSIZE / 2))
+            {
+                this.Velocity.Y = 0;
+            }
+
+            //if (Position.X < Singleton.SHIPSIZE / 2)
+            //{
+            //    Position.X = Singleton.SHIPSIZE / 2;
+                
+            //}
+            //if (Position.X > Singleton.SCREENWIDTH - Singleton.SHIPSIZE / 2) Position.X = Singleton.SCREENWIDTH - Singleton.SHIPSIZE / 2;
+            //if (Position.Y < Singleton.SHIPSIZE / 2) Position.Y = Singleton.SHIPSIZE / 2;
+            //if (Position.Y > Singleton.SCREENHEIGHT - Singleton.SHIPSIZE / 2) Position.Y = Singleton.SCREENHEIGHT - Singleton.SHIPSIZE / 2;
+            
+
+            Position += Velocity;
+            gun.Position += Velocity;
+            moveRange -= Math.Abs(Velocity.X) + Math.Abs(Velocity.Y);
+            Velocity = Vector2.Zero;
         }
 
         public void ResetAction()

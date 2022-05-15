@@ -24,8 +24,11 @@ namespace Catapult.GameObjects
         public Vector2 bullet;
         Gun gun;
 
+        int speed;
+
         public EnemyShip(Texture2D texture, Texture2D gunTexture, Texture2D bulletTexture) : base(texture)
         {
+            speed = 5;
             Health = 100;
             moveRange = 100;
             ShootPower = 10;
@@ -47,7 +50,7 @@ namespace Catapult.GameObjects
             base.Reset();
         }
 
-        public void Update(GameTime gameTime, Vector2 PlayerPosition, List<Vector2> PlanetPosition)
+        public void Update(GameTime gameTime, Ship Player, List<Planet> Planet, List<EnemyShip> Enemy)
         {
             switch (stage)
             {
@@ -56,22 +59,14 @@ namespace Catapult.GameObjects
 
                     if (moveRange > 0)
                     {
-                        Position += new Vector2(-1, 0);
-                        gun.Position += new Vector2(-1, 0);
-                        moveRange -= 1;
+                        moving(Player, Planet, Enemy);
                     }
-                    else
+                    if(moveRange <= 0)
                     {
-                        gun.aiming(PlayerPosition);
+                        gun.aiming(Player.Position);
                         stage = Stage.Shooting;
                     }
-                    //if (moveRange > 0)
-                    //{
-                        
-                    //}
-                    //else
-                    //{
-                    //}
+
                     break;
                 case Stage.Shooting:
                     gun.reload();
@@ -81,8 +76,8 @@ namespace Catapult.GameObjects
 
                 case Stage.Move:
                     //bullet.shooting(Rotation, power);
-                    gun.Update(gameTime);
-                    if (gun.bullet.hit(PlayerPosition, PlanetPosition))
+                    gun.Update(gameTime, Planet);
+                    if (gun.bullet.hit(Player, Planet))
                     {
                         bullet = gun.bullet.Position;
                         gun.clearBullet();
@@ -93,6 +88,67 @@ namespace Catapult.GameObjects
                     break;
             }
             
+        }
+
+        private void moving(Ship Player, List<Planet> Planet, List<EnemyShip> Enemy)
+        {
+            //Moving
+            Velocity.X -= speed;
+            Velocity.Y -= speed;
+            
+            
+            if ((this.Velocity.X > 0 && this.IsTouchingLeft(Player)) ||
+                (this.Velocity.X < 0 && this.IsTouchingRight(Player)))
+            {
+                this.Velocity.X = 0;
+            }
+
+            if ((this.Velocity.Y > 0 && this.IsTouchingTop(Player)) ||
+                (this.Velocity.Y < 0 && this.IsTouchingBottom(Player)))
+            {
+                this.Velocity.Y = 0;
+            }
+            
+
+            foreach (var sprite in Planet)
+            {
+                if ((this.Velocity.X > 0 && this.IsTouchingLeft(sprite)) ||
+                    (this.Velocity.X < 0 && this.IsTouchingRight(sprite)))
+                {
+                    this.Velocity.X = 0;
+                }
+
+                if ((this.Velocity.Y > 0 && this.IsTouchingTop(sprite)) ||
+                    (this.Velocity.Y < 0 && this.IsTouchingBottom(sprite)))
+                {
+                    this.Velocity.Y = 0;
+                }
+            }
+
+            foreach (var sprite in Enemy)
+            {
+                if(sprite == this)
+                {
+                    continue;
+                }
+                if ((this.Velocity.X > 0 && this.IsTouchingLeft(sprite)) ||
+                    (this.Velocity.X < 0 && this.IsTouchingRight(sprite)))
+                {
+                    this.Velocity.X = 0;
+                }
+
+                if ((this.Velocity.Y > 0 && this.IsTouchingTop(sprite)) ||
+                    (this.Velocity.Y < 0 && this.IsTouchingBottom(sprite)))
+                {
+                    this.Velocity.Y = 0;
+                }
+            }
+
+            Position += Velocity;
+            gun.Position += Velocity;
+            moveRange -= Math.Abs(Velocity.X) + Math.Abs(Velocity.Y);
+            if (Velocity == new Vector2(0, 0)) moveRange = 0;
+            Velocity = Vector2.Zero;
         }
 
         public void ResetAction()

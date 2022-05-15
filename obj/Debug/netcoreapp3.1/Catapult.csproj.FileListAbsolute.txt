@@ -92,3 +92,6 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\methane-ice.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\methane.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\Planet\tundra.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\MainMenu\pirate.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\MainMenu\sky.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult\bin\Debug\netcoreapp3.1\Content\MainMenu\soup.xnb

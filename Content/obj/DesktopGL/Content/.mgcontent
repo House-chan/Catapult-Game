@@ -9,6 +9,9 @@
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet3.png</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Bullet/bullet4.png</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Font.spritefont</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/MainMenu/pirate.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/MainMenu/sky.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/MainMenu/soup.png</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/barren.png</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/barren-charred.png</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Planet/barren-icy.png</File>
@@ -26,6 +29,9 @@
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult/Content/Ship/PlayerShip.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
