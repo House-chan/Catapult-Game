@@ -9,7 +9,7 @@ namespace Catapult.GameObjects
 {
     class Ship : GameObject
     {
-        float ShootPower;
+        public float ShootPower;
         float Health;
         float moveRange;
 
@@ -30,6 +30,7 @@ namespace Catapult.GameObjects
             Health = 100;
             ShootPower = 5.0f;
             stage = Stage.Start;
+            Position = new Vector2(100, 100);
             gun = new Gun(gunTexture, bulletTexture)
             {
                 Position = new Vector2(this.Position.X + 90, this.Position.Y + 30)

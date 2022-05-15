@@ -22,12 +22,13 @@ namespace Catapult
 
         Turn turn;
 
-        Texture2D PlayerShip, EnemyShip, guideline, meteorite, gun, EnemyGun;
+        Texture2D PlayerShip, EnemyShip, guideline, meteorite, gun, EnemyGun, AimGuideTexture;
         Texture2D[] PlanetTexture = new Texture2D[11], Bullet = new Texture2D[7];
         Ship Player;
         EnemyShip Enemy;
         Planet Planet;
         GravityDemo Gravity;
+        AimGuide AimGuide;
         public GameScene()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -74,12 +75,14 @@ namespace Catapult
             Bullet[1] = Content.Load<Texture2D>("Bullet/bullet2");
             Bullet[2] = Content.Load<Texture2D>("Bullet/bullet3");
             Bullet[3] = Content.Load<Texture2D>("Bullet/bullet4");
+            AimGuideTexture = Content.Load<Texture2D>("Bullet/bullet4");
 
 
             Player = new Ship(PlayerShip, gun, Bullet[0]);
             Enemy = new EnemyShip(EnemyShip, EnemyGun);
             Planet = new Planet(PlanetTexture[0]);
             Gravity = new GravityDemo();
+            AimGuide = new AimGuide(Player, Gravity, AimGuideTexture);
         }
 
         protected override void Update(GameTime gameTime)
@@ -121,6 +124,7 @@ namespace Catapult
                     break;
             }
             Gravity.Update(Player.gun.bullet);
+            AimGuide.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -144,7 +148,7 @@ namespace Catapult
 
                     break;
             }
-
+            AimGuide.Draw(_spriteBatch);
             _spriteBatch.End();
             _graphics.BeginDraw();
             base.Draw(gameTime);

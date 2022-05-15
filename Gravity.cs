@@ -72,6 +72,29 @@ namespace Catapult
 
             return new_Velocity;
         }
+        public Vector2 CalPosition(Vector2 position, float elapsedTime)
+        {
+            //calculate sum of gravity forces on bullet
+            Vector2 new_Pos = position;
+            Vector2 r_hat, sum = Vector2.Zero;
+            Vector2 r;
+            float dis;
+
+
+            if (planets.Length > 0)
+            {
+                foreach (Planet planet in planets)
+                {
+                    r = planet.Position - position;
+                    dis = Vector2.Distance(position, planet.Position);
+                    r_hat = Vector2.Normalize(Vector2.Subtract(planet.Position, position));
+                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / (float)Math.Pow(dis, 2)));
+                }
+                new_Pos = Vector2.Multiply(sum, G * elapsedTime) + position;
+            }
+
+            return new_Pos;
+        }
 
         public void Update(Bullet bullet, float elapsedTime)
         {
