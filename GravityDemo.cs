@@ -12,7 +12,7 @@ namespace Catapult
     {
         protected Vector2 ceatral_point = new Vector2(Singleton.SCREENWIDTH / 2, Singleton.SCREENHEIGHT / 2);
         protected float G = 5000;
-        protected float mass = 100;
+        protected float mass = 1;
 
         public GravityDemo() : base()
         { }
@@ -50,24 +50,25 @@ namespace Catapult
             return new_Velocity;
         }
         
-        public Vector2 CalVelocity(Vector2 pos, Vector2 pos_old, float elapsedTime)
+        public Vector2 CalVelocity(Vector2 position, Vector2 velocity, float elapsedTime)
         {
-            Vector2 velocity = Vector2.Divide( Vector2.Subtract(pos, pos_old), elapsedTime );
             //calculate sum of gravity forces on bullet
-            Vector2 new_velocity = velocity;
+            Vector2 new_Velocity = velocity;
             Vector2 r_hat;
             Vector2 sum = Vector2.Zero;
+            Vector2 r;
             float dis;
 
-            
-            dis = Vector2.Distance(pos, ceatral_point);
-            r_hat = Vector2.Normalize(Vector2.Subtract(pos, ceatral_point));
+
+            r = ceatral_point - position;
+            dis = Vector2.Distance(position, ceatral_point);
+            r_hat = Vector2.Normalize(Vector2.Subtract(ceatral_point, position));
             sum = Vector2.Multiply(r_hat, mass / (float)Math.Pow(dis, 2));
 
-            new_velocity = Vector2.Subtract( pos_old, Vector2.Add(  Vector2.Multiply( sum, G * (float)Math.Pow(elapsedTime, 2) ), Vector2.Multiply(velocity, elapsedTime)  )    );
+            new_Velocity = Vector2.Multiply(sum, G * elapsedTime) + velocity;
 
 
-            return new_velocity;
+            return new_Velocity;
         }
 
         public void Update(Bullet bullet, float elapsedTime)
