@@ -26,6 +26,7 @@ namespace Catapult.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //dfd
             if(player.gun != null)
             {
                 if (player.getStage() == Ship.Stage.Start || player.getStage() == Ship.Stage.Shooting)
