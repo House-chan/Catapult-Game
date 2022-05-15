@@ -9,7 +9,7 @@ namespace Catapult.GameObjects
 {
     class Ship : GameObject
     {
-        float ShootPower;
+        public float ShootPower;
         public float Health;
         float moveRange;
 
@@ -20,11 +20,12 @@ namespace Catapult.GameObjects
         public Stage stage;
 
         public Vector2 bullet;
-        Gun gun;
+        public Gun gun;
+        AimGuide guide;
 
         int speed;
 
-        public Ship(Texture2D texture, Texture2D gunTexture, Texture2D bulletTexture) : base(texture)
+        public Ship(Texture2D texture, Texture2D gunTexture, Texture2D bulletTexture, Texture2D GuideLine) : base(texture)
         {
             speed = 5;
             moveRange = 10000;
@@ -35,6 +36,7 @@ namespace Catapult.GameObjects
             {
                 Position = new Vector2(this.Position.X + 90, this.Position.Y + 30)
             };
+            guide = new AimGuide(GuideLine);
         }
         public void Update(GameTime gameTime, List<EnemyShip> Enemy, List<Planet> Planet)
         {
@@ -91,11 +93,21 @@ namespace Catapult.GameObjects
             base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, List<Planet> planet)
         {
             //Draw ship and method ammo
             spriteBatch.Draw(_texture, Position, null, Color.White, 0f, new Vector2(_texture.Width/2, _texture.Height/2), 1, SpriteEffects.None, 0f);
             gun.Draw(spriteBatch);
+            guide.Draw(spriteBatch, this, planet);
+            //switch (stage)
+            //{
+            //    case Stage.Start:
+
+            //        break;
+            //    case Stage.Shooting:
+
+            //        break;
+            //}
             //Hud Power, Fuel, Health
         }
 
@@ -123,7 +135,7 @@ namespace Catapult.GameObjects
                 stage = Stage.Move;
                 gun.reload();
                 gun.shoot(ShootPower);
-                ShootPower = 0.0f;
+                ShootPower = 5.0f;
             }
             //Create ball
             //bullet create 

@@ -36,6 +36,9 @@ namespace Catapult
 
         MainMenu mainmenu;
         Texture2D ship, soup, menuBackground, button;
+
+
+
         public GameScene()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -97,7 +100,7 @@ namespace Catapult
 
 
 
-            Player = new Ship(PlayerShip, gun, Bullet[0]);
+            Player = new Ship(PlayerShip, gun, Bullet[0], PlanetTexture[0]);
             Player.SetPosition(new Vector2(200, 500));
             //Enemy = new EnemyShip(EnemyShip, EnemyGun);
             Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet[0]));
@@ -308,7 +311,7 @@ namespace Catapult
                     mainmenu.Draw(_spriteBatch);
                     break;
                 case Stage.Stage:
-                    Player.Draw(_spriteBatch);
+                    Player.Draw(_spriteBatch, Planet);
                     _spriteBatch.DrawString(font, Player.Health.ToString(), Player.Position + new Vector2(0, 90), Color.Black);
                     foreach (EnemyShip list in Enemy)
                     {

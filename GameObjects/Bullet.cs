@@ -14,6 +14,7 @@ namespace Catapult.GameObjects
         Boolean isPlayerBullet;
         float damage;
 
+
         enum BulletType
         {
             Normal,
@@ -90,7 +91,7 @@ namespace Catapult.GameObjects
 
         public void Update(GameTime gameTime, List<Planet> planet)
         {
-            Position += Velocity;
+            Position += gravity(planet);
             //Position += new Vector2(speed, speed);
             //switch (bulletType)
             //{
@@ -171,33 +172,20 @@ namespace Catapult.GameObjects
 
             }
 
-            foreach (Planet sprite in PlanetPosition)
-            {
-                if (
-                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y) &&
-                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE)) ||
-                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE)) &&
-                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y))
-                    )
-                {
-                    sprite.Health -= damage;
-                    return true;
-                }
-                //if (
-                //    //Bottom Left
-                //    ((this.Velocity.X > 0 && this.IsTouchingLeft(sprite)) &&
-                //    (this.Velocity.Y < 0 && this.IsTouchingBottom(sprite))) ||
-                //    //Top Left
-                //    ((this.Velocity.X > 0 && this.IsTouchingLeft(sprite)) &&
-                //    (this.Velocity.Y > 0 && this.IsTouchingTop(sprite))) ||
-                //    //Bottom Right
-                //    ((this.Velocity.X < 0 && this.IsTouchingRight(sprite)) &&
-                //    (this.Velocity.Y < 0 && this.IsTouchingBottom(sprite))) ||
-                //    //Top Right
-                //    ((this.Velocity.X < 0 && this.IsTouchingLeft(sprite)) &&
-                //    (this.Velocity.Y > 0 && this.IsTouchingTop(sprite)))
-                //    ) return true;
-            }
+            //foreach (Planet sprite in PlanetPosition)
+            //{
+            //    if (
+            //        ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y) &&
+            //        (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE)) ||
+            //        ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE)) &&
+            //        (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y))
+            //        )
+            //    {
+            //        sprite.Health -= 1;
+            //        return true;
+            //    }
+           
+            //}
 
             //outscreen
             if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
@@ -230,19 +218,19 @@ namespace Catapult.GameObjects
             }
             
 
-            foreach (Planet Pos in PlanetPosition)
-            {
-                if (
-                    ((Position.X + Singleton.BULLETSIZE >= Pos.Position.X && Position.Y + Singleton.BULLETSIZE >= Pos.Position.Y) &&
-                    (Position.X < (Pos.Position.X + Singleton.SHIPSIZE) && Position.Y < Pos.Position.Y + Singleton.SHIPSIZE)) ||
-                    ((Position.X + Singleton.BULLETSIZE >= Pos.Position.X && Position.Y < (Pos.Position.Y + Singleton.SHIPSIZE)) &&
-                    (Position.X < (Pos.Position.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= Pos.Position.Y))
-                    )
-                {
-                    Pos.Health -= damage;
-                    return true;
-                }
-            }
+            //foreach (Planet Pos in PlanetPosition)
+            //{
+            //    if (
+            //        ((Position.X + Singleton.BULLETSIZE >= Pos.Position.X && Position.Y + Singleton.BULLETSIZE >= Pos.Position.Y) &&
+            //        (Position.X < (Pos.Position.X + Singleton.SHIPSIZE) && Position.Y < Pos.Position.Y + Singleton.SHIPSIZE)) ||
+            //        ((Position.X + Singleton.BULLETSIZE >= Pos.Position.X && Position.Y < (Pos.Position.Y + Singleton.SHIPSIZE)) &&
+            //        (Position.X < (Pos.Position.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= Pos.Position.Y))
+            //        )
+            //    {
+            //        Pos.Health -= 1;
+            //        return true;
+            //    }
+            //}
 
             //outscreen
             if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
@@ -255,6 +243,31 @@ namespace Catapult.GameObjects
             {
                 return false;
             }
+        }
+
+        Vector2 gravity(List<Planet> Planet)
+        {
+            Vector2 new_Velocity = Velocity;
+            Vector2 r_hat, sum = Vector2.Zero;
+            Vector2 r;
+            float dis;
+
+
+            foreach (Planet planet in Planet)
+            {
+                r = planet.Position - Position;
+                
+                dis = Vector2.Distance(Position, planet.Position);
+                if(dis < planet.range)
+                {
+                    r_hat = Vector2.Normalize(Vector2.Subtract(planet.Position, Position));
+                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / (float)Math.Pow(dis/4, 2)));
+                }
+            }
+            new_Velocity = Vector2.Multiply(sum, Singleton.G) + Velocity;
+
+
+            return new_Velocity;
         }
     }
 }
