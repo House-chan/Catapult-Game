@@ -21,7 +21,6 @@ namespace Catapult.GameObjects
         }
 
         public Stage stage;
-        public Vector2 bullet;
         Gun gun;
 
         int speed;
@@ -79,7 +78,6 @@ namespace Catapult.GameObjects
                     gun.Update(gameTime, Planet);
                     if (gun.bullet.hit(Player, Planet))
                     {
-                        bullet = gun.bullet.Position;
                         gun.clearBullet();
                         stage = Stage.EndTurn;
                     }

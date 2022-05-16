@@ -34,7 +34,7 @@ namespace Catapult.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f), new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-170f), new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
             spriteBatch.Draw(bulletTexture[bulletType], new Vector2(50, 700), null, Color.White, 0, new Vector2(bulletTexture[bulletType].Width / 2, bulletTexture[bulletType].Height / 2), 1, SpriteEffects.None, 0f);
             if (bulletCreate)
             {
@@ -44,7 +44,7 @@ namespace Catapult.GameObjects
 
         public void DrawEnemy(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation, new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(10f), new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
             if (bulletCreate)
             {
                 bullet.Draw(spriteBatch);
@@ -63,15 +63,11 @@ namespace Catapult.GameObjects
 
         public void shoot(float power)
         {
-            //bullet
-            //bullet = null;
-            //speed, rotation
             bullet.shooting(Rotation, power);
         }
 
         public void aiming()
         {
-
             //if (Singleton.Instance.CurrentMouse.Position.Y <= 560)
             //{
             Distance.Y = -Singleton.Instance.CurrentMouse.Position.Y + (_texture.Height / 2) + Position.Y;
@@ -80,10 +76,6 @@ namespace Catapult.GameObjects
             Rotation = (float)Math.Atan2(Distance.Y, Distance.X);
             Velocity.X = (float)(Math.Cos(Rotation));
             Velocity.Y = (float)(Math.Sin(Rotation));
-            //if(angle > )
-            //}
-            //check angle
-            //gun.update()
         }
 
         public void aiming(Vector2 PlayerPosition)
@@ -97,10 +89,7 @@ namespace Catapult.GameObjects
             Rotation = (float)Math.Atan2(Distance.Y, Distance.X);
             Velocity.X = (float)(Math.Cos(Rotation));
             Velocity.Y = (float)(Math.Sin(Rotation));
-            //if(angle > )
-            //}
-            //check angle
-            //gun.update()
+            
         }
 
         public void reload()

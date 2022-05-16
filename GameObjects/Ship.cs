@@ -19,13 +19,10 @@ namespace Catapult.GameObjects
         }
         public Stage stage;
 
-        public Vector2 bullet;
         public Gun gun;
         AimGuide guide;
 
         int speed;
-
-        Rectangle healthRec;
 
         public Ship(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture, Texture2D GuideLine) : base(texture)
         {
@@ -41,15 +38,14 @@ namespace Catapult.GameObjects
             guide = new AimGuide(GuideLine);
 
         }
+
         public void Update(GameTime gameTime, List<EnemyShip> Enemy, List<Planet> Planet)
         {
-            //healthRec = new Rectangle(50, 20, Health, 20);
             switch (stage)
             {
                 case Stage.Start:
+                    //Moving
                     moving(Enemy, Planet);
-
-                    
 
                     Singleton.Instance.CurrentMouse = Mouse.GetState();
                     //Aiming Gun
@@ -83,7 +79,6 @@ namespace Catapult.GameObjects
                     gun.Update(gameTime, Planet);
                     if (gun.bullet.hit(Enemy, Planet))
                     {
-                        bullet = gun.bullet.Position;
                         gun.clearBullet();
                         stage = Stage.EndTurn;
                     }

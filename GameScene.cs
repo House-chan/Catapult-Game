@@ -54,7 +54,7 @@ namespace Catapult
             _graphics.ApplyChanges();
 
             turn = Turn.Player;
-            Game = Stage.Stage;
+            Game = Stage.MainMenu;
 
             countTurn = 0;
 
@@ -79,7 +79,7 @@ namespace Catapult
             PlanetTexture[9] = Content.Load<Texture2D>("Planet/methane-ice");
             PlanetTexture[10] = Content.Load<Texture2D>("Planet/tundra");
             EnemyShip = Content.Load<Texture2D>("Ship/EnemyShip");
-            //guideline = Content.Load<Texture2D>("");
+            guideline = Content.Load<Texture2D>("Bullet/bullet4");
             //meteorite = Content.Load<Texture2D>("");
             gun = Content.Load<Texture2D>("Ship/PlayerCanon");
             EnemyGun = Content.Load<Texture2D>("Ship/EnemyCanon");
@@ -100,7 +100,7 @@ namespace Catapult
 
 
 
-            Player = new Ship(PlayerShip, gun, Bullet, PlanetTexture[0]);
+            Player = new Ship(PlayerShip, gun, Bullet, guideline);
             Player.SetPosition(new Vector2(200, 500));
             //Enemy = new EnemyShip(EnemyShip, EnemyGun);
             Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
@@ -157,34 +157,17 @@ namespace Catapult
                                 for (int i = 0; i < Enemy.Count; i++)
                                 {
                                     Enemy[i].ResetAction();
-                                    if (
-                                        ((Player.bullet.X + Singleton.BULLETSIZE >= Enemy[i].Position.X && Player.bullet.Y + Singleton.BULLETSIZE >= Enemy[i].Position.Y) &&
-                                        (Player.bullet.X < (Enemy[i] .Position.X + Singleton.SHIPSIZE) && Player.bullet.Y < Enemy[i].Position.Y + Singleton.SHIPSIZE)) ||
-                                        ((Player.bullet.X + Singleton.BULLETSIZE >= Enemy[i].Position.X && Player.bullet.Y < (Enemy[i].Position.Y + Singleton.SHIPSIZE)) &&
-                                        (Player.bullet.X < (Enemy[i] .Position.X + Singleton.SHIPSIZE) && Player.bullet.Y + Singleton.BULLETSIZE >= Enemy[i].Position.Y))
-                                        )
+                                    if (Enemy[i].Health <= 0)
                                     {
-                                        if (Enemy[i].Health <= 0)
-                                        {
                                             
-                                            Enemy.RemoveAt(i);
-                                        }
+                                        Enemy.RemoveAt(i);
                                     }
                                 }
                                 for (int i = 0; i < Planet.Count; i++)
                                 {
-                                    if (
-                                        ((Player.bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && Player.bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y) &&
-                                        (Player.bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && Player.bullet.Y < Planet[i].Position.Y + Singleton.SHIPSIZE)) ||
-                                        ((Player.bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && Player.bullet.Y < (Planet[i].Position.Y + Singleton.SHIPSIZE)) &&
-                                        (Player.bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && Player.bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y))
-                                        )
+                                    if(Planet[i].Health <= 0)
                                     {
-                                         if(Planet[i].Health <= 0)
-                                        {
-                                            
-                                            Planet.RemoveAt(i);
-                                        }
+                                        Planet.RemoveAt(i);
                                     }
                                 }
                                 
@@ -203,32 +186,17 @@ namespace Catapult
                                 Enemy[countTurn].Update(gameTime, Player, Planet, Enemy);
                                 if(Enemy[countTurn].stage == GameObjects.EnemyShip.Stage.EndTurn)
                                 {
-                                    if (
-                                            ((Enemy[countTurn].bullet.X + Singleton.BULLETSIZE >= Player.Position.X && Enemy[countTurn].bullet.Y + Singleton.BULLETSIZE >= Player.Position.Y) &&
-                                            (Enemy[countTurn].bullet.X < (Player.Position.X + Singleton.SHIPSIZE) && Enemy[countTurn].bullet.Y < Player.Position.Y + Singleton.SHIPSIZE)) ||
-                                            ((Enemy[countTurn].bullet.X + Singleton.BULLETSIZE >= Player.Position.X && Enemy[countTurn].bullet.Y < (Player.Position.Y + Singleton.SHIPSIZE)) &&
-                                            (Enemy[countTurn].bullet.X < (Player.Position.X + Singleton.SHIPSIZE) && Enemy[countTurn].bullet.Y + Singleton.BULLETSIZE >= Player.Position.Y))
-                                            )
+                                    if (Player.Health <= 0)
                                     {
-                                        if (Player.Health <= 0)
-                                        {
-                                            Player = null;
-                                        }
+                                        Player = null;
                                     }
                                     for (int i = 0; i < Planet.Count; i++)
                                     {
-                                        if (
-                                        ((Enemy[countTurn].bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && Enemy[countTurn].bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y) &&
-                                        (Enemy[countTurn].bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && Enemy[countTurn].bullet.Y < Planet[i].Position.Y + Singleton.SHIPSIZE)) ||
-                                        ((Enemy[countTurn].bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && Enemy[countTurn].bullet.Y < (Planet[i].Position.Y + Singleton.SHIPSIZE)) &&
-                                        (Enemy[countTurn].bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && Enemy[countTurn].bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y))
-                                        )
+                                        
+                                        if (Planet[i].Health <= 0)
                                         {
-                                            if (Planet[i].Health <= 0)
-                                            {
                                                 
-                                                Planet.RemoveAt(i);
-                                            }
+                                            Planet.RemoveAt(i);
                                         }
                                     }
                                     countTurn += 1;

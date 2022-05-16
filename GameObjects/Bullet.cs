@@ -261,7 +261,7 @@ namespace Catapult.GameObjects
                 if(dis < planet.range)
                 {
                     r_hat = Vector2.Normalize(Vector2.Subtract(planet.Position, Position));
-                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / 500));
+                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / 400));
                 }
             }
             new_Velocity = Vector2.Multiply(sum, Singleton.G) + Velocity;
