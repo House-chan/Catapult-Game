@@ -12,7 +12,7 @@ namespace Catapult.GameObjects
         float speed;
         Boolean isActive;
         Boolean isPlayerBullet;
-        float damage;
+        int damage;
 
 
         enum BulletType
@@ -81,7 +81,7 @@ namespace Catapult.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f),new Vector2(_texture.Width / 2, _texture.Height / 2), 0.1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f),new Vector2(_texture.Width / 2, _texture.Height / 2), 1f, SpriteEffects.None, 0f);
         }
 
         public override void Reset()
@@ -91,42 +91,42 @@ namespace Catapult.GameObjects
 
         public void Update(GameTime gameTime, List<Planet> planet)
         {
-            Position += gravity(planet);
+            //Position += gravity(planet);
             //Position += new Vector2(speed, speed);
-            //switch (bulletType)
-            //{
-            //    case BulletType.Normal:
-            //        Position += Velocity;
-            //        break;
+            switch (bulletType)
+            {
+                case BulletType.Normal:
+                    Position += gravity(planet);
+                    break;
 
-            //    case BulletType.Heavy:
-            //        Position += Velocity;
-            //        break;
+                case BulletType.Heavy:
+                    Position += gravity(planet);
+                    break;
 
-            //    case BulletType.Missile:
-            //        Position += Velocity;
-            //        break;
+                case BulletType.Missile:
+                    Position += gravity(planet);
+                    break;
 
-            //    case BulletType.Cluster:
-            //        Position += Velocity;
-            //        break;
+                case BulletType.Cluster:
+                    Position += gravity(planet);
+                    break;
 
-            //    case BulletType.Laser:
-            //        Position += Velocity;
-            //        break;
+                case BulletType.Laser:
+                    Position += gravity(planet);
+                    break;
 
-            //    case BulletType.NyanCat:
-            //        Position += Velocity;
-            //        break;
+                case BulletType.NyanCat:
+                    Position += gravity(planet);
+                    break;
 
-            //    case BulletType.Nuclear:
-            //        Position += Velocity;
-            //        break;
+                case BulletType.Nuclear:
+                    Position += gravity(planet);
+                    break;
 
-            //    case BulletType.Satellite:
-            //        Position += Velocity;
-            //        break;
-            //}
+                case BulletType.Satellite:
+                    Position += gravity(planet);
+                    break;
+            }
         }
 
         public void shooting(float Rotation, float speed)
@@ -145,7 +145,7 @@ namespace Catapult.GameObjects
             foreach (EnemyShip sprite in EnemyPosition)
             {
                 if (
-                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y) &&
+                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X  && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y) &&
                     (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE)) ||
                     ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE)) &&
                     (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y))
@@ -261,7 +261,7 @@ namespace Catapult.GameObjects
                 if(dis < planet.range)
                 {
                     r_hat = Vector2.Normalize(Vector2.Subtract(planet.Position, Position));
-                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / (float)Math.Pow(dis/4, 2)));
+                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / 500));
                 }
             }
             new_Velocity = Vector2.Multiply(sum, Singleton.G) + Velocity;

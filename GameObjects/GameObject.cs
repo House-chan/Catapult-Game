@@ -10,7 +10,7 @@ namespace Catapult
         public Vector2 Position;
         public float Rotation;
         public Vector2 Scale;
-
+        public int width, height;
         public Vector2 Velocity;
 
         public string Name;
@@ -29,6 +29,8 @@ namespace Catapult
             Position = Vector2.Zero;
             Scale = Vector2.One;
             Rotation = 0f;
+            width = _texture.Width;
+            height = _texture.Height;
         }
 
         public virtual void Update(GameTime gameTime)

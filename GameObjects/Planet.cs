@@ -28,7 +28,7 @@ namespace Catapult.GameObjects
         public Planet(Texture2D texture) : base(texture)
         {
             Health = 100;
-            range = 500;
+            range = 250;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

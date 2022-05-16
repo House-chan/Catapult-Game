@@ -9,7 +9,7 @@ namespace Catapult.GameObjects
     class EnemyShip : GameObject
     {
         float ShootPower;
-        public float Health;
+        public int Health;
         float moveRange;
 
         Vector2 Distance;
@@ -26,7 +26,7 @@ namespace Catapult.GameObjects
 
         int speed;
 
-        public EnemyShip(Texture2D texture, Texture2D gunTexture, Texture2D bulletTexture) : base(texture)
+        public EnemyShip(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture) : base(texture)
         {
             speed = 5;
             Health = 100;
@@ -42,7 +42,7 @@ namespace Catapult.GameObjects
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Position, null, Color.White, Rotation, new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
-            gun.Draw(spriteBatch);
+            gun.DrawEnemy(spriteBatch);
         }
 
         public override void Reset()

@@ -10,7 +10,7 @@ namespace Catapult.GameObjects
     class Ship : GameObject
     {
         public float ShootPower;
-        public float Health;
+        public int Health;
         float moveRange;
 
         public enum Stage
@@ -25,7 +25,9 @@ namespace Catapult.GameObjects
 
         int speed;
 
-        public Ship(Texture2D texture, Texture2D gunTexture, Texture2D bulletTexture, Texture2D GuideLine) : base(texture)
+        Rectangle healthRec;
+
+        public Ship(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture, Texture2D GuideLine) : base(texture)
         {
             speed = 5;
             moveRange = 10000;
@@ -37,9 +39,11 @@ namespace Catapult.GameObjects
                 Position = new Vector2(this.Position.X + 90, this.Position.Y + 30)
             };
             guide = new AimGuide(GuideLine);
+
         }
         public void Update(GameTime gameTime, List<EnemyShip> Enemy, List<Planet> Planet)
         {
+            //healthRec = new Rectangle(50, 20, Health, 20);
             switch (stage)
             {
                 case Stage.Start:
