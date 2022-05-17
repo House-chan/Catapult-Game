@@ -54,7 +54,7 @@ namespace Catapult
             _graphics.ApplyChanges();
 
             turn = Turn.Player;
-            Game = Stage.Stage;
+            Game = Stage.MainMenu;
 
             countTurn = 0;
 
@@ -79,34 +79,34 @@ namespace Catapult
             PlanetTexture[9] = Content.Load<Texture2D>("Planet/methane-ice");
             PlanetTexture[10] = Content.Load<Texture2D>("Planet/tundra");
             EnemyShip = Content.Load<Texture2D>("Ship/EnemyShip");
-            //guideline = Content.Load<Texture2D>("");
+            guideline = Content.Load<Texture2D>("Bullet/bullet4");
             //meteorite = Content.Load<Texture2D>("");
             gun = Content.Load<Texture2D>("Ship/PlayerCanon");
             EnemyGun = Content.Load<Texture2D>("Ship/EnemyCanon");
-            Bullet[0] = Content.Load<Texture2D>("Bullet/bullet1");
+            Bullet[0] = Content.Load<Texture2D>("Bullet/bullet4");
             Bullet[1] = Content.Load<Texture2D>("Bullet/bullet2");
             Bullet[2] = Content.Load<Texture2D>("Bullet/bullet3");
-            Bullet[3] = Content.Load<Texture2D>("Bullet/bullet4");
+            Bullet[3] = Content.Load<Texture2D>("Bullet/bullet1");
 
             font = Content.Load<SpriteFont>("Font");
 
-            //HealthBar = new Texture2D(_graphics.GraphicsDevice, 100, 5);
-            //Color[] data = new Color[100 * 5];
-            //for (int i = 0; i < data.Length; i++)
-            //{
-            //    data[i] = Color.White;
-            //}
-            //HealthBar.SetData(data);
+            HealthBar = new Texture2D(_graphics.GraphicsDevice, 100, 5);
+            Color[] color = new Color[100 * 5];
+            for (int i = 0; i < color.Length; i++)
+            {
+                color[i] = Color.White;
+            }
+            HealthBar.SetData(color);
 
 
 
-            Player = new Ship(PlayerShip, gun, Bullet[0], PlanetTexture[0]);
+            Player = new Ship(PlayerShip, gun, Bullet, guideline);
             Player.SetPosition(new Vector2(200, 500));
             //Enemy = new EnemyShip(EnemyShip, EnemyGun);
-            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet[0]));
-            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet[0]));
-            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet[0]));
-            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet[0]));
+            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+            Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
             Enemy[0].SetPosition(new Vector2(1400, 200));
             Enemy[1].SetPosition(new Vector2(1400, 400));
             Enemy[2].SetPosition(new Vector2(1400, 600));
@@ -157,34 +157,17 @@ namespace Catapult
                                 for (int i = 0; i < Enemy.Count; i++)
                                 {
                                     Enemy[i].ResetAction();
-                                    if (
-                                        ((Player.bullet.X + Singleton.BULLETSIZE >= Enemy[i].Position.X && Player.bullet.Y + Singleton.BULLETSIZE >= Enemy[i].Position.Y) &&
-                                        (Player.bullet.X < (Enemy[i] .Position.X + Singleton.SHIPSIZE) && Player.bullet.Y < Enemy[i].Position.Y + Singleton.SHIPSIZE)) ||
-                                        ((Player.bullet.X + Singleton.BULLETSIZE >= Enemy[i].Position.X && Player.bullet.Y < (Enemy[i].Position.Y + Singleton.SHIPSIZE)) &&
-                                        (Player.bullet.X < (Enemy[i] .Position.X + Singleton.SHIPSIZE) && Player.bullet.Y + Singleton.BULLETSIZE >= Enemy[i].Position.Y))
-                                        )
+                                    if (Enemy[i].Health <= 0)
                                     {
-                                        if (Enemy[i].Health <= 0)
-                                        {
                                             
-                                            Enemy.RemoveAt(i);
-                                        }
+                                        Enemy.RemoveAt(i);
                                     }
                                 }
                                 for (int i = 0; i < Planet.Count; i++)
                                 {
-                                    if (
-                                        ((Player.bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && Player.bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y) &&
-                                        (Player.bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && Player.bullet.Y < Planet[i].Position.Y + Singleton.SHIPSIZE)) ||
-                                        ((Player.bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && Player.bullet.Y < (Planet[i].Position.Y + Singleton.SHIPSIZE)) &&
-                                        (Player.bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && Player.bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y))
-                                        )
+                                    if(Planet[i].Health <= 0)
                                     {
-                                         if(Planet[i].Health <= 0)
-                                        {
-                                            
-                                            Planet.RemoveAt(i);
-                                        }
+                                        Planet.RemoveAt(i);
                                     }
                                 }
                                 
@@ -203,32 +186,17 @@ namespace Catapult
                                 Enemy[countTurn].Update(gameTime, Player, Planet, Enemy);
                                 if(Enemy[countTurn].stage == GameObjects.EnemyShip.Stage.EndTurn)
                                 {
-                                    if (
-                                            ((Enemy[countTurn].bullet.X + Singleton.BULLETSIZE >= Player.Position.X && Enemy[countTurn].bullet.Y + Singleton.BULLETSIZE >= Player.Position.Y) &&
-                                            (Enemy[countTurn].bullet.X < (Player.Position.X + Singleton.SHIPSIZE) && Enemy[countTurn].bullet.Y < Player.Position.Y + Singleton.SHIPSIZE)) ||
-                                            ((Enemy[countTurn].bullet.X + Singleton.BULLETSIZE >= Player.Position.X && Enemy[countTurn].bullet.Y < (Player.Position.Y + Singleton.SHIPSIZE)) &&
-                                            (Enemy[countTurn].bullet.X < (Player.Position.X + Singleton.SHIPSIZE) && Enemy[countTurn].bullet.Y + Singleton.BULLETSIZE >= Player.Position.Y))
-                                            )
+                                    if (Player.Health <= 0)
                                     {
-                                        if (Player.Health <= 0)
-                                        {
-                                            Player = null;
-                                        }
+                                        Player = null;
                                     }
                                     for (int i = 0; i < Planet.Count; i++)
                                     {
-                                        if (
-                                        ((Enemy[countTurn].bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && Enemy[countTurn].bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y) &&
-                                        (Enemy[countTurn].bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && Enemy[countTurn].bullet.Y < Planet[i].Position.Y + Singleton.SHIPSIZE)) ||
-                                        ((Enemy[countTurn].bullet.X + Singleton.BULLETSIZE >= Planet[i].Position.X && Enemy[countTurn].bullet.Y < (Planet[i].Position.Y + Singleton.SHIPSIZE)) &&
-                                        (Enemy[countTurn].bullet.X < (Planet[i].Position.X + Singleton.SHIPSIZE) && Enemy[countTurn].bullet.Y + Singleton.BULLETSIZE >= Planet[i].Position.Y))
-                                        )
+                                        
+                                        if (Planet[i].Health <= 0)
                                         {
-                                            if (Planet[i].Health <= 0)
-                                            {
                                                 
-                                                Planet.RemoveAt(i);
-                                            }
+                                            Planet.RemoveAt(i);
                                         }
                                     }
                                     countTurn += 1;
@@ -312,11 +280,35 @@ namespace Catapult
                     break;
                 case Stage.Stage:
                     Player.Draw(_spriteBatch, Planet);
-                    _spriteBatch.DrawString(font, Player.Health.ToString(), Player.Position + new Vector2(0, 90), Color.Black);
+                    if(Player.Health > 70)
+                    {
+                        _spriteBatch.Draw(HealthBar, new Rectangle((int)Player.Position.X - PlayerShip.Width/2, (int)Player.Position.Y + 100, Player.Health * 2, 15), Color.Green);
+                    }
+                    else if(Player.Health > 30)
+                    {
+                        _spriteBatch.Draw(HealthBar, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 100, Player.Health * 2, 15), Color.YellowGreen);
+                    }
+                    else
+                    {
+                        _spriteBatch.Draw(HealthBar, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 100, Player.Health * 2, 15), Color.Red);
+                    }
+                    //_spriteBatch.DrawString(font, Player.Health.ToString(), Player.Position + new Vector2(0, 90), Color.Black);
                     foreach (EnemyShip list in Enemy)
                     {
                         list.Draw(_spriteBatch);
-                        _spriteBatch.DrawString(font, list.Health.ToString(), list.Position + new Vector2(0, 90), Color.Black);
+                        //_spriteBatch.DrawString(font, list.Health.ToString(), list.Position + new Vector2(0, 90), Color.Black);
+                        if (list.Health > 70)
+                        {
+                            _spriteBatch.Draw(HealthBar, new Rectangle((int)list.Position.X - EnemyShip.Width / 2, (int)list.Position.Y + 80, list.Health * 2, 15), Color.Green);
+                        }
+                        else if (list.Health > 30)
+                        {
+                            _spriteBatch.Draw(HealthBar, new Rectangle((int)list.Position.X - EnemyShip.Width / 2, (int)list.Position.Y + 80, list.Health * 2, 15), Color.YellowGreen);
+                        }
+                        else
+                        {
+                            _spriteBatch.Draw(HealthBar, new Rectangle((int)list.Position.X - EnemyShip.Width / 2, (int)list.Position.Y + 80, list.Health * 2, 15), Color.Red);
+                        }
                     }
                     foreach (Planet list in Planet)
                     {
