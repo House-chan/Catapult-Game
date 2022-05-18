@@ -12,9 +12,15 @@ namespace Catapult
     {
 
         protected static float G = 3000;
-        protected static float planet_diameter = 50;
+        protected static float planet_diameter = 0;
 
         public static Vector2 CalVelocity(Vector2 position, Vector2 Velocity, List<Planet> Planet)
+        {
+            Vector2 new_Velocity = CalVelocity(position, Velocity, true, Planet);
+            return new_Velocity;
+        }
+
+        public static Vector2 CalVelocity(Vector2 position, Vector2 Velocity, bool is_obj_have_mass, List<Planet> Planet)
         {
             Vector2 new_Velocity = Velocity;
             Vector2 r_hat, sum = Vector2.Zero;
@@ -33,7 +39,14 @@ namespace Catapult
                     sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / (float)Math.Pow((dis - planet_diameter), 2)));
                 }
             }
-            new_Velocity = Vector2.Multiply(sum, G) + Velocity;
+            if (is_obj_have_mass)
+            {
+                new_Velocity = Vector2.Multiply(sum, G) + Velocity;
+            }
+            else
+            {
+                new_Velocity = Velocity;
+            }
 
 
             return new_Velocity;

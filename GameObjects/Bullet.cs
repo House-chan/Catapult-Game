@@ -15,6 +15,7 @@ namespace Catapult.GameObjects
         int damage;
         Random rand = new Random();
         public bool end;
+        public bool haveMass;
 
         enum BulletType
         {
@@ -29,7 +30,6 @@ namespace Catapult.GameObjects
         };
 
         BulletType bulletType;
-        float G;
 
 
         public Bullet(Texture2D texture, int bullet, Vector2 Position) : base(texture)
@@ -37,49 +37,49 @@ namespace Catapult.GameObjects
             if(bullet == 0)
             {
                 bulletType = BulletType.Normal;
-                G = 1500;
+                haveMass = true;
                 damage = 50;
             }
             else if(bullet == 1)
             {
                 bulletType = BulletType.Heavy;
-                G = 5000;
+                haveMass = true;
                 damage = 50;
             }
             else if (bullet == 2)
             {
                 bulletType = BulletType.Missile;
-                G = 2000;
+                haveMass = true;
                 damage = 50;
             }
             else if(bullet == 3)
             {
                 bulletType = BulletType.Cluster;
-                G = 1500;
+                haveMass = true;
                 damage = 50;
             }
             else if(bullet == 4)
             {
                 bulletType = BulletType.Laser;
-                G = 1500;
+                haveMass = true;
                 damage = 50;
             }
             else if(bullet == 5)
             {
                 bulletType = BulletType.NyanCat;
-                G = 1500;
+                haveMass = true;
                 damage = 50;
             }
             else if(bullet == 6)
             {
                 bulletType = BulletType.Nuclear;
-                G = 1500;
+                haveMass = true;
                 damage = 50;
             }
             else if(bullet == 7)
             {
                 bulletType = BulletType.Satellite;
-                G = 1500;
+                haveMass = true;
                 damage = 50;
             }
             _texture = texture;
@@ -116,27 +116,27 @@ namespace Catapult.GameObjects
                     break;
 
                 case BulletType.Missile:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Cluster:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Laser:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.NyanCat:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Nuclear:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Satellite:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
             }
             hit(enemy, planet);
@@ -282,26 +282,7 @@ namespace Catapult.GameObjects
 
         Vector2 gravity(List<Planet> Planet)
         {
-            Vector2 new_Velocity = Velocity;
-            Vector2 r_hat, sum = Vector2.Zero;
-            Vector2 r;
-            float dis;
-
-
-            foreach (Planet planet in Planet)
-            {
-                r = planet.Position - Position;
-                
-                dis = Vector2.Distance(Position, planet.Position);
-                if(dis < planet.range)
-                {
-                    r_hat = Vector2.Normalize(Vector2.Subtract(planet.Position, Position));
-                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / 5000));
-                }
-            }
-            new_Velocity = Vector2.Multiply(sum, G) + Velocity;
-
-
+            Vector2 new_Velocity = Gravity.CalVelocity(Position, Velocity, haveMass, Planet);
             return new_Velocity;
         }
     }

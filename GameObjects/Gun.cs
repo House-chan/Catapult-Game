@@ -10,7 +10,7 @@ namespace Catapult.GameObjects
 
     class Gun : GameObject
     {
-        int bulletType;
+        public int bulletType;
         Vector2 Distance;
         public Bullet bullet;
         //public float power;
