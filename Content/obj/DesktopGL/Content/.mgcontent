@@ -8,6 +8,7 @@
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet2.png</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet3.png</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet4.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/Nyan-Cat-PNG.png</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Font.spritefont</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/backbutton.png</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/1_hover.png</File>
@@ -54,6 +55,7 @@
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/PlayerShip.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
