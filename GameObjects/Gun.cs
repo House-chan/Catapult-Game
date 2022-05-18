@@ -101,7 +101,7 @@ namespace Catapult.GameObjects
 
         public void reload()
         {
-            bullet = new Bullet(bulletTexture[bulletType], 4, Position);
+            bullet = new Bullet(bulletTexture[bulletType], bulletType, Position);
             bulletCreate = true;
             //bullet = null;
         }

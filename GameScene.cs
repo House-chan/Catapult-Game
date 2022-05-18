@@ -15,10 +15,12 @@ namespace Catapult
         {
             MainMenu, Stage, Pause, End
         }
+
         Stage Game;
+
         enum Turn
         {
-            Player, Enemy
+            Player, Enemy, ChangeTurn
         }
 
         Turn turn;
@@ -31,14 +33,16 @@ namespace Catapult
         List<Planet> Planet = new List<Planet>();
 
         SpriteFont font;
-
+        Vector2 Board;
         int countTurn;
 
         MainMenu mainmenu;
         Texture2D ship, soup, menuBackground, stageSelect, prop, startButton, exitButton, backButton, title, settingButton;
 
-
-
+        Vector2 changeTurn;
+        String WhoseTurn;
+        Turn lastTurn;
+        float transparent;
         public GameScene()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -53,11 +57,12 @@ namespace Catapult
             _graphics.PreferredBackBufferHeight = Singleton.SCREENHEIGHT;
             _graphics.ApplyChanges();
 
-            turn = Turn.Player;
+            turn = Turn.ChangeTurn;
+            lastTurn = Turn.Enemy;
             Game = Stage.MainMenu;
 
             countTurn = 0;
-
+            transparent = 1f;
             base.Initialize();
         }
 
@@ -89,6 +94,8 @@ namespace Catapult
             Bullet[3] = Content.Load<Texture2D>("Bullet/bullet1");
 
             font = Content.Load<SpriteFont>("Font");
+            Board = new Vector2(-1400, 400);
+            WhoseTurn = "PLAYER TURN";
 
             box = new Texture2D(_graphics.GraphicsDevice, 100, 5);
             Color[] color = new Color[100 * 5];
@@ -140,7 +147,9 @@ namespace Catapult
                             Player.Update(gameTime, Enemy, Planet);
                             if (Player.stage == GameObjects.Ship.Stage.EndTurn)
                             {
-                                turn = Turn.Enemy;
+                                lastTurn = Turn.Player;
+                                turn = Turn.ChangeTurn;
+                                //Board.X = 1600;
                                 for (int i = 0; i < Enemy.Count; i++)
                                 {
                                     Enemy[i].ResetAction();
@@ -179,7 +188,6 @@ namespace Catapult
                                         
                                         if (Planet[i].Health <= 0)
                                         {
-                                                
                                             Planet.RemoveAt(i);
                                         }
                                     }
@@ -190,7 +198,9 @@ namespace Catapult
                             {
                                 //Enemy[countTurn - 1].Position += new Vector2(100, 0);
                                 countTurn = 0;
-                                turn = Turn.Player;
+                                //Board.X = -1400;
+                                lastTurn = Turn.Enemy;
+                                turn = Turn.ChangeTurn;
                                 Player.ResetAction();
                             }
                             
@@ -200,9 +210,48 @@ namespace Catapult
                             }
                             
                             break;
+
+                        case Turn.ChangeTurn:
+                            if(lastTurn == Turn.Enemy)
+                            {
+                                if (Board.X < 350)
+                                {
+                                    Board.X += 20;
+                                }
+                                else if(transparent > 0)
+                                {
+                                    transparent -= 0.015f;
+                                }
+                                else
+                                {
+                                    Board.X = 1600;
+                                    transparent = 1f;
+                                    turn = Turn.Player;
+                                    WhoseTurn = "ENEMY TURN";
+                                }
+                            }
+                            else if(lastTurn == Turn.Player)
+                            {
+                                if (Board.X > 350)
+                                {
+                                    Board.X -= 20;
+                                }
+                                else if (transparent > 0)
+                                {
+                                    transparent -= 0.015f;
+                                }
+                                else
+                                {
+                                    turn = Turn.Enemy;
+                                    transparent = 1f;
+                                    Board.X = -1400;
+                                    WhoseTurn = "PLAYER TURN";
+                                }
+                            }
+                            break;
                     }
                     break;
-
+                    
                 case Stage.Pause:
 
                     break;
@@ -268,6 +317,10 @@ namespace Catapult
                         list.Draw(_spriteBatch);
                         //_spriteBatch.DrawString(font, list.Health.ToString(), list.Position + new Vector2(0, 90), Color.Black);
                     }
+
+                    //Turn
+                    _spriteBatch.DrawString(font, WhoseTurn, Board, Color.Red * transparent);
+
                     break;
                 case Stage.Pause:
                     if (Player != null) Player.Draw(_spriteBatch, Planet);
@@ -296,7 +349,7 @@ namespace Catapult
                         list.Draw(_spriteBatch);
                     }
                     if (Planet != null)
-                        foreach (Planet list in Planet)
+                    foreach (Planet list in Planet)
                     {
                         list.Draw(_spriteBatch);
                         //_spriteBatch.DrawString(font, list.Health.ToString(), list.Position + new Vector2(0, 90), Color.Black);

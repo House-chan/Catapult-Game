@@ -13,7 +13,7 @@ namespace Catapult.GameObjects
         Boolean isActive;
         Boolean isPlayerBullet;
         int damage;
-
+        Random rand = new Random();
         public bool end;
 
         enum BulletType
@@ -29,47 +29,57 @@ namespace Catapult.GameObjects
         };
 
         BulletType bulletType;
+        float G;
+
 
         public Bullet(Texture2D texture, int bullet, Vector2 Position) : base(texture)
         {
             if(bullet == 0)
             {
                 bulletType = BulletType.Normal;
+                G = 1500;
                 damage = 50;
             }
             else if(bullet == 1)
             {
                 bulletType = BulletType.Heavy;
+                G = 5000;
                 damage = 50;
             }
             else if (bullet == 2)
             {
                 bulletType = BulletType.Missile;
+                G = 2000;
                 damage = 50;
             }
             else if(bullet == 3)
             {
                 bulletType = BulletType.Cluster;
+                G = 1500;
                 damage = 50;
             }
             else if(bullet == 4)
             {
                 bulletType = BulletType.Laser;
+                G = 1500;
                 damage = 50;
             }
             else if(bullet == 5)
             {
                 bulletType = BulletType.NyanCat;
+                G = 1500;
                 damage = 50;
             }
             else if(bullet == 6)
             {
                 bulletType = BulletType.Nuclear;
+                G = 1500;
                 damage = 50;
             }
             else if(bullet == 7)
             {
                 bulletType = BulletType.Satellite;
+                G = 1500;
                 damage = 50;
             }
             _texture = texture;
@@ -184,10 +194,33 @@ namespace Catapult.GameObjects
             }
 
             //outscreen
-            if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
+            if (Position.X > Singleton.SCREENWIDTH || Position.X < 0)
             {
-                end = true;
-                return true;
+                if(Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
+                {
+                    if(rand.Next(100) < 10)
+                    {
+                        //_texture =
+                        Position.Y = 50;
+                        Velocity.X = (float)(speed * -2 * Math.Cos(-Rotation));
+                        Velocity.Y = (float)(speed * -2 * Math.Sin(-Rotation));
+                        bulletType = BulletType.Satellite;
+                        end = false;
+                        return false;
+                    }
+                    else
+                    {
+                        end = true;
+                        return true;
+                    }
+
+                }
+                else
+                {
+                    end = true;
+                    return true;
+                }
+                
             }
                 
             //not hit
@@ -266,7 +299,7 @@ namespace Catapult.GameObjects
                     sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / 5000));
                 }
             }
-            new_Velocity = Vector2.Multiply(sum, Singleton.G) + Velocity;
+            new_Velocity = Vector2.Multiply(sum, G) + Velocity;
 
 
             return new_Velocity;

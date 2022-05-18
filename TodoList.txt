@@ -7,7 +7,7 @@ Ship Move Range
 Collision in sphere
 Ammo Change+
 Health Bar+
-Power Bar
+Power Bar+
 Pause Menu
 Planet Enemy**
 Aim Guideline+
