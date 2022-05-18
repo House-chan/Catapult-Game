@@ -27,19 +27,20 @@ namespace Catapult
 
         Texture2D PlayerShip, EnemyShip, guideline, meteorite, gun, EnemyGun, box;
         Texture2D[] PlanetTexture = new Texture2D[11], Bullet = new Texture2D[7];
+
         Ship Player;
         //EnemyShip Enemy;
         List<EnemyShip> Enemy = new List<EnemyShip>();
         List<Planet> Planet = new List<Planet>();
 
         SpriteFont font;
-        Vector2 Board;
         int countTurn;
 
         MainMenu mainmenu;
         Texture2D ship, soup, menuBackground, stageSelect, prop, startButton, exitButton, backButton, title, settingButton;
+        Texture2D[] stageButton = new Texture2D[5];
 
-        Vector2 changeTurn;
+        Vector2 Board;
         String WhoseTurn;
         Turn lastTurn;
         float transparent;
@@ -88,7 +89,7 @@ namespace Catapult
             //meteorite = Content.Load<Texture2D>("");
             gun = Content.Load<Texture2D>("Ship/PlayerCanon");
             EnemyGun = Content.Load<Texture2D>("Ship/EnemyCanon");
-            Bullet[0] = Content.Load<Texture2D>("Bullet/bullet4");
+            Bullet[0] = Content.Load<Texture2D>("Bullet/Nyan-Cat-PNG");
             Bullet[1] = Content.Load<Texture2D>("Bullet/bullet2");
             Bullet[2] = Content.Load<Texture2D>("Bullet/bullet3");
             Bullet[3] = Content.Load<Texture2D>("Bullet/bullet1");
@@ -117,8 +118,13 @@ namespace Catapult
             stageSelect = Content.Load<Texture2D>("MainMenu/starry-doge");
             backButton = Content.Load<Texture2D>("MainMenu/backbutton");
             menuBackground = Content.Load<Texture2D>("MainMenu/galaxy");
-            
-            mainmenu = new MainMenu(menuBackground, startButton, settingButton, exitButton, ship, soup, title, prop, backButton);
+            stageButton[0] = Content.Load<Texture2D>("MainMenu/Button/1_idle");
+            stageButton[1] = Content.Load<Texture2D>("MainMenu/Button/2_idle");
+            stageButton[2] = Content.Load<Texture2D>("MainMenu/Button/3_idle");
+            stageButton[3] = Content.Load<Texture2D>("MainMenu/Button/4_idle");
+            stageButton[4] = Content.Load<Texture2D>("MainMenu/Button/5_idle");
+
+            mainmenu = new MainMenu(menuBackground, startButton, settingButton, exitButton, ship, soup, title, prop, backButton, stageSelect, stageButton);
         }
 
         protected override void Update(GameTime gameTime)
@@ -196,9 +202,7 @@ namespace Catapult
                             }
                             else
                             {
-                                //Enemy[countTurn - 1].Position += new Vector2(100, 0);
                                 countTurn = 0;
-                                //Board.X = -1400;
                                 lastTurn = Turn.Enemy;
                                 turn = Turn.ChangeTurn;
                                 Player.ResetAction();

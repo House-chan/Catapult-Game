@@ -13,9 +13,9 @@ namespace Catapult
         {
             MainMenu, StageSelect, Setting
         }
-        Texture2D MenuBackground, StartButton, Ship, Soup, Prop, BackButton, SettingButton, ExitButton;
+        Texture2D MenuBackground, StartButton, Ship, Soup, Prop, BackButton, SettingButton, ExitButton, StageBackground;
         Texture2D font;
-
+        Texture2D[] StageButton;
         Vector2 fontPosition, shipPosition, soupPosition, startButtonPosition, propPosition, exitButtonPosition, settingButtonPosition;
         Vector2[] ButtonStage = new Vector2[5];
         Vector2 BackPosition;
@@ -25,13 +25,15 @@ namespace Catapult
 
         float transparent;
 
-        public MainMenu(Texture2D MenuBackground, Texture2D StartButton, Texture2D SettingButton, Texture2D ExitButton, Texture2D Ship, Texture2D Soup, Texture2D font, Texture2D prop, Texture2D BackButton)
+        public MainMenu(Texture2D MenuBackground, Texture2D StartButton, Texture2D SettingButton, Texture2D ExitButton, Texture2D Ship, Texture2D Soup, Texture2D font, Texture2D prop, Texture2D BackButton, Texture2D StageBackground, Texture2D[] StageButton)
         {
             this.MenuBackground = MenuBackground;
             this.StartButton = StartButton;
             this.SettingButton = SettingButton;
             this.ExitButton = ExitButton;
             this.BackButton = BackButton;
+            this.StageBackground = StageBackground;
+            this.StageButton = StageButton;
             this.Ship = Ship;
             this.Soup = Soup;
             this.font = font;
@@ -145,8 +147,8 @@ namespace Catapult
                 case menu.StageSelect:
                     Singleton.Instance.CurrentMouse = Mouse.GetState();
                     //Back
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= BackPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < BackPosition.Y + StartButton.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= BackPosition.X && Singleton.Instance.CurrentMouse.Position.X < BackPosition.X + StartButton.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= BackPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < BackPosition.Y + BackButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= BackPosition.X && Singleton.Instance.CurrentMouse.Position.X < BackPosition.X + BackButton.Width))
                     {
                         //Pressed
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
@@ -155,8 +157,8 @@ namespace Catapult
                         }
                     }
                     //Stage 1
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[0].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[0].Y + StartButton.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[0].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[0].X + StartButton.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[0].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[0].Y + StageButton[0].Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[0].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[0].X + StageButton[0].Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -164,8 +166,8 @@ namespace Catapult
                         }
                     }
                     //Stage 2
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[1].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[1].Y + StartButton.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[1].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[1].X + StartButton.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[1].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[1].Y + StageButton[1].Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[1].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[1].X + StageButton[1].Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -173,8 +175,8 @@ namespace Catapult
                         }
                     }
                     //Stage 3
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[2].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[2].Y + StartButton.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[2].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[2].X + StartButton.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[2].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[2].Y + StageButton[2].Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[2].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[2].X + StageButton[2].Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -182,8 +184,8 @@ namespace Catapult
                         }
                     }
                     //Stage 4
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[3].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[3].Y + StartButton.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[3].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[3].X + StartButton.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[3].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[3].Y + StageButton[3].Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[3].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[3].X + StageButton[3].Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -191,8 +193,8 @@ namespace Catapult
                         }
                     }
                     //Stage 5
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[4].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[4].Y + StartButton.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[4].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[4].X + StartButton.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[4].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[4].Y + StageButton[4].Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[4].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[4].X + StageButton[4].Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -222,15 +224,15 @@ namespace Catapult
                     spriteBatch.Draw(font, fontPosition, Color.Yellow);
                     break;
                 case menu.StageSelect:
-                    spriteBatch.Draw(MenuBackground, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StageBackground, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Ship, shipPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Soup, soupPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(BackButton, BackPosition, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(StartButton, ButtonStage[0], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(StartButton, ButtonStage[1], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(StartButton, ButtonStage[2], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(StartButton, ButtonStage[3], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(StartButton, ButtonStage[4], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StageButton[0], ButtonStage[0], null, Color.White * 0.6f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StageButton[1], ButtonStage[1], null, Color.White * 0.6f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StageButton[2], ButtonStage[2], null, Color.White * 0.6f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StageButton[3], ButtonStage[3], null, Color.White * 0.6f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StageButton[4], ButtonStage[4], null, Color.White * 0.6f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
                 case menu.Setting:
                     break;

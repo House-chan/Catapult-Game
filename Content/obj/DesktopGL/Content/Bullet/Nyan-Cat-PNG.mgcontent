@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/2_idle.png</SourceFile>
-  <SourceTime>2022-05-18T23:40:21.4248298+07:00</SourceTime>
-  <DestFile>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/bin/DesktopGL/Content/MainMenu/Button/2_idle.xnb</DestFile>
-  <DestTime>2022-05-18T23:42:40.9329126+07:00</DestTime>
+  <SourceFile>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/Nyan-Cat-PNG.png</SourceFile>
+  <SourceTime>2022-05-18T22:52:52.8972784+07:00</SourceTime>
+  <DestFile>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/bin/DesktopGL/Content/Bullet/Nyan-Cat-PNG.xnb</DestFile>
+  <DestTime>2022-05-18T22:53:25.2409385+07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2020-08-10T23:17:54+07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

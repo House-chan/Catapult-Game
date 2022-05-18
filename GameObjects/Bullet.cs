@@ -116,23 +116,23 @@ namespace Catapult.GameObjects
                     break;
 
                 case BulletType.Missile:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Cluster:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Laser:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.NyanCat:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Nuclear:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Satellite:
@@ -300,8 +300,6 @@ namespace Catapult.GameObjects
                 }
             }
             new_Velocity = Vector2.Multiply(sum, G) + Velocity;
-
-
             return new_Velocity;
         }
     }
