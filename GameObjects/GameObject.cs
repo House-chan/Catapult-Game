@@ -9,7 +9,7 @@ namespace Catapult
 
         public Vector2 Position;
         public float Rotation;
-        public Vector2 Scale;
+        public int Scale;
         public int width, height;
         public Vector2 Velocity;
 
@@ -19,7 +19,7 @@ namespace Catapult
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
+                return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width * Scale, _texture.Height * Scale);
             }
         }
 
@@ -27,7 +27,7 @@ namespace Catapult
         {
             _texture = texture;
             Position = Vector2.Zero;
-            Scale = Vector2.One;
+            Scale = 1;
             Rotation = 0f;
             width = _texture.Width;
             height = _texture.Height;

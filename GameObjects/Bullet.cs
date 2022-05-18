@@ -14,6 +14,7 @@ namespace Catapult.GameObjects
         Boolean isPlayerBullet;
         int damage;
 
+        public bool end;
 
         enum BulletType
         {
@@ -89,18 +90,19 @@ namespace Catapult.GameObjects
 
         }
 
-        public void Update(GameTime gameTime, List<Planet> planet)
+        public void Update(GameTime gameTime, List<EnemyShip> enemy, List<Planet> planet)
         {
+            Velocity = gravity(planet);
             //Position += gravity(planet);
             //Position += new Vector2(speed, speed);
             switch (bulletType)
             {
                 case BulletType.Normal:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Heavy:
-                    Position += gravity(planet);
+                    Position += Velocity;
                     break;
 
                 case BulletType.Missile:
@@ -127,6 +129,15 @@ namespace Catapult.GameObjects
                     Position += gravity(planet);
                     break;
             }
+            hit(enemy, planet);
+        }
+
+        public void Update(GameTime gameTime, Ship player, List<Planet> planet)
+        {
+            Velocity = gravity(planet);
+            //Position += gravity(planet);
+            Position += Velocity;
+            hit(player, planet);
         }
 
         public void shooting(float Rotation, float speed)
@@ -152,50 +163,37 @@ namespace Catapult.GameObjects
                     )
                 {
                     sprite.Health -= damage;
+                    end = true;
                     return true;
                 }
-                //if (IsTouchingTop(Pos) ||
-                //    IsTouchingBottom(Pos)) return true;
-                //if (IsTouchingLeft(Pos) ||
-                //    IsTouchingRight(Pos)) return true;
-                //if ((this.Velocity.X > 0 && this.IsTouchingLeft(sprite)) ||
-                //    (this.Velocity.X < 0 && this.IsTouchingRight(sprite)))
-                //{
-                //    this.Velocity.X = 0;
-                //}
-
-                //if ((this.Velocity.Y > 0 && this.IsTouchingTop(sprite)) ||
-                //    (this.Velocity.Y < 0 && this.IsTouchingBottom(sprite)))
-                //{
-                //    this.Velocity.Y = 0;
-                //}
-
             }
 
-            //foreach (Planet sprite in PlanetPosition)
-            //{
-            //    if (
-            //        ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y) &&
-            //        (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE)) ||
-            //        ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE)) &&
-            //        (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y))
-            //        )
-            //    {
-            //        sprite.Health -= 1;
-            //        return true;
-            //    }
-           
-            //}
+            foreach (Planet sprite in PlanetPosition)
+            {
+                if (
+                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y - sprite.height / 2) &&
+                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE - sprite.width / 2) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE - sprite.height / 2)) ||
+                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE - sprite.height / 2)) &&
+                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE - sprite.width / 2) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y - sprite.height / 2))
+                    )
+                {
+                    sprite.Health -= 1;
+                    end = true;
+                    return true;
+                }
+            }
 
             //outscreen
             if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
             {
+                end = true;
                 return true;
             }
                 
             //not hit
             else
             {
+                end = false;
                 return false;
             }
         }
@@ -214,33 +212,37 @@ namespace Catapult.GameObjects
                 )
             {
                 Player.Health -= damage;
+                end = true;
                 return true;
             }
-            
 
-            //foreach (Planet Pos in PlanetPosition)
-            //{
-            //    if (
-            //        ((Position.X + Singleton.BULLETSIZE >= Pos.Position.X && Position.Y + Singleton.BULLETSIZE >= Pos.Position.Y) &&
-            //        (Position.X < (Pos.Position.X + Singleton.SHIPSIZE) && Position.Y < Pos.Position.Y + Singleton.SHIPSIZE)) ||
-            //        ((Position.X + Singleton.BULLETSIZE >= Pos.Position.X && Position.Y < (Pos.Position.Y + Singleton.SHIPSIZE)) &&
-            //        (Position.X < (Pos.Position.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= Pos.Position.Y))
-            //        )
-            //    {
-            //        Pos.Health -= 1;
-            //        return true;
-            //    }
-            //}
+
+            foreach (Planet sprite in PlanetPosition)
+            {
+                if (
+                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y - sprite.height / 2) &&
+                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE - sprite.width / 2) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE - sprite.height / 2)) ||
+                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE - sprite.height / 2)) &&
+                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE - sprite.width / 2) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y - sprite.height / 2))
+                    )
+                {
+                    sprite.Health -= 1;
+                    end = true;
+                    return true;
+                }
+            }
 
             //outscreen
             if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
             {
+                end = true;
                 return true;
             }
 
             //not hit
             else
             {
+                end = false;
                 return false;
             }
         }
@@ -261,7 +263,7 @@ namespace Catapult.GameObjects
                 if(dis < planet.range)
                 {
                     r_hat = Vector2.Normalize(Vector2.Subtract(planet.Position, Position));
-                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / 400));
+                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / 5000));
                 }
             }
             new_Velocity = Vector2.Multiply(sum, Singleton.G) + Velocity;

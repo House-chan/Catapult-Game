@@ -4,31 +4,81 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Bullet/bullet1.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Bullet/bullet2.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Bullet/bullet3.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Bullet/bullet4.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Font.spritefont</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/MainMenu/pirate.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/MainMenu/sky.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/MainMenu/soup.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/barren.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/barren-charred.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/barren-icy.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/chlorine.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/chlorine-barren.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/desert.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/inferno.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/methane.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/methane-barren.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/methane-ice.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Planet/tundra.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Ship/EnemyCanon.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Ship/EnemyShip.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Ship/PlayerCanon.png</File>
-    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Ship/PlayerShip.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet1.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet2.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet3.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Bullet/bullet4.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Font.spritefont</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/backbutton.jpg</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/1_hover.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/1_idle.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/1_lock.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/2_hover.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/2_idle.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/2_lock.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/3_hover.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/3_idle.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/3_lock.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/4_hover.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/4_idle.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/4_lock.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/5_hover.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/5_idle.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/5_lock.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/exit_hover.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/exit_idle.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/setting_hover.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/setting_idle.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/start_hover.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Button/start_idle.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/galaxy.jpg</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/nyan_cat_rotate.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/pirate.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/soup.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/starry-doge.jpg</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Title.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/barren.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/barren-charred.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/barren-icy.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/chlorine.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/chlorine-barren.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/desert.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/inferno.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/methane.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/methane-barren.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/methane-ice.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/tundra.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/EnemyCanon.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/EnemyShip.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/PlayerCanon.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/PlayerShip.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

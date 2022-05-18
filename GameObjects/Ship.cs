@@ -76,8 +76,8 @@ namespace Catapult.GameObjects
                     break;
                     
                 case Stage.Move:
-                    gun.Update(gameTime, Planet);
-                    if (gun.bullet.hit(Enemy, Planet))
+                    gun.Update(gameTime, Enemy, Planet);
+                    if (gun.bullet.end)
                     {
                         gun.clearBullet();
                         stage = Stage.EndTurn;
@@ -129,7 +129,7 @@ namespace Catapult.GameObjects
                 //ShootPower++
                 ShootPower += 0.1f;
             }
-            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released || ShootPower > 10)
+            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released || ShootPower > 15)
             {
                 stage = Stage.Move;
                 gun.reload();

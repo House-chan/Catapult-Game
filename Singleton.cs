@@ -18,7 +18,7 @@ namespace Catapult
         public const int SHIPSIZE = 125;
         public const int BULLETSIZE = 15;
 
-        public const float G = 2000;
+        public const float G = 1500;
 
         private Singleton()
         {

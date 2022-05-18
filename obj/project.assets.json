@@ -174,32 +174,34 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ariya\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\house\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ハウス\\Assignment\\Kmitl\\Year_2\\Semester_2\\Computer_Game\\Catapult2\\Catapult-Game\\Catapult.csproj",
+      "projectUniqueName": "E:\\Year_2\\Semester_2\\Computer_Game\\Catapult-Game\\Catapult.csproj",
       "projectName": "Catapult",
-      "projectPath": "E:\\ハウス\\Assignment\\Kmitl\\Year_2\\Semester_2\\Computer_Game\\Catapult2\\Catapult-Game\\Catapult.csproj",
-      "packagesPath": "C:\\Users\\ariya\\.nuget\\packages\\",
-      "outputPath": "E:\\ハウス\\Assignment\\Kmitl\\Year_2\\Semester_2\\Computer_Game\\Catapult2\\Catapult-Game\\obj\\",
+      "projectPath": "E:\\Year_2\\Semester_2\\Computer_Game\\Catapult-Game\\Catapult.csproj",
+      "packagesPath": "C:\\Users\\house\\.nuget\\packages\\",
+      "outputPath": "E:\\Year_2\\Semester_2\\Computer_Game\\Catapult-Game\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\ariya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\house\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://teamcity.monogame.net/guestAuth/app/nuget/feed/_Root/default/v3/index.json": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -242,7 +244,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   }

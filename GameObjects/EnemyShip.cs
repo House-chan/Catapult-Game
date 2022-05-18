@@ -75,8 +75,8 @@ namespace Catapult.GameObjects
 
                 case Stage.Move:
                     //bullet.shooting(Rotation, power);
-                    gun.Update(gameTime, Planet);
-                    if (gun.bullet.hit(Player, Planet))
+                    gun.Update(gameTime, Player, Planet);
+                    if (gun.bullet.end)
                     {
                         gun.clearBullet();
                         stage = Stage.EndTurn;

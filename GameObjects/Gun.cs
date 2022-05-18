@@ -56,9 +56,14 @@ namespace Catapult.GameObjects
             base.Reset();
         }
 
-        public void Update(GameTime gameTime, List<Planet> planet)
+        public void Update(GameTime gameTime, List<EnemyShip> enemy, List<Planet> planet)
         {
-            bullet.Update(gameTime, planet);
+            bullet.Update(gameTime, enemy, planet);
+        }
+
+        public void Update(GameTime gameTime, Ship player, List<Planet> planet)
+        {
+            bullet.Update(gameTime, player, planet);
         }
 
         public void shoot(float power)
@@ -68,10 +73,12 @@ namespace Catapult.GameObjects
 
         public void aiming()
         {
-            //if (Singleton.Instance.CurrentMouse.Position.Y <= 560)
-            //{
-            Distance.Y = -Singleton.Instance.CurrentMouse.Position.Y + (_texture.Height / 2) + Position.Y;
-            Distance.X = -Singleton.Instance.CurrentMouse.Position.X + (_texture.Width / 2) + Position.X;
+            if (Singleton.Instance.CurrentMouse.Position.Y <= Singleton.SCREENHEIGHT && Singleton.Instance.CurrentMouse.Position.Y >= 0 &&
+                Singleton.Instance.CurrentMouse.Position.X <= Singleton.SCREENWIDTH && Singleton.Instance.CurrentMouse.Position.X >= 0)
+            {
+                Distance.Y = -Singleton.Instance.CurrentMouse.Position.Y + (_texture.Height / 2) + Position.Y;
+                Distance.X = -Singleton.Instance.CurrentMouse.Position.X + (_texture.Width / 2) + Position.X;
+            }
 
             Rotation = (float)Math.Atan2(Distance.Y, Distance.X);
             Velocity.X = (float)(Math.Cos(Rotation));

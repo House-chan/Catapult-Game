@@ -13,34 +13,40 @@ namespace Catapult
         {
             MainMenu, StageSelect, Setting
         }
-        Texture2D MenuBackground, Button, Ship, Soup;
-        SpriteFont font;
+        Texture2D MenuBackground, StartButton, Ship, Soup, Prop, BackButton, SettingButton, ExitButton;
+        Texture2D font;
 
-        Vector2 fontPosition, shipPosition, soupPosition, buttonPosition;
+        Vector2 fontPosition, shipPosition, soupPosition, startButtonPosition, propPosition, exitButtonPosition, settingButtonPosition;
         Vector2[] ButtonStage = new Vector2[5];
-        Vector2 BackButton;
+        Vector2 BackPosition;
         menu mainMenu;
-
+        public bool hit, exit;
         public int stage;
 
         float transparent;
 
-        public MainMenu(Texture2D MenuBackground, Texture2D Button, Texture2D Ship, Texture2D Soup, SpriteFont font)
+        public MainMenu(Texture2D MenuBackground, Texture2D StartButton, Texture2D SettingButton, Texture2D ExitButton, Texture2D Ship, Texture2D Soup, Texture2D font, Texture2D prop, Texture2D BackButton)
         {
             this.MenuBackground = MenuBackground;
-            this.Button = Button;
+            this.StartButton = StartButton;
+            this.SettingButton = SettingButton;
+            this.ExitButton = ExitButton;
+            this.BackButton = BackButton;
             this.Ship = Ship;
             this.Soup = Soup;
             this.font = font;
-            stage = 0;
+            Prop = prop;
             mainMenu = menu.MainMenu;
+            startButtonPosition = new Vector2(575, 400);
+            exitButtonPosition = new Vector2(650, 675);
+            settingButtonPosition = new Vector2(620, 550);
             resetMenu();
             ButtonStage[0] = new Vector2(155, 165);
             ButtonStage[1] = new Vector2(675, 165);
             ButtonStage[2] = new Vector2(1195, 165);
             ButtonStage[3] = new Vector2(405, 540);
             ButtonStage[4] = new Vector2(945, 540);
-            BackButton = new Vector2(45, 35);
+            BackPosition = new Vector2(45, 35);
         }
 
         public void Update(GameTime gameTime)
@@ -51,29 +57,48 @@ namespace Catapult
                     //Moving Animation
                     if (fontPosition.Y < 10)
                     {
-                        fontPosition.Y += 1;
+                        fontPosition.Y += 2;
                     }
-                    else
+                    else if(!hit)
                     {
                         if(soupPosition.X < 300)
                         {
-                            soupPosition.X += 10;
+                            soupPosition.X += 25;
                         }
                         if(shipPosition.X > 800)
                         {
-                            shipPosition.X -= 10;
+                            shipPosition.X -= 25;
                         }
-                        if(transparent < 1)
+                        if(soupPosition.X >= 300 && shipPosition.X <= 800)
+                        {
+                            hit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (soupPosition.X > -0)
+                        {
+                            soupPosition.X -= 5;
+                        }
+                        if (shipPosition.X < 1075)
+                        {
+                            shipPosition.X += 5;
+                        }
+                        if (transparent < 1)
                         {
                             transparent += 0.01f;
                         }
+                        if (propPosition.X < 50)
+                        {
+                            propPosition.X += 5;
+                        }
                     }
 
+                    Singleton.Instance.CurrentMouse = Mouse.GetState();
                     //Start Button
                     //Hover
-                    Singleton.Instance.CurrentMouse = Mouse.GetState();
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= buttonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < buttonPosition.Y + Button.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= buttonPosition.X && Singleton.Instance.CurrentMouse.Position.X < buttonPosition.X + Button.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= startButtonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < startButtonPosition.Y + StartButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= startButtonPosition.X && Singleton.Instance.CurrentMouse.Position.X < startButtonPosition.X + StartButton.Width))
                     {
                         //Pressed
                         if(Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
@@ -82,13 +107,46 @@ namespace Catapult
                             mainMenu = menu.StageSelect;
                         }
                     }
+                    //Setting Button
+                    else if ((Singleton.Instance.CurrentMouse.Position.Y >= settingButtonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < settingButtonPosition.Y + SettingButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= settingButtonPosition.X && Singleton.Instance.CurrentMouse.Position.X < settingButtonPosition.X + SettingButton.Width))
+                    {
+                        //Pressed
+                        if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+                        {
+                            resetMenu();
+                            mainMenu = menu.StageSelect;
+                        }
+                    }
+                    //Exit Button
+                    else if ((Singleton.Instance.CurrentMouse.Position.Y >= exitButtonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < exitButtonPosition.Y + ExitButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= exitButtonPosition.X && Singleton.Instance.CurrentMouse.Position.X < exitButtonPosition.X + ExitButton.Width))
+                    {
+                        //Pressed
+                        if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+                        {
+                            exit = true;
+                        }
+                    }
+                    else
+                    {
+                        if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+                        {
+                            fontPosition.Y = 10;
+                            soupPosition.X = 0;
+                            shipPosition.X = 1075;
+                            transparent = 1f;
+                            propPosition.X = 50;
+                            hit = true;
+                        }
+                    }
                     Singleton.Instance.PreviousMouse = Singleton.Instance.CurrentMouse;
                     break;
                 case menu.StageSelect:
                     Singleton.Instance.CurrentMouse = Mouse.GetState();
                     //Back
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= BackButton.Y && Singleton.Instance.CurrentMouse.Position.Y < BackButton.Y + Button.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= BackButton.X && Singleton.Instance.CurrentMouse.Position.X < BackButton.X + Button.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= BackPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < BackPosition.Y + StartButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= BackPosition.X && Singleton.Instance.CurrentMouse.Position.X < BackPosition.X + StartButton.Width))
                     {
                         //Pressed
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
@@ -97,8 +155,8 @@ namespace Catapult
                         }
                     }
                     //Stage 1
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[0].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[0].Y + Button.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[0].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[0].X + Button.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[0].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[0].Y + StartButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[0].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[0].X + StartButton.Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -106,8 +164,8 @@ namespace Catapult
                         }
                     }
                     //Stage 2
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[1].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[1].Y + Button.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[1].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[1].X + Button.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[1].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[1].Y + StartButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[1].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[1].X + StartButton.Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -115,8 +173,8 @@ namespace Catapult
                         }
                     }
                     //Stage 3
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[2].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[2].Y + Button.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[2].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[2].X + Button.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[2].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[2].Y + StartButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[2].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[2].X + StartButton.Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -124,8 +182,8 @@ namespace Catapult
                         }
                     }
                     //Stage 4
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[3].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[3].Y + Button.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[3].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[3].X + Button.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[3].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[3].Y + StartButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[3].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[3].X + StartButton.Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -133,8 +191,8 @@ namespace Catapult
                         }
                     }
                     //Stage 5
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[4].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[4].Y + Button.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[4].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[4].X + Button.Width))
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= ButtonStage[4].Y && Singleton.Instance.CurrentMouse.Position.Y < ButtonStage[4].Y + StartButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= ButtonStage[4].X && Singleton.Instance.CurrentMouse.Position.X < ButtonStage[4].X + StartButton.Width))
                     {
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
@@ -157,18 +215,22 @@ namespace Catapult
                     spriteBatch.Draw(MenuBackground, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Ship, shipPosition, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Soup, soupPosition, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(Button, buttonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.DrawString(font, "Testing", fontPosition, Color.White);
+                    spriteBatch.Draw(Prop, propPosition, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StartButton, startButtonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(SettingButton, settingButtonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(ExitButton, exitButtonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(font, fontPosition, Color.Yellow);
                     break;
                 case menu.StageSelect:
                     spriteBatch.Draw(MenuBackground, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Ship, shipPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Soup, soupPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(Button, ButtonStage[0], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(Button, ButtonStage[1], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(Button, ButtonStage[2], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(Button, ButtonStage[3], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(Button, ButtonStage[4], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(BackButton, BackPosition, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StartButton, ButtonStage[0], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StartButton, ButtonStage[1], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StartButton, ButtonStage[2], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StartButton, ButtonStage[3], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StartButton, ButtonStage[4], null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
                 case menu.Setting:
                     break;
@@ -177,11 +239,13 @@ namespace Catapult
 
         void resetMenu()
         {
-            fontPosition = new Vector2(250, -250);
-            buttonPosition = new Vector2(630, 475);
-            soupPosition = new Vector2(-700, 600);
-            shipPosition = new Vector2(1750, 0);
+            fontPosition = new Vector2(120, -450);
+            soupPosition = new Vector2(-700, 400);
+            shipPosition = new Vector2(1750, 100);
+            propPosition = new Vector2(-500, 50);
             transparent = 0.0f;
+            hit = false;
+            stage = 0;
         }
 
     }

@@ -10,7 +10,7 @@ namespace Catapult.GameObjects
     class AimGuide : GameObject
     {
         public Vector2 start_pos;
-        protected float guide_length = 100;
+        protected float guide_length = 50;
         public bool is_active;
         //protected Gravity gravity;
         Ship player;
@@ -35,10 +35,9 @@ namespace Catapult.GameObjects
 
                     for (int i = 0; i < guide_length; i++)
                     {
-                        position += cur_velocity;
-                        spriteBatch.Draw(_texture, position, null, new Color(255, 255, 255, 100), 0f, new Vector2(_texture.Width / 2, _texture.Height / 2), 0.2f * (1 - (float)(i + 1) / guide_length), SpriteEffects.None, 0);
+                        position += cur_velocity * 2f;
+                        spriteBatch.Draw(_texture, position, null, new Color(255, 255, 255, 100), 0f, new Vector2(_texture.Width / 2, _texture.Height / 2), 0.4f * (1 - (float)(i + 1) / guide_length), SpriteEffects.None, 0);
                         cur_velocity = Gravity(position, cur_velocity, planet);
-                   
                     }
                 }
         }
