@@ -336,7 +336,12 @@ namespace Catapult
                     break;
                 case Stage.Stage:
                     Player.Draw(_spriteBatch, Planet);
-                    if(Player.stage == GameObjects.Ship.Stage.Shooting)
+                    if (turn == Turn.Player)
+                    {
+                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2 - 25, (int)Player.Position.Y + 100, 100, 25), null, Color.Black, (float)Math.PI / -2.0f, new Vector2(1, 1), SpriteEffects.None, 0f);
+                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2 - 25, (int)Player.Position.Y + 100, (int)Player.moveRange/5, 20), null, Color.Blue, (float)Math.PI / -2.0f, new Vector2(1, 1), SpriteEffects.None, 0f);
+                    }
+                    if (Player.stage == GameObjects.Ship.Stage.Shooting)
                     {
                         _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 115, 200, 10), Color.Black * 0.8f);
                         _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 115, (int)Player.ShootPower * 14, 8), Color.Orange);
