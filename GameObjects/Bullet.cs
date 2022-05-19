@@ -198,7 +198,7 @@ namespace Catapult.GameObjects
             {
                 if(Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
                 {
-                    if(rand.Next(100) < 10)
+                    if(rand.Next(100) < 1)
                     {
                         //_texture =
                         Position.Y = 50;

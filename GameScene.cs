@@ -33,7 +33,7 @@ namespace Catapult
         List<EnemyShip> Enemy = new List<EnemyShip>();
         List<Planet> Planet = new List<Planet>();
 
-        SpriteFont font;
+        SpriteFont font, pauseFont;
         int countTurn;
 
         MainMenu mainmenu;
@@ -44,6 +44,9 @@ namespace Catapult
         String WhoseTurn;
         Turn lastTurn;
         float transparent;
+
+        MouseState mouse;
+        MouseState premouse;
         public GameScene()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -58,12 +61,8 @@ namespace Catapult
             _graphics.PreferredBackBufferHeight = Singleton.SCREENHEIGHT;
             _graphics.ApplyChanges();
 
-            turn = Turn.ChangeTurn;
-            lastTurn = Turn.Enemy;
             Game = Stage.MainMenu;
-
-            countTurn = 0;
-            transparent = 1f;
+            GameReset();
             base.Initialize();
         }
 
@@ -95,8 +94,7 @@ namespace Catapult
             Bullet[3] = Content.Load<Texture2D>("Bullet/bullet1");
 
             font = Content.Load<SpriteFont>("Font");
-            Board = new Vector2(-1400, 400);
-            WhoseTurn = "PLAYER TURN";
+            pauseFont = Content.Load<SpriteFont>("pause");
 
             box = new Texture2D(_graphics.GraphicsDevice, 100, 5);
             Color[] color = new Color[100 * 5];
@@ -140,13 +138,22 @@ namespace Catapult
                     if(mainmenu.stage != 0)
                     {
                         changeStage(mainmenu.stage);
-                        mainmenu.stage = 0;
+                        //mainmenu.stage = 0;
                         Game = Stage.Stage;
                     }
                     break;
 
                 case Stage.Stage:
-
+                    mouse = Mouse.GetState();
+                    if ((mouse.Position.Y >= 30 && mouse.Position.Y < 92.5) &&
+                        (mouse.Position.X >= 45 && mouse.Position.X < 95))
+                    {
+                        //Pressed
+                        if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                        {
+                            Game = Stage.Pause;
+                        }
+                    }
                     switch (turn)
                     {
                         case Turn.Player:
@@ -173,7 +180,7 @@ namespace Catapult
                                 }                                
                                 if(Enemy.Count == 0)
                                 {
-                                    Game = Stage.Pause;
+                                    Game = Stage.End;
                                 }
                             
                             }
@@ -210,7 +217,7 @@ namespace Catapult
                             
                             if(Player == null)
                             {
-                                Game = Stage.Pause;
+                                Game = Stage.End;
                             }
                             
                             break;
@@ -254,10 +261,58 @@ namespace Catapult
                             }
                             break;
                     }
+                    premouse = mouse;
                     break;
                     
                 case Stage.Pause:
-
+                    mouse = Mouse.GetState();
+                    //Resume
+                    if ((mouse.Position.Y >= 290 && mouse.Position.Y < 365) &&
+                        (mouse.Position.X >= 670 && mouse.Position.X < 950))
+                    {
+                        //Pressed
+                        if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                        {
+                            Game = Stage.Stage;
+                        }
+                    }
+                    //Restart
+                    if ((mouse.Position.Y >= 400 && mouse.Position.Y < 475) &&
+                        (mouse.Position.X >= 670 && mouse.Position.X < 950))
+                    {
+                        //Pressed
+                        if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                        {
+                            GameReset();
+                            changeStage(mainmenu.stage);
+                            Game = Stage.Stage;
+                        }
+                    }
+                    //Mainmenu
+                    if ((mouse.Position.Y >= 510 && mouse.Position.Y < 585) &&
+                        (mouse.Position.X >= 670 && mouse.Position.X < 950))
+                    {
+                        //Pressed
+                        if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                        {
+                            GameReset();
+                            mainmenu.stage = 0;
+                            mainmenu.page = MainMenu.menu.MainMenu;
+                            mainmenu.resetMenu();
+                            Game = Stage.MainMenu;
+                        }
+                    }
+                    //Exit
+                    if ((mouse.Position.Y >= 620 && mouse.Position.Y < 695) &&
+                        (mouse.Position.X >= 695 && mouse.Position.X < 925))
+                    {
+                        //Pressed
+                        if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                        {
+                            Exit();
+                        }
+                    }
+                    premouse = mouse;
                     break;
 
                 case Stage.End:
@@ -338,7 +393,29 @@ namespace Catapult
                         {
                             list.Draw(_spriteBatch);
                         }
+                    //Black Background
                     _spriteBatch.Draw(box, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.Black * 0.3f);
+                    
+                    //PauseBoard
+                    _spriteBatch.Draw(box, new Rectangle(568, 147, 465, 605), Color.White* 0.8f);
+                    _spriteBatch.DrawString(font, "Paused", new Vector2(590, 145), Color.Orange);
+                    _spriteBatch.DrawString(font, "Paused", new Vector2(590, 145), Color.Yellow * 0.6f);
+
+                    //Resume
+                    _spriteBatch.Draw(box, new Rectangle(670, 290, 280, 75), Color.Green);
+                    _spriteBatch.DrawString(pauseFont, "Resume", new Vector2(684, 290), Color.White);
+
+                    //Restart
+                    _spriteBatch.Draw(box, new Rectangle(670, 400, 280, 75), Color.Green);
+                    _spriteBatch.DrawString(pauseFont, "Restart", new Vector2(700, 400), Color.White);
+
+                    //Mainmenu
+                    _spriteBatch.Draw(box, new Rectangle(670, 510, 280, 75), Color.Green);
+                    _spriteBatch.DrawString(pauseFont, "Menu", new Vector2(725, 510), Color.White);
+
+                    //Exit
+                    _spriteBatch.Draw(box, new Rectangle(695, 620, 230, 75), Color.Red);
+                    _spriteBatch.DrawString(pauseFont, "Exit", new Vector2(750, 620), Color.White);
                     break;
 
                 case Stage.End:
@@ -365,6 +442,25 @@ namespace Catapult
             _spriteBatch.End();
             _graphics.BeginDraw();
             base.Draw(gameTime);
+        }
+
+        void GameReset()
+        {
+            if(Player != null) Player = null;
+            for(int i = Enemy.Count-1; i >= 0; i--)
+            {
+                Enemy.RemoveAt(i);
+            }
+            for (int i = Planet.Count-1; i >= 0; i--)
+            {
+                Planet.RemoveAt(i);
+            }
+            countTurn = 0;
+            turn = Turn.ChangeTurn;
+            lastTurn = Turn.Enemy;
+            WhoseTurn = "PLAYER TURN";
+            Board = new Vector2(-1400, 400);
+            transparent = 1f;
         }
         void changeStage(int stage)
         {

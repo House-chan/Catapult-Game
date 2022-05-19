@@ -416,6 +416,13 @@
 /processorParam:TextureFormat=Color
 /build:MainMenu/Title.png
 
+#begin pause.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:pause.spritefont
+
 #begin Planet/barren.png
 /importer:TextureImporter
 /processor:TextureProcessor

@@ -9,7 +9,7 @@ namespace Catapult
 {
     class MainMenu
     {
-        enum menu
+        public enum menu
         {
             MainMenu, StageSelect, Setting
         }
@@ -19,7 +19,7 @@ namespace Catapult
         Vector2 fontPosition, shipPosition, soupPosition, startButtonPosition, propPosition, exitButtonPosition, settingButtonPosition;
         Vector2[] ButtonStage = new Vector2[5];
         Vector2 BackPosition;
-        menu mainMenu;
+        public menu page;
         public bool hit, exit;
         public int stage;
 
@@ -38,7 +38,7 @@ namespace Catapult
             this.Soup = Soup;
             this.font = font;
             Prop = prop;
-            mainMenu = menu.MainMenu;
+            page = menu.MainMenu;
             startButtonPosition = new Vector2(575, 400);
             exitButtonPosition = new Vector2(650, 675);
             settingButtonPosition = new Vector2(620, 550);
@@ -53,7 +53,7 @@ namespace Catapult
 
         public void Update(GameTime gameTime)
         {
-            switch (mainMenu)
+            switch (page)
             {
                 case menu.MainMenu:
                     //Moving Animation
@@ -106,7 +106,7 @@ namespace Catapult
                         if(Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
                             resetMenu();
-                            mainMenu = menu.StageSelect;
+                            page = menu.StageSelect;
                         }
                     }
                     //Setting Button
@@ -117,7 +117,7 @@ namespace Catapult
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
                             resetMenu();
-                            mainMenu = menu.StageSelect;
+                            page = menu.StageSelect;
                         }
                     }
                     //Exit Button
@@ -153,7 +153,7 @@ namespace Catapult
                         //Pressed
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
-                            mainMenu = menu.MainMenu;
+                            page = menu.MainMenu;
                         }
                     }
                     //Stage 1
@@ -211,7 +211,7 @@ namespace Catapult
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            switch (mainMenu)
+            switch (page)
             {
                 case menu.MainMenu:
                     spriteBatch.Draw(MenuBackground, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
@@ -239,7 +239,7 @@ namespace Catapult
             }
         }
 
-        void resetMenu()
+        public void resetMenu()
         {
             fontPosition = new Vector2(120, -450);
             soupPosition = new Vector2(-700, 400);

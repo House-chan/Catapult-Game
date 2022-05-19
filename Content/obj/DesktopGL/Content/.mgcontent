@@ -38,6 +38,7 @@
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/soup.png</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/starry-doge.jpg</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/MainMenu/Title.png</File>
+    <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/pause.spritefont</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/barren.png</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/barren-charred.png</File>
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Planet/barren-icy.png</File>
@@ -55,6 +56,7 @@
     <File>E:/Year_2/Semester_2/Computer_Game/Catapult-Game/Content/Ship/PlayerShip.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
