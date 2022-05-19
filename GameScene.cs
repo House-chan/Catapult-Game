@@ -383,6 +383,8 @@ namespace Catapult
                     }
 
                     //Turn
+                    _spriteBatch.Draw(box, new Rectangle(45, 30, 19, 63), Color.Yellow);
+                    _spriteBatch.Draw(box, new Rectangle(76, 30, 19, 63), Color.Yellow);
                     _spriteBatch.DrawString(font, WhoseTurn, Board, Color.Red * transparent);
 
                     break;
