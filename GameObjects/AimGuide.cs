@@ -10,7 +10,7 @@ namespace Catapult.GameObjects
     class AimGuide : GameObject
     {
         public Vector2 start_pos;
-        protected float guide_length = 160;
+        protected float guide_length = 100;
         public bool is_active;
         //protected Gravity gravity;
         Ship player;

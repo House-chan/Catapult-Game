@@ -166,10 +166,26 @@ namespace Catapult.GameObjects
             foreach (EnemyShip sprite in EnemyPosition)
             {
                 if (
-                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X  && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y) &&
-                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE)) ||
-                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE)) &&
-                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y))
+                    ////Left Up-Down
+                    //((Position.X + width >= sprite.Position.X - sprite.width / 2 && Position.Y + height >= sprite.Position.Y) &&
+                    //(Position.X + width >= sprite.Position.X - sprite.width / 2 && Position.Y < sprite.Position.Y + sprite.height / 2)) &&
+
+                    ////Right Up-Down
+                    //((Position.X + width <= sprite.Position.X + sprite.width && Position.Y + height >= sprite.Position.Y) &&
+                    //(Position.X + width <= sprite.Position.X + sprite.width && Position.Y < sprite.Position.Y + sprite.height / 2)) &&
+
+                    ////Up Left-Right
+                    //((Position.X + width >= sprite.Position.X - sprite.width / 2 && Position.Y + height >= sprite.Position.Y) &&
+                    //(Position.X + width <= sprite.Position.X + sprite.width && Position.Y + height >= sprite.Position.Y)) &&
+
+                    ////Down Left-Right
+                    //((Position.X + width >= sprite.Position.X - sprite.width / 2 && Position.Y < sprite.Position.Y + sprite.height / 2) &&
+                    //(Position.X + width <= sprite.Position.X + sprite.width && Position.Y < sprite.Position.Y + sprite.height / 2)) 
+
+                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y) &&
+                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE + sprite.width / 2) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE)) ||
+                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE)) &&
+                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE + sprite.width / 2) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y))
                     )
                 {
                     sprite.Health -= damage;
@@ -197,7 +213,7 @@ namespace Catapult.GameObjects
             {
                 if(Position.Y > Singleton.SCREENHEIGHT + bullet_screen_padding || Position.Y < bullet_screen_padding)
                 {
-                    if(rand.Next(100) < 10)
+                    if(rand.Next(100) < 1)
                     {
                         //_texture =
                         Position.Y = 50;
@@ -237,10 +253,10 @@ namespace Catapult.GameObjects
             //hit enemy
             
             if (
-                ((Position.X + Singleton.BULLETSIZE >= Player.Position.X && Position.Y + Singleton.BULLETSIZE >= Player.Position.Y) &&
-                (Position.X < (Player.Position.X + Singleton.SHIPSIZE) && Position.Y < Player.Position.Y + Singleton.SHIPSIZE)) ||
-                ((Position.X + Singleton.BULLETSIZE >= Player.Position.X && Position.Y < (Player.Position.Y + Singleton.SHIPSIZE)) &&
-                (Position.X < (Player.Position.X + Singleton.SHIPSIZE) && Position.Y + Singleton.BULLETSIZE >= Player.Position.Y))
+                ((Position.X + Singleton.BULLETSIZE >= Player.Position.X - Player.width / 2 && Position.Y + Singleton.BULLETSIZE >= Player.Position.Y) &&
+                (Position.X < (Player.Position.X + Singleton.SHIPSIZE + Player.width / 2) && Position.Y < Player.Position.Y + Singleton.SHIPSIZE)) ||
+                ((Position.X + Singleton.BULLETSIZE >= Player.Position.X - Player.width / 2 && Position.Y < (Player.Position.Y + Singleton.SHIPSIZE)) &&
+                (Position.X < (Player.Position.X + Singleton.SHIPSIZE + Player.width / 2) && Position.Y + Singleton.BULLETSIZE >= Player.Position.Y))
                 )
             {
                 Player.Health -= damage;

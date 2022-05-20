@@ -177,3 +177,6 @@ E:\Year_2\Semester_2\Computer_Game\Catapult-Game\bin\Debug\netcoreapp3.1\Content
 E:\Year_2\Semester_2\Computer_Game\Catapult-Game\bin\Debug\netcoreapp3.1\Content\MainMenu\nyan_cat_rotate.xnb
 E:\Year_2\Semester_2\Computer_Game\Catapult-Game\bin\Debug\netcoreapp3.1\Content\MainMenu\Button\Start_hov.xnb
 E:\Year_2\Semester_2\Computer_Game\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Bullet\Nyan-Cat-PNG.xnb
+E:\Year_2\Semester_2\Computer_Game\Catapult-Game\bin\Debug\netcoreapp3.1\Content\pause1.xnb
+E:\Year_2\Semester_2\Computer_Game\Catapult-Game\bin\Debug\netcoreapp3.1\Content\pause2.xnb
+E:\Year_2\Semester_2\Computer_Game\Catapult-Game\bin\Debug\netcoreapp3.1\Content\pause.xnb
