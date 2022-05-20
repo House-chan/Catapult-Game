@@ -40,7 +40,7 @@ namespace Catapult.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation, new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation, new Vector2(width / 2, height / 2), 1, SpriteEffects.None, 0f);
             gun.DrawEnemy(spriteBatch);
         }
 

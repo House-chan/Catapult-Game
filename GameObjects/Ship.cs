@@ -27,7 +27,7 @@ namespace Catapult.GameObjects
         public Ship(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture, Texture2D GuideLine) : base(texture)
         {
             speed = 5;
-            moveRange = 500;
+            moveRange = 1500;
             Health = 100;
             ShootPower = 5.0f;
             stage = Stage.Start;
