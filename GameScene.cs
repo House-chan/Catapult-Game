@@ -38,6 +38,7 @@ namespace Catapult
 
         MainMenu mainmenu;
         Texture2D ship, soup, menuBackground, stageSelect, prop, startButton, exitButton, backButton, title, settingButton;
+        Texture2D gameBackground;
         Texture2D[] stageButton = new Texture2D[5];
 
         Vector2 Board;
@@ -71,6 +72,7 @@ namespace Catapult
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            //gameBackground = Content.Load<>
             PlayerShip = Content.Load<Texture2D>("Ship/PlayerShip");
             PlanetTexture[0] = Content.Load<Texture2D>("Planet/barren");
             PlanetTexture[1] = Content.Load<Texture2D>("Planet/barren-charred");
@@ -427,22 +429,27 @@ namespace Catapult
 
                 case Stage.End:
                     if(Player != null) Player.Draw(_spriteBatch, Planet);
-                    else
-                    {
-                        _spriteBatch.DrawString(font, "You Are Dead GGEZ", new Vector2(225, 350), Color.Red);
-                    }
-                    if (EnemyShip != null)
+                    if (Enemy.Count > 0)
                     foreach (EnemyShip list in Enemy)
                     {
                         list.Draw(_spriteBatch);
                     }
-                    if (Planet != null)
+                    if (Planet.Count > 0)
                     foreach (Planet list in Planet)
                     {
                         list.Draw(_spriteBatch);
                         //_spriteBatch.DrawString(font, list.Health.ToString(), list.Position + new Vector2(0, 90), Color.Black);
                     }
                     _spriteBatch.Draw(box, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.Black * 0.3f);
+                    if(Player == null)
+                    {
+                        _spriteBatch.DrawString(font, "You Are Dead GGEZ", new Vector2(225, 350), Color.Red);
+                    }
+                    else if(Enemy.Count == 0)
+                    {
+                        _spriteBatch.DrawString(font, "You Win", new Vector2(225, 350), Color.White);
+                        _spriteBatch.DrawString(font, "You Win", new Vector2(225, 350), Color.Green * 0.8f);
+                    }
                     break;
             }
 

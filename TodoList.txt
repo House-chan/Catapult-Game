@@ -1,7 +1,7 @@
 ﻿MainMenu+
 Setting***
 Gravity+
-Planet Gravity Range
+Planet Gravity Range+
 Machanic Enemy Ship
 Ship Move Range
 Collision in sphere

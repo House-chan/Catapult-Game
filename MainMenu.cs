@@ -56,6 +56,7 @@ namespace Catapult
             switch (page)
             {
                 case menu.MainMenu:
+                    Singleton.Instance.CurrentMouse = Mouse.GetState();
                     //Moving Animation
                     if (fontPosition.Y < 10)
                     {
@@ -94,53 +95,48 @@ namespace Catapult
                         {
                             propPosition.X += 5;
                         }
-                    }
-
-                    Singleton.Instance.CurrentMouse = Mouse.GetState();
-                    //Start Button
-                    //Hover
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= startButtonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < startButtonPosition.Y + StartButton.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= startButtonPosition.X && Singleton.Instance.CurrentMouse.Position.X < startButtonPosition.X + StartButton.Width))
-                    {
-                        //Pressed
-                        if(Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+                        //Start Button
+                        //Hover
+                        if ((Singleton.Instance.CurrentMouse.Position.Y >= startButtonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < startButtonPosition.Y + StartButton.Height) &&
+                            (Singleton.Instance.CurrentMouse.Position.X >= startButtonPosition.X && Singleton.Instance.CurrentMouse.Position.X < startButtonPosition.X + StartButton.Width))
                         {
-                            resetMenu();
-                            page = menu.StageSelect;
+                            //Pressed
+                            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+                            {
+                                resetMenu();
+                                page = menu.StageSelect;
+                            }
+                        }
+                        //Setting Button
+                        else if ((Singleton.Instance.CurrentMouse.Position.Y >= settingButtonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < settingButtonPosition.Y + SettingButton.Height) &&
+                            (Singleton.Instance.CurrentMouse.Position.X >= settingButtonPosition.X && Singleton.Instance.CurrentMouse.Position.X < settingButtonPosition.X + SettingButton.Width))
+                        {
+                            //Pressed
+                            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+                            {
+                                resetMenu();
+                                page = menu.StageSelect;
+                            }
+                        }
+                        //Exit Button
+                        else if ((Singleton.Instance.CurrentMouse.Position.Y >= exitButtonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < exitButtonPosition.Y + ExitButton.Height) &&
+                            (Singleton.Instance.CurrentMouse.Position.X >= exitButtonPosition.X && Singleton.Instance.CurrentMouse.Position.X < exitButtonPosition.X + ExitButton.Width))
+                        {
+                            //Pressed
+                            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+                            {
+                                exit = true;
+                            }
                         }
                     }
-                    //Setting Button
-                    else if ((Singleton.Instance.CurrentMouse.Position.Y >= settingButtonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < settingButtonPosition.Y + SettingButton.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= settingButtonPosition.X && Singleton.Instance.CurrentMouse.Position.X < settingButtonPosition.X + SettingButton.Width))
+                    if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                     {
-                        //Pressed
-                        if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
-                        {
-                            resetMenu();
-                            page = menu.StageSelect;
-                        }
-                    }
-                    //Exit Button
-                    else if ((Singleton.Instance.CurrentMouse.Position.Y >= exitButtonPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < exitButtonPosition.Y + ExitButton.Height) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= exitButtonPosition.X && Singleton.Instance.CurrentMouse.Position.X < exitButtonPosition.X + ExitButton.Width))
-                    {
-                        //Pressed
-                        if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
-                        {
-                            exit = true;
-                        }
-                    }
-                    else
-                    {
-                        if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
-                        {
-                            fontPosition.Y = 10;
-                            soupPosition.X = 0;
-                            shipPosition.X = 1075;
-                            transparent = 1f;
-                            propPosition.X = 50;
-                            hit = true;
-                        }
+                        fontPosition.Y = 10;
+                        soupPosition.X = 0;
+                        shipPosition.X = 1075;
+                        transparent = 1f;
+                        propPosition.X = 50;
+                        hit = true;
                     }
                     Singleton.Instance.PreviousMouse = Singleton.Instance.CurrentMouse;
                     break;
@@ -153,6 +149,7 @@ namespace Catapult
                         //Pressed
                         if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                         {
+                            resetMenu();
                             page = menu.MainMenu;
                         }
                     }
@@ -225,8 +222,6 @@ namespace Catapult
                     break;
                 case menu.StageSelect:
                     spriteBatch.Draw(StageBackground, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(Ship, shipPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(Soup, soupPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(BackButton, BackPosition, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(StageButton[0], ButtonStage[0], null, Color.White * 0.6f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(StageButton[1], ButtonStage[1], null, Color.White * 0.6f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
