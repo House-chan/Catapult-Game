@@ -161,7 +161,7 @@ namespace Catapult.GameObjects
         //Player Bullet
         public bool hit(List<EnemyShip> EnemyPosition, List<Planet> PlanetPosition)
         {
-
+            int bullet_screen_padding = 100;
             //hit enemy
             foreach (EnemyShip sprite in EnemyPosition)
             {
@@ -192,11 +192,10 @@ namespace Catapult.GameObjects
                     return true;
                 }
             }
-
             //outscreen
-            if (Position.X > Singleton.SCREENWIDTH || Position.X < 0)
+            if (Position.X > Singleton.SCREENWIDTH + bullet_screen_padding || Position.X < -bullet_screen_padding)
             {
-                if(Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
+                if(Position.Y > Singleton.SCREENHEIGHT + bullet_screen_padding || Position.Y < bullet_screen_padding)
                 {
                     if(rand.Next(100) < 10)
                     {
