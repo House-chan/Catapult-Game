@@ -16,6 +16,8 @@ namespace Catapult.GameObjects
         Random rand = new Random();
         public bool end;
         public bool haveMass;
+        //for BulletType Satellite
+        float laser_range;
 
         enum BulletType
         {
@@ -79,8 +81,9 @@ namespace Catapult.GameObjects
             else if(bullet == 7)
             {
                 bulletType = BulletType.Satellite;
+                laser_range = 100;
                 haveMass = true;
-                damage = 50;
+                damage = 1;
             }
             _texture = texture;
 
@@ -92,7 +95,21 @@ namespace Catapult.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f),new Vector2(_texture.Width / 2, _texture.Height / 2), 1f, SpriteEffects.None, 0f);
+            switch (bulletType)
+            {
+                case BulletType.Satellite:
+                    float cur_range = 0;
+                    while (cur_range < laser_range)
+                    {
+                        //TODO :draw laser here
+                        cur_range += 10; // += texture width
+                    }
+                    break;
+
+                default:
+                    spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-160f), new Vector2(_texture.Width / 2, _texture.Height / 2), 1f, SpriteEffects.None, 0f);
+                    break;
+            }
         }
 
         public override void Reset()
@@ -249,52 +266,93 @@ namespace Catapult.GameObjects
         //Overide Enemy Bullet
         public bool hit(Ship Player, List<Planet> PlanetPosition)
         {
-
-            //hit enemy
-            
-            if (
-                ((Position.X + Singleton.BULLETSIZE >= Player.Position.X - Player.width / 2 && Position.Y + Singleton.BULLETSIZE >= Player.Position.Y) &&
-                (Position.X < (Player.Position.X + Singleton.SHIPSIZE + Player.width / 2) && Position.Y < Player.Position.Y + Singleton.SHIPSIZE)) ||
-                ((Position.X + Singleton.BULLETSIZE >= Player.Position.X - Player.width / 2 && Position.Y < (Player.Position.Y + Singleton.SHIPSIZE)) &&
-                (Position.X < (Player.Position.X + Singleton.SHIPSIZE + Player.width / 2) && Position.Y + Singleton.BULLETSIZE >= Player.Position.Y))
-                )
+            switch (bulletType)
             {
-                Player.Health -= damage;
-                end = true;
-                return true;
-            }
+                case BulletType.Satellite:
+                    //hit ship
+                    if (
+                        Vector2.Distance(Player.Position, Position) <= laser_range &&
+                        Math.Abs(Rotation - Math.Atan2(Position.Y - Player.Position.Y, Position.X - Player.Position.X)) <= Math.Atan2(Player.width / (Position.Y - Player.Position.Y), Player.width / (Position.X - Player.Position.X))
+                       )
+                    {
+                        Player.Health -= damage;
+                        end = true;
+                        return true;
+                    }
+                    else
+                    {
+                        end = false;
+                        return false;
+                    }
+                    //hit planet
+                    foreach (Planet sprite in PlanetPosition)
+                    {
+                        if (
+                            Vector2.Distance(sprite.Position, Position) <= laser_range &&
+                            Math.Abs(Rotation - Math.Atan2(Position.Y - sprite.Position.Y, Position.X - sprite.Position.X)) <= Math.Atan2(sprite.width / (Position.Y - sprite.Position.Y), sprite.width / (Position.X - sprite.Position.X))
+                           )
+                        {
+                            sprite.Health -= damage;
+                            end = true;
+                            return true;
+                        }
+                        else
+                        {
+                            end = false;
+                            return false;
+                        }
+                    }
+                    break;
+
+                default:
+
+                    //hit enemy
+                    if (
+                        ((Position.X + Singleton.BULLETSIZE >= Player.Position.X - Player.width / 2 && Position.Y + Singleton.BULLETSIZE >= Player.Position.Y) &&
+                        (Position.X < (Player.Position.X + Singleton.SHIPSIZE + Player.width / 2) && Position.Y < Player.Position.Y + Singleton.SHIPSIZE)) ||
+                        ((Position.X + Singleton.BULLETSIZE >= Player.Position.X - Player.width / 2 && Position.Y < (Player.Position.Y + Singleton.SHIPSIZE)) &&
+                        (Position.X < (Player.Position.X + Singleton.SHIPSIZE + Player.width / 2) && Position.Y + Singleton.BULLETSIZE >= Player.Position.Y))
+                        )
+                    {
+                        Player.Health -= damage;
+                        end = true;
+                        return true;
+                    }
 
 
-            foreach (Planet sprite in PlanetPosition)
-            {
-                if (
-                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y - sprite.height / 2) &&
-                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE - sprite.width / 2) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE - sprite.height / 2)) ||
-                    ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE - sprite.height / 2)) &&
-                    (Position.X < (sprite.Position.X + Singleton.SHIPSIZE - sprite.width / 2) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y - sprite.height / 2))
-                    )
-                {
-                    sprite.Health -= 1;
-                    end = true;
-                    return true;
-                }
-            }
+                    foreach (Planet sprite in PlanetPosition)
+                    {
+                        if (
+                            ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y - sprite.height / 2) &&
+                            (Position.X < (sprite.Position.X + Singleton.SHIPSIZE - sprite.width / 2) && Position.Y < sprite.Position.Y + Singleton.SHIPSIZE - sprite.height / 2)) ||
+                            ((Position.X + Singleton.BULLETSIZE >= sprite.Position.X - sprite.width / 2 && Position.Y < (sprite.Position.Y + Singleton.SHIPSIZE - sprite.height / 2)) &&
+                            (Position.X < (sprite.Position.X + Singleton.SHIPSIZE - sprite.width / 2) && Position.Y + Singleton.BULLETSIZE >= sprite.Position.Y - sprite.height / 2))
+                            )
+                        {
+                            sprite.Health -= 1;
+                            end = true;
+                            return true;
+                        }
+                    }
 
-            //outscreen
-            if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
-            {
-                end = true;
-                return true;
-            }
+                    //outscreen
+                    if (Position.X > Singleton.SCREENWIDTH || Position.X < 0 || Position.Y > Singleton.SCREENHEIGHT || Position.Y < 0)
+                    {
+                        end = true;
+                        return true;
+                    }
 
-            //not hit
-            else
-            {
-                end = false;
-                return false;
+                    //not hit
+                    else
+                    {
+                        end = false;
+                        return false;
+                    };
+                    break;
             }
         }
-
+        
+        //NOT USE THIS MEDTHOID
         Vector2 gravity(List<Planet> Planet)
         {
             Vector2 new_Velocity = Gravity.CalVelocity(Position, Velocity, haveMass, Planet);
