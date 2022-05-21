@@ -13,7 +13,7 @@ namespace Catapult
         {
             MainMenu, StageSelect, Setting
         }
-        Texture2D MenuBackground, StartButton, Ship, Soup, Prop, BackButton, SettingButton, ExitButton, StageBackground;
+        Texture2D MenuBackground, StartButton, Ship, Soup, Prop, BackButton, SettingButton, ExitButton, StageBackground, box;
         Texture2D font;
         Texture2D[] StageButton;
         Vector2 fontPosition, shipPosition, soupPosition, startButtonPosition, propPosition, exitButtonPosition, settingButtonPosition;
@@ -25,7 +25,7 @@ namespace Catapult
 
         float transparent;
 
-        public MainMenu(Texture2D MenuBackground, Texture2D StartButton, Texture2D SettingButton, Texture2D ExitButton, Texture2D Ship, Texture2D Soup, Texture2D font, Texture2D prop, Texture2D BackButton, Texture2D StageBackground, Texture2D[] StageButton)
+        public MainMenu(Texture2D MenuBackground, Texture2D StartButton, Texture2D SettingButton, Texture2D ExitButton, Texture2D Ship, Texture2D Soup, Texture2D font, Texture2D prop, Texture2D BackButton, Texture2D StageBackground, Texture2D[] StageButton, Texture2D box)
         {
             this.MenuBackground = MenuBackground;
             this.StartButton = StartButton;
@@ -37,6 +37,7 @@ namespace Catapult
             this.Ship = Ship;
             this.Soup = Soup;
             this.font = font;
+            this.box = box;
             Prop = prop;
             page = menu.MainMenu;
             startButtonPosition = new Vector2(575, 400);
@@ -201,7 +202,26 @@ namespace Catapult
                     break;
                 case menu.Setting:
                     Singleton.Instance.CurrentMouse = Mouse.GetState();
-                    //Back
+                    //Music
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= 410 && Singleton.Instance.CurrentMouse.Position.Y < 462) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= 320 && Singleton.Instance.CurrentMouse.Position.X < 1090))
+                    {
+                        //Pressed
+                        if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
+                        {
+                            Singleton.Instance.music = (Singleton.Instance.CurrentMouse.Position.X - 320)/690;
+                        }
+                    }
+                    //Sound
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= 650 && Singleton.Instance.CurrentMouse.Position.Y < 702) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= 320 && Singleton.Instance.CurrentMouse.Position.X < 1090))
+                    {
+                        //Pressed
+                        if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
+                        {
+                            Singleton.Instance.sound = (Singleton.Instance.CurrentMouse.Position.X - 320) / 690;
+                        }
+                    }
                     if ((Singleton.Instance.CurrentMouse.Position.Y >= BackPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < BackPosition.Y + BackButton.Height) &&
                         (Singleton.Instance.CurrentMouse.Position.X >= BackPosition.X && Singleton.Instance.CurrentMouse.Position.X < BackPosition.X + BackButton.Width))
                     {
@@ -241,10 +261,19 @@ namespace Catapult
                     spriteBatch.Draw(StageButton[4], ButtonStage[4], null, Color.White * 0.6f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
                 case menu.Setting:
+                    spriteBatch.Draw(box, new Rectangle(280, 0, 1040, 900), null, Color.White * 0.4f, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
                     spriteBatch.Draw(MenuBackground, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(BackButton, BackPosition, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Ship, shipPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Soup, soupPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+
+                    spriteBatch.Draw(box, new Rectangle(320, 410, 720, 52), null, Color.DarkGray, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(box, new Rectangle(335, 418, (int)(690 * Singleton.Instance.music), 30), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(box, new Rectangle((int)(280 + 690 * Singleton.Instance.music), 405, 65, 65), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
+
+                    spriteBatch.Draw(box, new Rectangle(320, 650, 720, 52), null, Color.DarkGray, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(box, new Rectangle(335, 658, (int)(690 * Singleton.Instance.sound), 30), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(box, new Rectangle((int)(280 + 690 * Singleton.Instance.sound), 645, 65, 65), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
                     spriteBatch.Draw(font, fontPosition, Color.Yellow);
                     break;
             }

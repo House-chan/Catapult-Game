@@ -134,7 +134,7 @@ namespace Catapult
             stageButton[3] = Content.Load<Texture2D>("MainMenu/Button/4_idle");
             stageButton[4] = Content.Load<Texture2D>("MainMenu/Button/5_idle");
 
-            mainmenu = new MainMenu(menuBackground, startButton, settingButton, exitButton, ship, soup, title, prop, backButton, stageSelect, stageButton);
+            mainmenu = new MainMenu(menuBackground, startButton, settingButton, exitButton, ship, soup, title, prop, backButton, stageSelect, stageButton, box);
 
             //SoundEffect
             menuMusic = Content.Load<SoundEffect>("Sound/BG/Mainmenu");
@@ -145,8 +145,8 @@ namespace Catapult
             shoot = Content.Load<SoundEffect>("Sound/Effect/shoot").CreateInstance();
             explosion = Content.Load<SoundEffect>("Sound/Effect/Explosion").CreateInstance();
 
-            menuMusicInstance.Volume = 0.6f * Singleton.Instance.music;
-            stageMusicInstance.Volume = Singleton.Instance.music;
+            menuMusicInstance.Volume = 0.4f * Singleton.Instance.music;
+            stageMusicInstance.Volume = 0.4f * Singleton.Instance.music;
             bulletMove.Volume = Singleton.Instance.sound;
             shoot.Volume = Singleton.Instance.sound;
             explosion.Volume = Singleton.Instance.sound;
@@ -207,7 +207,11 @@ namespace Catapult
                                     {
                                         turn = Turn.Dead;
                                     }
-                                }                                                            
+                                }
+                                if (Player.Health <= 0)
+                                {
+                                    turn = Turn.Dead;
+                                }
                             }
                             break;
 
@@ -640,7 +644,7 @@ namespace Catapult
             {
                 Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 600));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
                 Planet.Add(new Planet(PlanetTexture[0]));
                 Planet[0].Position = new Vector2(800, 450);
@@ -649,8 +653,8 @@ namespace Catapult
             {
                 Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 500));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
                 Enemy[1].SetPosition(new Vector2(1400, 600));
                 Planet.Add(new Planet(PlanetTexture[2]));
@@ -662,8 +666,8 @@ namespace Catapult
             {
                 Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 200));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1300, 600));
                 Enemy[1].SetPosition(new Vector2(1400, 750));
                 Planet.Add(new Planet(PlanetTexture[4]));
@@ -677,9 +681,9 @@ namespace Catapult
             {
                 Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 200));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
                 Enemy[1].SetPosition(new Vector2(1100, 400));
                 Enemy[2].SetPosition(new Vector2(1400, 600));
@@ -694,9 +698,9 @@ namespace Catapult
             {
                 Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 200));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
                 Enemy[1].SetPosition(new Vector2(1100, 400));
                 Enemy[2].SetPosition(new Vector2(1400, 600));

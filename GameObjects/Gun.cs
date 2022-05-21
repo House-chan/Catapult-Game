@@ -62,9 +62,9 @@ namespace Catapult.GameObjects
             base.Reset();
         }
 
-        public void Update(GameTime gameTime, List<EnemyShip> enemy, List<Planet> planet)
+        public void Update(GameTime gameTime, List<EnemyShip> enemy, List<Planet> planet, Ship player)
         {
-            bullet.Update(gameTime, enemy, planet);
+            bullet.Update(gameTime, enemy, planet, player);
         }
 
         public void Update(GameTime gameTime, Ship player, List<Planet> planet)

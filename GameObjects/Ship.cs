@@ -80,7 +80,7 @@ namespace Catapult.GameObjects
                     break;
                     
                 case Stage.Move:
-                    gun.Update(gameTime, Enemy, Planet);
+                    gun.Update(gameTime, Enemy, Planet, this);
                     bulletMove.Play();
                     if (gun.bullet.end)
                     {
