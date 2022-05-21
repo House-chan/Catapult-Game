@@ -124,17 +124,21 @@ namespace Catapult.GameObjects
         private void shoot()
         {
             //Click Mouse
-            if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
+            //Stay Out of Pause Button
+            if(!(Singleton.Instance.CurrentMouse.Position.Y >= 30 && Singleton.Instance.CurrentMouse.Position.Y < 95 && Singleton.Instance.CurrentMouse.Position.X >= 45 && Singleton.Instance.CurrentMouse.Position.X < 100))
             {
-                //ShootPower++
-                ShootPower += 0.1f;
-            }
-            if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released || ShootPower > 15)
-            {
-                stage = Stage.Move;
-                gun.reload();
-                gun.shoot(ShootPower);
-                ShootPower = 5.0f;
+                if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
+                {
+                    //ShootPower++
+                    ShootPower += 0.1f;
+                }
+                if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released || ShootPower > 15)
+                {
+                    stage = Stage.Move;
+                    gun.reload();
+                    gun.shoot(ShootPower);
+                    ShootPower = 5.0f;
+                }
             }
             //Create ball
             //bullet create 

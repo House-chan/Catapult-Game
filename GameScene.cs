@@ -72,7 +72,7 @@ namespace Catapult
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            //gameBackground = Content.Load<>
+            gameBackground = Content.Load<Texture2D>("starfield_alpha");
             PlayerShip = Content.Load<Texture2D>("Ship/PlayerShip");
             PlanetTexture[0] = Content.Load<Texture2D>("Planet/barren");
             PlanetTexture[1] = Content.Load<Texture2D>("Planet/barren-charred");
@@ -337,15 +337,20 @@ namespace Catapult
                     mainmenu.Draw(_spriteBatch);
                     break;
                 case Stage.Stage:
+                    //GameBackground
+                    _spriteBatch.Draw(gameBackground, Vector2.Zero, Color.White);
+
                     Player.Draw(_spriteBatch, Planet);
+                    //Stamina
                     if (turn == Turn.Player)
                     {
-                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2 - 25, (int)Player.Position.Y + 100, 100, 25), null, Color.Black, (float)Math.PI / -2.0f, new Vector2(1, 1), SpriteEffects.None, 0f);
+                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2 - 25, (int)Player.Position.Y + 100, 100, 25), null, Color.Gray, (float)Math.PI / -2.0f, new Vector2(1, 1), SpriteEffects.None, 0f);
                         _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2 - 25, (int)Player.Position.Y + 100, (int)Player.moveRange/5, 20), null, Color.Blue, (float)Math.PI / -2.0f, new Vector2(1, 1), SpriteEffects.None, 0f);
                     }
+                    //Power
                     if (Player.stage == GameObjects.Ship.Stage.Shooting)
                     {
-                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 115, 200, 10), Color.Black * 0.8f);
+                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 115, 200, 10), Color.White * 0.8f);
                         _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 115, (int)Player.ShootPower * 14, 8), Color.Orange);
                     }
                     if(Player.Health > 70)
@@ -391,6 +396,8 @@ namespace Catapult
 
                     break;
                 case Stage.Pause:
+                    //GameBackground
+                    _spriteBatch.Draw(gameBackground, Vector2.Zero, Color.White);
                     if (Player != null) Player.Draw(_spriteBatch, Planet);
                     if (EnemyShip != null)
                         foreach (EnemyShip list in Enemy)
@@ -428,7 +435,9 @@ namespace Catapult
                     break;
 
                 case Stage.End:
-                    if(Player != null) Player.Draw(_spriteBatch, Planet);
+                    //GameBackground
+                    _spriteBatch.Draw(gameBackground, Vector2.Zero, Color.White);
+                    if (Player != null) Player.Draw(_spriteBatch, Planet);
                     if (Enemy.Count > 0)
                     foreach (EnemyShip list in Enemy)
                     {

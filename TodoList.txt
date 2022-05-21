@@ -3,7 +3,7 @@ Setting***
 Gravity+
 Planet Gravity Range+
 Machanic Enemy Ship
-Ship Move Range
+Ship Move Range+
 Collision in sphere
 Ammo Change+
 Health Bar+

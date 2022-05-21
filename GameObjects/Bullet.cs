@@ -24,10 +24,8 @@ namespace Catapult.GameObjects
             Normal,
             Heavy,
             Missile,
-            Cluster,
             Laser,
             NyanCat,
-            Nuclear,
             Satellite
         };
 
@@ -56,34 +54,21 @@ namespace Catapult.GameObjects
             }
             else if(bullet == 3)
             {
-                bulletType = BulletType.Cluster;
+                bulletType = BulletType.Laser;
                 haveMass = true;
                 damage = 50;
             }
             else if(bullet == 4)
             {
-                bulletType = BulletType.Laser;
+                bulletType = BulletType.NyanCat;
                 haveMass = true;
                 damage = 50;
             }
             else if(bullet == 5)
             {
-                bulletType = BulletType.NyanCat;
-                haveMass = true;
-                damage = 50;
-            }
-            else if(bullet == 6)
-            {
-                bulletType = BulletType.Nuclear;
-                haveMass = true;
-                damage = 50;
-            }
-            else if(bullet == 7)
-            {
                 bulletType = BulletType.Satellite;
-                laser_range = 100;
                 haveMass = true;
-                damage = 1;
+                damage = 50;
             }
             _texture = texture;
 
@@ -118,6 +103,7 @@ namespace Catapult.GameObjects
 
         }
 
+        //PlayerBullet
         public void Update(GameTime gameTime, List<EnemyShip> enemy, List<Planet> planet)
         {
             Velocity = gravity(planet);
@@ -135,19 +121,11 @@ namespace Catapult.GameObjects
                     Position += Velocity;
                     break;
 
-                case BulletType.Cluster:
-                    Position += Velocity;
-                    break;
-
                 case BulletType.Laser:
                     Position += Velocity;
                     break;
 
                 case BulletType.NyanCat:
-                    Position += Velocity;
-                    break;
-
-                case BulletType.Nuclear:
                     Position += Velocity;
                     break;
 
@@ -158,6 +136,7 @@ namespace Catapult.GameObjects
             hit(enemy, planet);
         }
 
+        //Enemy Bullet
         public void Update(GameTime gameTime, Ship player, List<Planet> planet)
         {
             Velocity = gravity(planet);
@@ -166,6 +145,7 @@ namespace Catapult.GameObjects
             hit(player, planet);
         }
 
+        //Set Bullet (Gun Reload())
         public void shooting(float Rotation, float speed)
         {
             this.Rotation = Rotation;
@@ -244,15 +224,18 @@ namespace Catapult.GameObjects
                         return true;
                     }
                 }
+
                 //outscreen
-                if (Position.X > Singleton.SCREENWIDTH + bullet_screen_padding || Position.X < -bullet_screen_padding)
+                //if (Position.X > Singleton.SCREENWIDTH + bullet_screen_padding || Position.X < -bullet_screen_padding)
+                if (Position.X > Singleton.SCREENWIDTH + bullet_screen_padding || Position.X < -bullet_screen_padding || Position.Y > Singleton.SCREENHEIGHT)
                 {
                     end = true;
                     return true; 
                 }
-                else if (Position.Y > Singleton.SCREENHEIGHT + bullet_screen_padding || Position.Y < -bullet_screen_padding)
+                //if (Position.Y > Singleton.SCREENHEIGHT + bullet_screen_padding || Position.Y < -bullet_screen_padding)
+                if (Position.Y < -bullet_screen_padding)
                 {
-                    if (rand.Next(100) > 1)
+                    if (rand.Next(100) < 1)
                     {
                         Position.Y = -bullet_screen_padding;
                         Velocity.X = (float)(speed * -2 * Math.Cos(-Rotation));
@@ -267,11 +250,8 @@ namespace Catapult.GameObjects
                     }
                 }
                 //not hit
-                else
-                {
-                    end = false;
-                    return false;
-                }
+                end = false;
+                return false;
             }
             return false;
         }
