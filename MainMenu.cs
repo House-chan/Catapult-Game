@@ -200,7 +200,19 @@ namespace Catapult
                     Singleton.Instance.PreviousMouse = Singleton.Instance.CurrentMouse;
                     break;
                 case menu.Setting:
-
+                    Singleton.Instance.CurrentMouse = Mouse.GetState();
+                    //Back
+                    if ((Singleton.Instance.CurrentMouse.Position.Y >= BackPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < BackPosition.Y + BackButton.Height) &&
+                        (Singleton.Instance.CurrentMouse.Position.X >= BackPosition.X && Singleton.Instance.CurrentMouse.Position.X < BackPosition.X + BackButton.Width))
+                    {
+                        //Pressed
+                        if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
+                        {
+                            resetMenu();
+                            page = menu.MainMenu;
+                        }
+                    }
+                    Singleton.Instance.PreviousMouse = Singleton.Instance.CurrentMouse;
                     break;
             }
         }
@@ -233,9 +245,6 @@ namespace Catapult
                     spriteBatch.Draw(BackButton, BackPosition, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Ship, shipPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(Soup, soupPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(StartButton, startButtonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(SettingButton, settingButtonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(ExitButton, exitButtonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     spriteBatch.Draw(font, fontPosition, Color.Yellow);
                     break;
             }
