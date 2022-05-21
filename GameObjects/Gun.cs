@@ -92,16 +92,9 @@ namespace Catapult.GameObjects
         }
 
         public void aiming(Vector2 PlayerPosition)
-        {
-
-            if (
-                Singleton.Instance.CurrentMouse.Position.Y <= Singleton.SCREENHEIGHT && Singleton.Instance.CurrentMouse.Position.Y >= 0 &&
-                Singleton.Instance.CurrentMouse.Position.X <= Singleton.SCREENWIDTH && Singleton.Instance.CurrentMouse.Position.X >= 0 
-                )
-            {
-                Distance.Y = -PlayerPosition.Y + (_texture.Height / 2) + Position.Y;
-                Distance.X = -PlayerPosition.X + (_texture.Width / 2) + Position.X;
-            }
+        { 
+            Distance.Y = -PlayerPosition.Y - 100 + (_texture.Height / 2) + Position.Y;
+            Distance.X = -PlayerPosition.X + (_texture.Width / 2) + Position.X;
 
             Rotation = (float)Math.Atan2(Distance.Y, Distance.X);
             Velocity.X = (float)(Math.Cos(Rotation));

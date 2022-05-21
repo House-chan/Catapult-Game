@@ -23,6 +23,7 @@ namespace Catapult.GameObjects
 
         public Stage stage;
         Gun gun;
+        Random rand = new Random();
         SoundEffectInstance shoot, bulletMove, explosion;
         int speed;
 
@@ -31,7 +32,7 @@ namespace Catapult.GameObjects
             speed = 5;
             Health = 100;
             moveRange = 100;
-            ShootPower = 10;
+            ShootPower = Math.Min(10, rand.Next(20));
             this.shoot = shoot;
             this.bulletMove = bulletMove;
             this.explosion = explosion;
@@ -99,8 +100,16 @@ namespace Catapult.GameObjects
         private void moving(Ship Player, List<Planet> Planet, List<EnemyShip> Enemy)
         {
             //Moving
-            Velocity.X -= speed;
-            Velocity.Y -= speed;
+            if(Health > 50)
+            {
+                Velocity.X -= speed;
+                Velocity.Y += speed * (Player.Position.Y > Position.Y ? 1 : -1);
+            }
+            else
+            {
+                Velocity.X -= speed * (Player.Position.X > Position.X ? 1 : -1);
+                Velocity.Y -= speed * (Player.Position.Y > Position.Y ? 1 : -1);
+            }
             
             
             if ((this.Velocity.X > 0 && this.IsTouchingLeft(Player)) ||
