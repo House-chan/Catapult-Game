@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using Catapult.GameObjects;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Catapult
 {
@@ -48,6 +50,9 @@ namespace Catapult
 
         MouseState mouse;
         MouseState premouse;
+
+        SoundEffectInstance bulletMove, shoot, explosion, menuMusicInstance, stageMusicInstance;
+        SoundEffect menuMusic, stageMusic;
         public GameScene()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -90,15 +95,7 @@ namespace Catapult
             //meteorite = Content.Load<Texture2D>("");
             gun = Content.Load<Texture2D>("Ship/PlayerCanon");
             EnemyGun = Content.Load<Texture2D>("Ship/EnemyCanon");
-            Bullet[0] = Content.Load<Texture2D>("Bullet/bullet4");
-            Bullet[1] = Content.Load<Texture2D>("Bullet/bullet2");
-            Bullet[2] = Content.Load<Texture2D>("Bullet/bullet3");
-            Bullet[3] = Content.Load<Texture2D>("Bullet/bullet1");
-            Bullet[4] = Content.Load<Texture2D>("Bullet/Nyan-Cat-PNG");
-
-            font = Content.Load<SpriteFont>("Font");
-            pauseFont = Content.Load<SpriteFont>("pause");
-            uifont = Content.Load<SpriteFont>("uifont");
+            
             box = new Texture2D(_graphics.GraphicsDevice, 100, 5);
             Color[] color = new Color[100 * 5];
             for (int i = 0; i < color.Length; i++)
@@ -106,6 +103,16 @@ namespace Catapult
                 color[i] = Color.White;
             }
             box.SetData(color);
+
+            Bullet[0] = Content.Load<Texture2D>("Bullet/bullet4");
+            Bullet[1] = Content.Load<Texture2D>("Bullet/bullet2");
+            Bullet[2] = Content.Load<Texture2D>("Bullet/bullet3");
+            Bullet[3] = box;
+            Bullet[4] = Content.Load<Texture2D>("Bullet/Nyan-Cat-PNG");
+
+            font = Content.Load<SpriteFont>("Font");
+            pauseFont = Content.Load<SpriteFont>("pause");
+            uifont = Content.Load<SpriteFont>("uifont");
 
             //MAINMENU
             ship = Content.Load<Texture2D>("MainMenu/pirate");
@@ -126,6 +133,21 @@ namespace Catapult
             stageButton[4] = Content.Load<Texture2D>("MainMenu/Button/5_idle");
 
             mainmenu = new MainMenu(menuBackground, startButton, settingButton, exitButton, ship, soup, title, prop, backButton, stageSelect, stageButton);
+
+            //SoundEffect
+            menuMusic = Content.Load<SoundEffect>("Sound/BG/Mainmenu");
+            menuMusicInstance = menuMusic.CreateInstance();
+            stageMusic = Content.Load<SoundEffect>("Sound/BG/Stage");
+            stageMusicInstance = stageMusic.CreateInstance();
+            bulletMove = Content.Load<SoundEffect>("Sound/Effect/BulletMove").CreateInstance();
+            shoot = Content.Load<SoundEffect>("Sound/Effect/shoot").CreateInstance();
+            explosion = Content.Load<SoundEffect>("Sound/Effect/Explosion").CreateInstance();
+
+            menuMusicInstance.Volume = 0.6f * Singleton.Instance.music;
+            stageMusicInstance.Volume = Singleton.Instance.music;
+            bulletMove.Volume = Singleton.Instance.sound;
+            shoot.Volume = Singleton.Instance.sound;
+            explosion.Volume = Singleton.Instance.sound;
         }
 
         protected override void Update(GameTime gameTime)
@@ -138,15 +160,18 @@ namespace Catapult
             {
                 case Stage.MainMenu:
                     mainmenu.Update(gameTime);
-                    if(mainmenu.stage != 0)
+                    menuMusicInstance.Play();
+                    if (mainmenu.stage != 0)
                     {
                         changeStage(mainmenu.stage);
+                        menuMusicInstance.Stop();
                         //mainmenu.stage = 0;
                         Game = Stage.Stage;
                     }
                     break;
 
                 case Stage.Stage:
+                    stageMusicInstance.Play();
                     mouse = Mouse.GetState();
                     if ((mouse.Position.Y >= 30 && mouse.Position.Y < 92.5) &&
                         (mouse.Position.X >= 45 && mouse.Position.X < 95))
@@ -154,6 +179,7 @@ namespace Catapult
                         //Pressed
                         if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
                         {
+                            stageMusicInstance.Stop();
                             Game = Stage.Pause;
                         }
                     }
@@ -165,7 +191,6 @@ namespace Catapult
                             {
                                 lastTurn = Turn.Player;
                                 turn = Turn.ChangeTurn;
-                                //Board.X = 1600;
                                 for (int i = 0; i < Enemy.Count; i++)
                                 {
                                     Enemy[i].ResetAction();
@@ -184,6 +209,7 @@ namespace Catapult
                                 if(Enemy.Count == 0)
                                 {
                                     Game = Stage.End;
+                                    stageMusicInstance.Stop();
                                 }
                             
                             }
@@ -220,6 +246,7 @@ namespace Catapult
                             
                             if(Player == null)
                             {
+                                stageMusicInstance.Stop();
                                 Game = Stage.End;
                             }
                             
@@ -569,7 +596,7 @@ namespace Catapult
         {
             if(stage == 1)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 600));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
@@ -578,7 +605,7 @@ namespace Catapult
             }
             else if(stage == 2)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 500));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
@@ -591,7 +618,7 @@ namespace Catapult
             }
             else if(stage == 3)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 200));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
@@ -606,7 +633,7 @@ namespace Catapult
             }
             else if(stage == 4)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 200));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
@@ -623,7 +650,7 @@ namespace Catapult
             }
             else if (stage == 5)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 200));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));

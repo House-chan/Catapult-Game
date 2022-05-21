@@ -161,9 +161,8 @@ namespace Catapult.GameObjects
         //Player Bullet
         public bool hit(List<EnemyShip> EnemyPosition, List<Planet> PlanetPosition)
         {
-            if (bulletType == BulletType.Satellite)
+            if (bulletType == BulletType.Laser)
             {
-                Position = new Vector2(500, 500);
                 //hit planet
                 foreach (Planet sprite in PlanetPosition)
                 {
@@ -242,7 +241,7 @@ namespace Catapult.GameObjects
                     if (rand.Next(100) < 1)
                     {
                         Position.Y = -bullet_screen_padding;
-                        Velocity.X = (float)(speed * -2 * Math.Cos(-Rotation));
+                        Velocity.X = (float)(speed * 2 * Math.Cos(-Rotation));
                         Velocity.Y = (float)(speed * -2 * Math.Sin(-Rotation));
                         bulletType = BulletType.Satellite;
                         end = false;

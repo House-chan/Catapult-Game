@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
+﻿// class contain constant value.
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
+
 
 namespace Catapult
 {
@@ -19,6 +18,9 @@ namespace Catapult
         public const int BULLETSIZE = 15;
 
         public const float G = 1500;
+
+        public float sound = 1.0f;
+        public float music = 1.0f;
 
         private Singleton()
         {

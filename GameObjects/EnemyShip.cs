@@ -46,7 +46,7 @@ namespace Catapult.GameObjects
 
         public override void Reset()
         {
-            base.Reset();
+
         }
 
         public void Update(GameTime gameTime, Ship Player, List<Planet> Planet, List<EnemyShip> Enemy)

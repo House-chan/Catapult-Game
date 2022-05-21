@@ -603,6 +603,36 @@
 /processorParam:TextureFormat=Color
 /build:Ship/PlayerShip.png
 
+#begin Sound/BG/Mainmenu.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/BG/Mainmenu.mp3
+
+#begin Sound/BG/Stage.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/BG/Stage.mp3
+
+#begin Sound/Effect/BulletMove.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Effect/BulletMove.mp3
+
+#begin Sound/Effect/Explosion.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Effect/Explosion.mp3
+
+#begin Sound/Effect/shoot.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sound/Effect/shoot.mp3
+
 #begin starfield_alpha.png
 /importer:TextureImporter
 /processor:TextureProcessor
