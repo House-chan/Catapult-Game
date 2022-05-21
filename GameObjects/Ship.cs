@@ -24,14 +24,14 @@ namespace Catapult.GameObjects
 
         int speed;
 
-        public Ship(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture, Texture2D GuideLine) : base(texture)
+        public Ship(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture, Texture2D GuideLine, SpriteFont font) : base(texture)
         {
             speed = 5;
-            moveRange = 1500;
+            moveRange = 500;
             Health = 100;
             ShootPower = 5.0f;
             stage = Stage.Start;
-            gun = new Gun(gunTexture, bulletTexture)
+            gun = new Gun(gunTexture, bulletTexture, font)
             {
                 Position = new Vector2(this.Position.X + 90, this.Position.Y + 30)
             };
@@ -97,7 +97,7 @@ namespace Catapult.GameObjects
             //Draw ship and method ammo
             spriteBatch.Draw(_texture, Position, null, Color.White, 0f, new Vector2(_texture.Width/2, _texture.Height/2), 1, SpriteEffects.None, 0f);
             gun.Draw(spriteBatch);
-            guide.Draw(spriteBatch, this, planet);
+            guide.Draw(spriteBatch, this, planet, gun.bulletType);
             //switch (stage)
             //{
             //    case Stage.Start:

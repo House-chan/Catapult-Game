@@ -615,3 +615,10 @@
 /processorParam:TextureFormat=Color
 /build:starfield_alpha.png
 
+#begin uifont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:uifont.spritefont
+

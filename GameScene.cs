@@ -33,7 +33,7 @@ namespace Catapult
         List<EnemyShip> Enemy = new List<EnemyShip>();
         List<Planet> Planet = new List<Planet>();
 
-        SpriteFont font, pauseFont;
+        SpriteFont font, pauseFont, uifont;
         int countTurn;
 
         MainMenu mainmenu;
@@ -90,14 +90,15 @@ namespace Catapult
             //meteorite = Content.Load<Texture2D>("");
             gun = Content.Load<Texture2D>("Ship/PlayerCanon");
             EnemyGun = Content.Load<Texture2D>("Ship/EnemyCanon");
-            Bullet[0] = Content.Load<Texture2D>("Bullet/Nyan-Cat-PNG");
+            Bullet[0] = Content.Load<Texture2D>("Bullet/bullet4");
             Bullet[1] = Content.Load<Texture2D>("Bullet/bullet2");
             Bullet[2] = Content.Load<Texture2D>("Bullet/bullet3");
             Bullet[3] = Content.Load<Texture2D>("Bullet/bullet1");
+            Bullet[4] = Content.Load<Texture2D>("Bullet/Nyan-Cat-PNG");
 
             font = Content.Load<SpriteFont>("Font");
             pauseFont = Content.Load<SpriteFont>("pause");
-
+            uifont = Content.Load<SpriteFont>("uifont");
             box = new Texture2D(_graphics.GraphicsDevice, 100, 5);
             Color[] color = new Color[100 * 5];
             for (int i = 0; i < color.Length; i++)
@@ -318,6 +319,55 @@ namespace Catapult
                     break;
 
                 case Stage.End:
+                    mouse = Mouse.GetState();
+                    if(Enemy.Count == 0 && mainmenu.stage < 5)
+                    {
+                        //Next
+                        if ((mouse.Position.Y >= 500 && mouse.Position.Y < 575) &&
+                            (mouse.Position.X >= 425 && mouse.Position.X < 705))
+                        {
+                            //Pressed
+                            if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                            {
+                                GameReset();
+                                changeStage(mainmenu.stage + 1);
+                                Game = Stage.Stage;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //Restart
+                        if ((mouse.Position.Y >= 500 && mouse.Position.Y < 575) &&
+                            (mouse.Position.X >= 425 && mouse.Position.X < 705))
+                        {
+                            //Pressed
+                            if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                            {
+                                GameReset();
+                                changeStage(mainmenu.stage);
+                                Game = Stage.Stage;
+                            }
+                        }
+                    }
+                    //Mainmenu
+                    if ((mouse.Position.Y >= 500 && mouse.Position.Y < 575) &&
+                        (mouse.Position.X >= 850 && mouse.Position.X < 1130))
+                    {
+                        //Pressed
+                        if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                        {
+                            if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                            {
+                                GameReset();
+                                mainmenu.stage = 0;
+                                mainmenu.page = MainMenu.menu.MainMenu;
+                                mainmenu.resetMenu();
+                                Game = Stage.MainMenu;
+                            }
+                        }
+                    }
+                    premouse = mouse;
                     break;
             }
 
@@ -344,13 +394,13 @@ namespace Catapult
                     //Stamina
                     if (turn == Turn.Player)
                     {
-                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2 - 25, (int)Player.Position.Y + 100, 100, 25), null, Color.Gray, (float)Math.PI / -2.0f, new Vector2(1, 1), SpriteEffects.None, 0f);
+                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2 - 25, (int)Player.Position.Y + 100, 100, 25), null, Color.DarkGray, (float)Math.PI / -2.0f, new Vector2(1, 1), SpriteEffects.None, 0f);
                         _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2 - 25, (int)Player.Position.Y + 100, (int)Player.moveRange/5, 20), null, Color.Blue, (float)Math.PI / -2.0f, new Vector2(1, 1), SpriteEffects.None, 0f);
                     }
                     //Power
                     if (Player.stage == GameObjects.Ship.Stage.Shooting)
                     {
-                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 115, 200, 10), Color.White * 0.8f);
+                        _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 115, 200, 10), Color.DarkGray * 0.8f);
                         _spriteBatch.Draw(box, new Rectangle((int)Player.Position.X - PlayerShip.Width / 2, (int)Player.Position.Y + 115, (int)Player.ShootPower * 14, 8), Color.Orange);
                     }
                     if(Player.Health > 70)
@@ -372,20 +422,32 @@ namespace Catapult
                         //_spriteBatch.DrawString(font, list.Health.ToString(), list.Position + new Vector2(0, 90), Color.Black);
                         if (list.Health > 70)
                         {
-                            _spriteBatch.Draw(box, new Rectangle((int)list.Position.X - EnemyShip.Width / 2, (int)list.Position.Y + 80, list.Health * 2, 15), Color.Green);
+                            _spriteBatch.Draw(box, new Rectangle((int)list.Position.X - list.width / 2, (int)list.Position.Y + 80, list.Health * 2, 15), Color.Green);
                         }
                         else if (list.Health > 30)
                         {
-                            _spriteBatch.Draw(box, new Rectangle((int)list.Position.X - EnemyShip.Width / 2, (int)list.Position.Y + 80, list.Health * 2, 15), Color.YellowGreen);
+                            _spriteBatch.Draw(box, new Rectangle((int)list.Position.X - list.width / 2, (int)list.Position.Y + 80, list.Health * 2, 15), Color.YellowGreen);
                         }
                         else
                         {
-                            _spriteBatch.Draw(box, new Rectangle((int)list.Position.X - EnemyShip.Width / 2, (int)list.Position.Y + 80, list.Health * 2, 15), Color.Red);
+                            _spriteBatch.Draw(box, new Rectangle((int)list.Position.X - list.width / 2, (int)list.Position.Y + 80, list.Health * 2, 15), Color.Red);
                         }
                     }
                     foreach (Planet list in Planet)
                     {
                         list.Draw(_spriteBatch);
+                        if (list.Health > 70)
+                        {
+                            _spriteBatch.Draw(box, new Rectangle((int)list.Position.X - list.width / 2, (int)list.Position.Y + 80, list.Health, 10), Color.Green);
+                        }
+                        else if (list.Health > 30)
+                        {
+                            _spriteBatch.Draw(box, new Rectangle((int)list.Position.X - list.width / 2, (int)list.Position.Y + 80, list.Health, 10), Color.YellowGreen);
+                        }
+                        else
+                        {
+                            _spriteBatch.Draw(box, new Rectangle((int)list.Position.X - list.width / 2, (int)list.Position.Y + 80, list.Health, 10), Color.Red);
+                        }
                         //_spriteBatch.DrawString(font, list.Health.ToString(), list.Position + new Vector2(0, 90), Color.Black);
                     }
 
@@ -452,13 +514,31 @@ namespace Catapult
                     _spriteBatch.Draw(box, new Rectangle(0, 0, Singleton.SCREENWIDTH, Singleton.SCREENHEIGHT), Color.Black * 0.3f);
                     if(Player == null)
                     {
-                        _spriteBatch.DrawString(font, "You Are Dead GGEZ", new Vector2(225, 350), Color.Red);
+                        _spriteBatch.DrawString(font, "You Are Dead", new Vector2(425, 150), Color.White);
+                        _spriteBatch.DrawString(font, "GGEZ", new Vector2(625, 300), Color.Red);
+                        //Restart                      
+                        _spriteBatch.Draw(box, new Rectangle(425, 500, 280, 75), Color.Green);
+                        _spriteBatch.DrawString(pauseFont, "Restart", new Vector2(460, 500), Color.White);
                     }
                     else if(Enemy.Count == 0)
                     {
-                        _spriteBatch.DrawString(font, "You Win", new Vector2(225, 350), Color.White);
-                        _spriteBatch.DrawString(font, "You Win", new Vector2(225, 350), Color.Green * 0.8f);
+                        _spriteBatch.DrawString(font, "You Win", new Vector2(550, 220), Color.White);
+                        _spriteBatch.DrawString(font, "You Win", new Vector2(550, 220), Color.Green * 0.8f);
+                        //Continue
+                        _spriteBatch.Draw(box, new Rectangle(425, 500, 280, 75), Color.Green);
+                        if(mainmenu.stage == 5)
+                        {
+                            _spriteBatch.DrawString(pauseFont, "Restart", new Vector2(460, 500), Color.White);
+                        }
+                        else
+                        {
+                            _spriteBatch.DrawString(pauseFont, "Continue", new Vector2(425, 500), Color.White);
+                        }
                     }
+                    //Mainmenu
+                    _spriteBatch.Draw(box, new Rectangle(850, 500, 280, 75), Color.DarkGray);
+                    _spriteBatch.DrawString(pauseFont, "Menu", new Vector2(900, 500), Color.White);
+
                     break;
             }
 
@@ -489,7 +569,7 @@ namespace Catapult
         {
             if(stage == 1)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
                 Player.SetPosition(new Vector2(200, 600));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
@@ -498,7 +578,7 @@ namespace Catapult
             }
             else if(stage == 2)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
                 Player.SetPosition(new Vector2(200, 500));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
@@ -511,7 +591,7 @@ namespace Catapult
             }
             else if(stage == 3)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
                 Player.SetPosition(new Vector2(200, 200));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
@@ -526,7 +606,24 @@ namespace Catapult
             }
             else if(stage == 4)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player.SetPosition(new Vector2(200, 200));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy[0].SetPosition(new Vector2(1400, 200));
+                Enemy[1].SetPosition(new Vector2(1100, 400));
+                Enemy[2].SetPosition(new Vector2(1400, 600));
+                Planet.Add(new Planet(PlanetTexture[0]));
+                Planet.Add(new Planet(PlanetTexture[2]));
+                Planet.Add(new Planet(PlanetTexture[9]));
+                Planet[0].Position = new Vector2(800, 300);
+                Planet[1].Position = new Vector2(300, 700);
+                Planet[2].Position = new Vector2(850, 800);
+            }
+            else if (stage == 5)
+            {
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
                 Player.SetPosition(new Vector2(200, 200));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
                 Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));

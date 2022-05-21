@@ -213,3 +213,4 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\MainMenu\Title.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\pause.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\starfield_alpha.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\uifont.xnb

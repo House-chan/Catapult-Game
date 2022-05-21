@@ -9,7 +9,7 @@ namespace Catapult.GameObjects
     class Planet : GameObject
     {
         float ShootPower;
-        public float Health;
+        public int Health;
 
         Vector2 PlayerPosition;
         Vector2 Distance;

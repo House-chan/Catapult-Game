@@ -15,7 +15,6 @@ namespace Catapult.GameObjects
         //protected Gravity gravity;
         Ship player;
         float shootpower = 5.0f;
-        int BulletType = 0;
 
 
         public AimGuide(Texture2D tex) : base(tex)
@@ -23,50 +22,33 @@ namespace Catapult.GameObjects
             
         }
 
-        public void Draw(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
+        public void Draw(SpriteBatch spriteBatch, Ship player, List<Planet> planet, int BulletType)
         {
             switch (BulletType)
             {
                 case 0:
-                    DrawFor0(spriteBatch, player, planet);
+                    DrawForDefault(spriteBatch, player, planet);
                     break;
 
                 case 1:
-                    DrawFor1(spriteBatch, player, planet);
+                    DrawForDefault(spriteBatch, player, planet);
                     break;
 
                 case 2:
-                    DrawFor2(spriteBatch, player, planet);
+                    DrawForDefault(spriteBatch, player, planet);
                     break;
 
                 case 3:
-                    DrawFor3(spriteBatch, player, planet);
+                    DrawForPassThrough(spriteBatch, player, planet);
                     break;
 
                 case 4:
-                    DrawFor4(spriteBatch, player, planet);
-                    break;
-
-                case 5:
-                    DrawFor5(spriteBatch, player, planet);
-                    break;
-
-                case 6:
-                    DrawFor6(spriteBatch, player, planet);
-                    break;
-
-                case 7:
-                    DrawFor7(spriteBatch, player, planet);
+                    DrawForPassThrough(spriteBatch, player, planet);
                     break;
             }
         }
-        
-        public void SetAimGuideBulletType(int type)
-        {
-            BulletType = type;
-        }
 
-        public void DrawFor0(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
+        public void DrawForDefault(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
         {
             if (player.stage == Ship.Stage.Start || player.stage == Ship.Stage.Shooting)
             {
@@ -89,27 +71,7 @@ namespace Catapult.GameObjects
             }
         }
 
-        public void DrawFor1(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
-        {
-            DrawFor0(spriteBatch, player, planet);
-        }
-
-        public void DrawFor2(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
-        {
-            DrawFor0(spriteBatch, player, planet);
-        }
-
-        public void DrawFor3(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
-        {
-            DrawFor0(spriteBatch, player, planet);
-        }
-
-        public void DrawFor4(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
-        {
-            DrawFor0(spriteBatch, player, planet);
-        }
-
-        public void DrawFor5(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
+        void DrawForPassThrough(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
         {
             if (player.stage == Ship.Stage.Start || player.stage == Ship.Stage.Shooting)
             {
@@ -131,14 +93,5 @@ namespace Catapult.GameObjects
             }
         }
 
-        public void DrawFor6(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
-        {
-            DrawFor0(spriteBatch, player, planet);
-        }
-
-        public void DrawFor7(SpriteBatch spriteBatch, Ship player, List<Planet> planet)
-        {
-            DrawFor0(spriteBatch, player, planet);
-        }
     }
 }

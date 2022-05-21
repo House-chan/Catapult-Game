@@ -18,24 +18,30 @@ namespace Catapult.GameObjects
         int[] ammo = { 99, 3, 2, 2, 1, 1, 1 };
         Texture2D[] bulletTexture;
         float velocity;
+        SpriteFont font;
 
-        public Gun(Texture2D texture, Texture2D[] bulletTexture) : base(texture)
+        public Gun(Texture2D texture, Texture2D[] bulletTexture, SpriteFont font) : base(texture)
         {
             this.bulletTexture = bulletTexture;
+            this.font = font;
             //Normal,
             //Heavy,
-            //Missile,
-            //Cluster,
+            //Missile
             //Laser,
             //NyanCat,
-            //Nuclear,
             //Satellite
         }
 
+        //Override Enemy
+        public Gun(Texture2D texture, Texture2D[] bulletTexture) : base(texture)
+        {
+            this.bulletTexture = bulletTexture;
+        }
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Position, null, Color.White, Rotation + MathHelper.ToRadians(-170f), new Vector2(_texture.Width / 2, _texture.Height / 2), 1, SpriteEffects.None, 0f);
             spriteBatch.Draw(bulletTexture[bulletType], new Vector2(50, 700), null, Color.White, 0, new Vector2(bulletTexture[bulletType].Width / 2, bulletTexture[bulletType].Height / 2), 1, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, ammo[bulletType].ToString(), new Vector2(65, 700), Color.White);
             if (bulletCreate)
             {
                 bullet.Draw(spriteBatch);
@@ -117,7 +123,7 @@ namespace Catapult.GameObjects
             if (Singleton.Instance.PreviousKey.IsKeyDown(Keys.Right) && !Singleton.Instance.CurrentKey.IsKeyDown(Keys.Right))
             {
                 bulletType++;
-                if (bulletType > 3)
+                if (bulletType > 4)
                 {
                     bulletType = 0;
                 }
@@ -128,7 +134,7 @@ namespace Catapult.GameObjects
                 bulletType--;
                 if (bulletType < 0)
                 {
-                    bulletType = 3;
+                    bulletType = 4;
                 }
             }
             Singleton.Instance.PreviousKey = Singleton.Instance.CurrentKey;

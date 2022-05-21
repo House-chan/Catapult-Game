@@ -106,18 +106,21 @@ namespace Catapult.GameObjects
         //PlayerBullet
         public void Update(GameTime gameTime, List<EnemyShip> enemy, List<Planet> planet)
         {
-            Velocity = gravity(planet);
+            
             switch (bulletType)
             {
                 case BulletType.Normal:
+                    Velocity = gravity(planet);
                     Position += Velocity;
                     break;
 
                 case BulletType.Heavy:
+                    Velocity = gravity(planet);
                     Position += Velocity;
                     break;
 
                 case BulletType.Missile:
+                    Velocity = gravity(planet);
                     Position += Velocity;
                     break;
 
@@ -130,6 +133,7 @@ namespace Catapult.GameObjects
                     break;
 
                 case BulletType.Satellite:
+                    Velocity = gravity(planet);
                     Position += Velocity;
                     break;
             }
