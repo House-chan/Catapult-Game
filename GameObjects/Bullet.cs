@@ -16,9 +16,10 @@ namespace Catapult.GameObjects
         Random rand = new Random();
         public bool end;
         public bool haveMass;
-        //for BulletType Satellite
+        //for BulletType laser
         float laser_range;
         int bullet_screen_padding;
+        Texture2D laser_texture;
         enum BulletType
         {
             Normal,
@@ -32,36 +33,43 @@ namespace Catapult.GameObjects
         BulletType bulletType;
 
 
-        public Bullet(Texture2D texture, int bullet, Vector2 Position) : base(texture)
+        public Bullet(Texture2D[] texture, int bullet, Vector2 Position)
         {
             if(bullet == 0)
             {
                 bulletType = BulletType.Normal;
                 haveMass = true;
+                _texture = texture[0];
                 damage = 50;
             }
             else if(bullet == 1)
             {
                 bulletType = BulletType.Heavy;
                 haveMass = true;
+                _texture = texture[1];
                 damage = 50;
             }
             else if (bullet == 2)
             {
                 bulletType = BulletType.Missile;
                 haveMass = true;
+                _texture = texture[2];
                 damage = 50;
             }
             else if(bullet == 3)
             {
                 bulletType = BulletType.Laser;
+                laser_range = 1000;
                 haveMass = true;
-                damage = 50;
+                _texture = texture[3];
+                laser_texture = texture[5];
+                damage = 1;
             }
             else if(bullet == 4)
             {
                 bulletType = BulletType.NyanCat;
                 haveMass = true;
+                _texture = texture[4];
                 damage = 50;
             }
             else if(bullet == 5)
@@ -70,13 +78,13 @@ namespace Catapult.GameObjects
                 haveMass = true;
                 damage = 50;
             }
-            _texture = texture;
-
+            width = _texture.Width;
+            height = _texture.Height;
+            
             //satellite = texture[5];
             this.Position = Position;
             bullet_screen_padding = 100;
             //this.bullet = bullet;
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -84,12 +92,7 @@ namespace Catapult.GameObjects
             switch (bulletType)
             {
                 case BulletType.Satellite:
-                    float cur_range = 0;
-                    while (cur_range < laser_range)
-                    {
-                        //TODO :draw laser here
-                        cur_range += 10; // += texture width
-                    }
+                    spriteBatch.Draw(laser_texture, new Rectangle((int)Position.X, (int)Position.Y, (int)laser_range, 10), null, Color.Red, (float)Rotation , new Vector2(1, 1), SpriteEffects.None, 0f);                        
                     break;
 
                 default:
@@ -125,6 +128,8 @@ namespace Catapult.GameObjects
                     break;
 
                 case BulletType.Laser:
+                    Velocity = gravity(planet);
+                    Rotation += 0.1f;
                     Position += Velocity;
                     break;
 
@@ -161,9 +166,8 @@ namespace Catapult.GameObjects
         //Player Bullet
         public bool hit(List<EnemyShip> EnemyPosition, List<Planet> PlanetPosition)
         {
-            if (bulletType == BulletType.Satellite)
+            if (bulletType == BulletType.Laser)
             {
-                Position = new Vector2(500, 500);
                 //hit planet
                 foreach (Planet sprite in PlanetPosition)
                 {
@@ -174,7 +178,6 @@ namespace Catapult.GameObjects
                     {
                         sprite.Health -= damage;
                         end = true;
-                        return true;
                     }
                 }
                 //hit ship
@@ -187,14 +190,19 @@ namespace Catapult.GameObjects
                     {
                         sprite.Health -= damage;
                         end = true;
-                        return true;
+                        
                     }
                     else
                     {
                         end = false;
-                        return false;
                     }
                 }
+                if (Position.X > Singleton.SCREENWIDTH + bullet_screen_padding || Position.X < -bullet_screen_padding || Position.Y > Singleton.SCREENHEIGHT)
+                {
+                    end = true;
+                    return true;
+                }                
+
             }
             else
             {
@@ -242,7 +250,7 @@ namespace Catapult.GameObjects
                     if (rand.Next(100) < 1)
                     {
                         Position.Y = -bullet_screen_padding;
-                        Velocity.X = (float)(speed * -2 * Math.Cos(-Rotation));
+                        Velocity.X = (float)(speed * 2 * Math.Cos(-Rotation));
                         Velocity.Y = (float)(speed * -2 * Math.Sin(-Rotation));
                         bulletType = BulletType.Satellite;
                         end = false;
