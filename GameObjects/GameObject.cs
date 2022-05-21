@@ -33,6 +33,13 @@ namespace Catapult
             height = _texture.Height;
         }
 
+        public GameObject()
+        {
+            Position = Vector2.Zero;
+            Scale = 1;
+            Rotation = 0f;
+        }
+
         public virtual void Update(GameTime gameTime)
         {
 
