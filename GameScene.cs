@@ -22,7 +22,7 @@ namespace Catapult
 
         enum Turn
         {
-            Player, Enemy, ChangeTurn
+            Player, Enemy, ChangeTurn, Dead
         }
 
         Turn turn;
@@ -47,7 +47,8 @@ namespace Catapult
         String WhoseTurn;
         Turn lastTurn;
         float transparent;
-
+        bool deadAni = false;
+        int falling;
         MouseState mouse;
         MouseState premouse;
 
@@ -67,6 +68,7 @@ namespace Catapult
             _graphics.PreferredBackBufferHeight = Singleton.SCREENHEIGHT;
             _graphics.ApplyChanges();
 
+            falling = 200;
             Game = Stage.MainMenu;
             GameReset();
             base.Initialize();
@@ -196,22 +198,16 @@ namespace Catapult
                                     Enemy[i].ResetAction();
                                     if (Enemy[i].Health <= 0)
                                     {
-                                        Enemy.RemoveAt(i);
+                                        turn = Turn.Dead;
                                     }
                                 }
                                 for (int i = 0; i < Planet.Count; i++)
                                 {
                                     if(Planet[i].Health <= 0)
                                     {
-                                        Planet.RemoveAt(i);
+                                        turn = Turn.Dead;
                                     }
-                                }                                
-                                if(Enemy.Count == 0)
-                                {
-                                    Game = Stage.End;
-                                    stageMusicInstance.Stop();
-                                }
-                            
+                                }                                                            
                             }
                             break;
 
@@ -223,14 +219,16 @@ namespace Catapult
                                 {
                                     if (Player.Health <= 0)
                                     {
-                                        Player = null;
+                                        turn = Turn.Dead;
+                                        //Player = null;
                                     }
                                     for (int i = 0; i < Planet.Count; i++)
                                     {
                                         
                                         if (Planet[i].Health <= 0)
                                         {
-                                            Planet.RemoveAt(i);
+                                            turn = Turn.Dead;
+                                            //Planet.RemoveAt(i);
                                         }
                                     }
                                     countTurn += 1;
@@ -243,18 +241,17 @@ namespace Catapult
                                 turn = Turn.ChangeTurn;
                                 Player.ResetAction();
                             }
-                            
-                            if(Player == null)
-                            {
-                                stageMusicInstance.Stop();
-                                Game = Stage.End;
-                            }
-                            
                             break;
 
                         case Turn.ChangeTurn:
-                            if(lastTurn == Turn.Enemy)
+                            mouse = Mouse.GetState();
+                            if (lastTurn == Turn.Enemy)
                             {
+                                if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                                {
+                                    Board.X = 350;
+                                    transparent = 1;
+                                }
                                 if (Board.X < 350)
                                 {
                                     Board.X += 20;
@@ -273,6 +270,11 @@ namespace Catapult
                             }
                             else if(lastTurn == Turn.Player)
                             {
+                                if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                                {
+                                    Board.X = 350;
+                                    transparent = 1;
+                                }
                                 if (Board.X > 350)
                                 {
                                     Board.X -= 20;
@@ -288,6 +290,46 @@ namespace Catapult
                                     Board.X = -1400;
                                     WhoseTurn = "PLAYER TURN";
                                 }
+                            }
+                            premouse = mouse;
+                            break;
+
+                        case Turn.Dead:
+                            //Player Dead
+                            if (Player.Health <= 0)
+                            {
+                                Player = null;
+                            }
+                            //Enemy Dead
+                            for (int i = 0; i < Enemy.Count; i++)
+                            {
+                                Enemy[i].ResetAction();
+                                if (Enemy[i].Health <= 0)
+                                {
+                                    Enemy.RemoveAt(i);
+                                }
+                            }
+                            //Planet Ded
+                            for (int i = 0; i < Planet.Count; i++)
+                            {
+                                if (Planet[i].Health <= 0)
+                                {
+                                    Planet.RemoveAt(i);
+                                }
+                            }
+                            if (Player == null)
+                            {
+                                stageMusicInstance.Stop();
+                                Game = Stage.End;
+                            }
+                            else if (Enemy.Count == 0)
+                            {
+                                Game = Stage.End;
+                                stageMusicInstance.Stop();
+                            }
+                            else if(!deadAni)
+                            {
+                                turn = Turn.ChangeTurn;
                             }
                             break;
                     }

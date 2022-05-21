@@ -114,8 +114,7 @@ namespace Catapult
                             //Pressed
                             if (Singleton.Instance.PreviousMouse.LeftButton == ButtonState.Pressed && Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Released)
                             {
-                                resetMenu();
-                                page = menu.StageSelect;
+                                page = menu.Setting;
                             }
                         }
                         //Exit Button
@@ -230,6 +229,14 @@ namespace Catapult
                     spriteBatch.Draw(StageButton[4], ButtonStage[4], null, Color.White * 0.6f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
                 case menu.Setting:
+                    spriteBatch.Draw(MenuBackground, new Vector2(0, 0), null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(BackButton, BackPosition, null, Color.White, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(Ship, shipPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(Soup, soupPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(StartButton, startButtonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(SettingButton, settingButtonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(ExitButton, exitButtonPosition, null, Color.White * transparent, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(font, fontPosition, Color.Yellow);
                     break;
             }
         }
