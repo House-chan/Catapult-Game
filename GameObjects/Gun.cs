@@ -62,9 +62,9 @@ namespace Catapult.GameObjects
             base.Reset();
         }
 
-        public void Update(GameTime gameTime, List<EnemyShip> enemy, List<Planet> planet)
+        public void Update(GameTime gameTime, List<EnemyShip> enemy, List<Planet> planet, Ship player)
         {
-            bullet.Update(gameTime, enemy, planet);
+            bullet.Update(gameTime, enemy, planet, player);
         }
 
         public void Update(GameTime gameTime, Ship player, List<Planet> planet)
@@ -92,16 +92,9 @@ namespace Catapult.GameObjects
         }
 
         public void aiming(Vector2 PlayerPosition)
-        {
-
-            if (
-                Singleton.Instance.CurrentMouse.Position.Y <= Singleton.SCREENHEIGHT && Singleton.Instance.CurrentMouse.Position.Y >= 0 &&
-                Singleton.Instance.CurrentMouse.Position.X <= Singleton.SCREENWIDTH && Singleton.Instance.CurrentMouse.Position.X >= 0 
-                )
-            {
-                Distance.Y = -PlayerPosition.Y + (_texture.Height / 2) + Position.Y;
-                Distance.X = -PlayerPosition.X + (_texture.Width / 2) + Position.X;
-            }
+        { 
+            Distance.Y = -PlayerPosition.Y - 100 + (_texture.Height / 2) + Position.Y;
+            Distance.X = -PlayerPosition.X + (_texture.Width / 2) + Position.X;
 
             Rotation = (float)Math.Atan2(Distance.Y, Distance.X);
             Velocity.X = (float)(Math.Cos(Rotation));
@@ -111,7 +104,16 @@ namespace Catapult.GameObjects
 
         public void reload()
         {
-            bullet = new Bullet(bulletTexture, bulletType, Position);
+            if (ammo[bulletType] == 0) 
+            {
+                bulletType = 0;
+                bullet = new Bullet(bulletTexture, bulletType, Position);
+            }
+            else
+            {
+                bullet = new Bullet(bulletTexture, bulletType, Position);
+            }
+            ammo[bulletType] -= 1;
             bulletCreate = true;
             //bullet = null;
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -22,15 +23,19 @@ namespace Catapult.GameObjects
 
         public Stage stage;
         Gun gun;
-
+        Random rand = new Random();
+        SoundEffectInstance shoot, bulletMove, explosion;
         int speed;
 
-        public EnemyShip(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture) : base(texture)
+        public EnemyShip(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture, SoundEffectInstance shoot, SoundEffectInstance bulletMove, SoundEffectInstance explosion) : base(texture)
         {
             speed = 5;
             Health = 100;
             moveRange = 100;
-            ShootPower = 10;
+            ShootPower = Math.Min(10, rand.Next(20));
+            this.shoot = shoot;
+            this.bulletMove = bulletMove;
+            this.explosion = explosion;
             stage = Stage.Start;
             gun = new Gun(gunTexture, bulletTexture)
             {
@@ -46,7 +51,7 @@ namespace Catapult.GameObjects
 
         public override void Reset()
         {
-            base.Reset();
+
         }
 
         public void Update(GameTime gameTime, Ship Player, List<Planet> Planet, List<EnemyShip> Enemy)
@@ -70,14 +75,18 @@ namespace Catapult.GameObjects
                 case Stage.Shooting:
                     gun.reload();
                     gun.shoot(ShootPower);
+                    shoot.Play();
                     stage = Stage.Move;
                     break;
 
                 case Stage.Move:
                     //bullet.shooting(Rotation, power);
+                    bulletMove.Play();
                     gun.Update(gameTime, Player, Planet);
                     if (gun.bullet.end)
                     {
+                        bulletMove.Stop();
+                        explosion.Play();
                         gun.clearBullet();
                         stage = Stage.EndTurn;
                     }
@@ -91,8 +100,16 @@ namespace Catapult.GameObjects
         private void moving(Ship Player, List<Planet> Planet, List<EnemyShip> Enemy)
         {
             //Moving
-            Velocity.X -= speed;
-            Velocity.Y -= speed;
+            if(Health > 50)
+            {
+                Velocity.X -= speed;
+                Velocity.Y += speed * (Player.Position.Y > Position.Y ? 1 : -1);
+            }
+            else
+            {
+                Velocity.X -= speed * (Player.Position.X > Position.X ? 1 : -1);
+                Velocity.Y -= speed * (Player.Position.Y > Position.Y ? 1 : -1);
+            }
             
             
             if ((this.Velocity.X > 0 && this.IsTouchingLeft(Player)) ||

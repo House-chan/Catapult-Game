@@ -54,9 +54,21 @@
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Ship/EnemyShip.png</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Ship/PlayerCanon.png</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Ship/PlayerShip.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Sound/BG/Mainmenu.mp3</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Sound/BG/Stage.mp3</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Sound/Effect/BulletMove.mp3</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Sound/Effect/Explosion.mp3</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/Sound/Effect/shoot.mp3</File>
     <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/starfield_alpha.png</File>
+    <File>E:/ハウス/Assignment/Kmitl/Year_2/Semester_2/Computer_Game/Catapult2/Catapult-Game/Content/uifont.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

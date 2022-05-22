@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using Catapult.GameObjects;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Catapult
 {
@@ -20,7 +22,7 @@ namespace Catapult
 
         enum Turn
         {
-            Player, Enemy, ChangeTurn
+            Player, Enemy, ChangeTurn, Dead
         }
 
         Turn turn;
@@ -45,9 +47,13 @@ namespace Catapult
         String WhoseTurn;
         Turn lastTurn;
         float transparent;
-
+        bool deadAni = false;
+        int falling;
         MouseState mouse;
         MouseState premouse;
+
+        SoundEffectInstance bulletMove, shoot, explosion, menuMusicInstance, stageMusicInstance;
+        SoundEffect menuMusic, stageMusic;
         public GameScene()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -62,6 +68,7 @@ namespace Catapult
             _graphics.PreferredBackBufferHeight = Singleton.SCREENHEIGHT;
             _graphics.ApplyChanges();
 
+            falling = 200;
             Game = Stage.MainMenu;
             GameReset();
             base.Initialize();
@@ -110,7 +117,6 @@ namespace Catapult
             pauseFont = Content.Load<SpriteFont>("pause");
             uifont = Content.Load<SpriteFont>("uifont");
 
-
             //MAINMENU
             ship = Content.Load<Texture2D>("MainMenu/pirate");
             soup = Content.Load<Texture2D>("MainMenu/soup");
@@ -129,7 +135,22 @@ namespace Catapult
             stageButton[3] = Content.Load<Texture2D>("MainMenu/Button/4_idle");
             stageButton[4] = Content.Load<Texture2D>("MainMenu/Button/5_idle");
 
-            mainmenu = new MainMenu(menuBackground, startButton, settingButton, exitButton, ship, soup, title, prop, backButton, stageSelect, stageButton);
+            mainmenu = new MainMenu(menuBackground, startButton, settingButton, exitButton, ship, soup, title, prop, backButton, stageSelect, stageButton, box);
+
+            //SoundEffect
+            menuMusic = Content.Load<SoundEffect>("Sound/BG/Mainmenu");
+            menuMusicInstance = menuMusic.CreateInstance();
+            stageMusic = Content.Load<SoundEffect>("Sound/BG/Stage");
+            stageMusicInstance = stageMusic.CreateInstance();
+            bulletMove = Content.Load<SoundEffect>("Sound/Effect/BulletMove").CreateInstance();
+            shoot = Content.Load<SoundEffect>("Sound/Effect/shoot").CreateInstance();
+            explosion = Content.Load<SoundEffect>("Sound/Effect/Explosion").CreateInstance();
+
+            menuMusicInstance.Volume = 0.4f * Singleton.Instance.music;
+            stageMusicInstance.Volume = 0.4f * Singleton.Instance.music;
+            bulletMove.Volume = Singleton.Instance.sound;
+            shoot.Volume = Singleton.Instance.sound;
+            explosion.Volume = Singleton.Instance.sound;
         }
 
         protected override void Update(GameTime gameTime)
@@ -142,15 +163,18 @@ namespace Catapult
             {
                 case Stage.MainMenu:
                     mainmenu.Update(gameTime);
-                    if(mainmenu.stage != 0)
+                    menuMusicInstance.Play();
+                    if (mainmenu.stage != 0)
                     {
                         changeStage(mainmenu.stage);
+                        menuMusicInstance.Stop();
                         //mainmenu.stage = 0;
                         Game = Stage.Stage;
                     }
                     break;
 
                 case Stage.Stage:
+                    stageMusicInstance.Play();
                     mouse = Mouse.GetState();
                     if ((mouse.Position.Y >= 30 && mouse.Position.Y < 92.5) &&
                         (mouse.Position.X >= 45 && mouse.Position.X < 95))
@@ -158,6 +182,7 @@ namespace Catapult
                         //Pressed
                         if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
                         {
+                            stageMusicInstance.Stop();
                             Game = Stage.Pause;
                         }
                     }
@@ -169,27 +194,25 @@ namespace Catapult
                             {
                                 lastTurn = Turn.Player;
                                 turn = Turn.ChangeTurn;
-                                //Board.X = 1600;
                                 for (int i = 0; i < Enemy.Count; i++)
                                 {
                                     Enemy[i].ResetAction();
                                     if (Enemy[i].Health <= 0)
                                     {
-                                        Enemy.RemoveAt(i);
+                                        turn = Turn.Dead;
                                     }
                                 }
                                 for (int i = 0; i < Planet.Count; i++)
                                 {
                                     if(Planet[i].Health <= 0)
                                     {
-                                        Planet.RemoveAt(i);
+                                        turn = Turn.Dead;
                                     }
-                                }                                
-                                if(Enemy.Count == 0)
-                                {
-                                    Game = Stage.End;
                                 }
-                            
+                                if (Player.Health <= 0)
+                                {
+                                    turn = Turn.Dead;
+                                }
                             }
                             break;
 
@@ -201,14 +224,16 @@ namespace Catapult
                                 {
                                     if (Player.Health <= 0)
                                     {
-                                        Player = null;
+                                        turn = Turn.Dead;
+                                        //Player = null;
                                     }
                                     for (int i = 0; i < Planet.Count; i++)
                                     {
                                         
                                         if (Planet[i].Health <= 0)
                                         {
-                                            Planet.RemoveAt(i);
+                                            turn = Turn.Dead;
+                                            //Planet.RemoveAt(i);
                                         }
                                     }
                                     countTurn += 1;
@@ -221,17 +246,17 @@ namespace Catapult
                                 turn = Turn.ChangeTurn;
                                 Player.ResetAction();
                             }
-                            
-                            if(Player == null)
-                            {
-                                Game = Stage.End;
-                            }
-                            
                             break;
 
                         case Turn.ChangeTurn:
-                            if(lastTurn == Turn.Enemy)
+                            mouse = Mouse.GetState();
+                            if (lastTurn == Turn.Enemy)
                             {
+                                if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                                {
+                                    Board.X = 350;
+                                    transparent = 1;
+                                }
                                 if (Board.X < 350)
                                 {
                                     Board.X += 20;
@@ -250,6 +275,11 @@ namespace Catapult
                             }
                             else if(lastTurn == Turn.Player)
                             {
+                                if (premouse.LeftButton == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released)
+                                {
+                                    Board.X = 350;
+                                    transparent = 1;
+                                }
                                 if (Board.X > 350)
                                 {
                                     Board.X -= 20;
@@ -265,6 +295,46 @@ namespace Catapult
                                     Board.X = -1400;
                                     WhoseTurn = "PLAYER TURN";
                                 }
+                            }
+                            premouse = mouse;
+                            break;
+
+                        case Turn.Dead:
+                            //Player Dead
+                            if (Player.Health <= 0)
+                            {
+                                Player = null;
+                            }
+                            //Enemy Dead
+                            for (int i = 0; i < Enemy.Count; i++)
+                            {
+                                Enemy[i].ResetAction();
+                                if (Enemy[i].Health <= 0)
+                                {
+                                    Enemy.RemoveAt(i);
+                                }
+                            }
+                            //Planet Ded
+                            for (int i = 0; i < Planet.Count; i++)
+                            {
+                                if (Planet[i].Health <= 0)
+                                {
+                                    Planet.RemoveAt(i);
+                                }
+                            }
+                            if (Player == null)
+                            {
+                                stageMusicInstance.Stop();
+                                Game = Stage.End;
+                            }
+                            else if (Enemy.Count == 0)
+                            {
+                                Game = Stage.End;
+                                stageMusicInstance.Stop();
+                            }
+                            else if(!deadAni)
+                            {
+                                turn = Turn.ChangeTurn;
                             }
                             break;
                     }
@@ -573,19 +643,19 @@ namespace Catapult
         {
             if(stage == 1)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 600));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
                 Planet.Add(new Planet(PlanetTexture[0]));
                 Planet[0].Position = new Vector2(800, 450);
             }
             else if(stage == 2)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 500));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
                 Enemy[1].SetPosition(new Vector2(1400, 600));
                 Planet.Add(new Planet(PlanetTexture[2]));
@@ -595,10 +665,10 @@ namespace Catapult
             }
             else if(stage == 3)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 200));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1300, 600));
                 Enemy[1].SetPosition(new Vector2(1400, 750));
                 Planet.Add(new Planet(PlanetTexture[4]));
@@ -610,11 +680,11 @@ namespace Catapult
             }
             else if(stage == 4)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 200));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
                 Enemy[1].SetPosition(new Vector2(1100, 400));
                 Enemy[2].SetPosition(new Vector2(1400, 600));
@@ -627,11 +697,11 @@ namespace Catapult
             }
             else if (stage == 5)
             {
-                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont);
+                Player = new Ship(PlayerShip, gun, Bullet, guideline, uifont, shoot, bulletMove, explosion);
                 Player.SetPosition(new Vector2(200, 200));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
-                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
+                Enemy.Add(new EnemyShip(EnemyShip, EnemyGun, Bullet, shoot, bulletMove, explosion));
                 Enemy[0].SetPosition(new Vector2(1400, 200));
                 Enemy[1].SetPosition(new Vector2(1100, 400));
                 Enemy[2].SetPosition(new Vector2(1400, 600));

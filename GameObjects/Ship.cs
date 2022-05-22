@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -21,16 +22,19 @@ namespace Catapult.GameObjects
 
         public Gun gun;
         AimGuide guide;
-
+        SoundEffectInstance shot, bulletMove, explosion;
         int speed;
 
-        public Ship(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture, Texture2D GuideLine, SpriteFont font) : base(texture)
+        public Ship(Texture2D texture, Texture2D gunTexture, Texture2D[] bulletTexture, Texture2D GuideLine, SpriteFont font, SoundEffectInstance shoot, SoundEffectInstance bulletMove, SoundEffectInstance explosion) : base(texture)
         {
             speed = 5;
             moveRange = 500;
             Health = 100;
             ShootPower = 5.0f;
             stage = Stage.Start;
+            shot = shoot;
+            this.explosion = explosion;
+            this.bulletMove = bulletMove;
             gun = new Gun(gunTexture, bulletTexture, font)
             {
                 Position = new Vector2(this.Position.X + 90, this.Position.Y + 30)
@@ -76,10 +80,13 @@ namespace Catapult.GameObjects
                     break;
                     
                 case Stage.Move:
-                    gun.Update(gameTime, Enemy, Planet);
+                    gun.Update(gameTime, Enemy, Planet, this);
+                    bulletMove.Play();
                     if (gun.bullet.end)
                     {
+                        bulletMove.Stop();
                         gun.clearBullet();
+                        explosion.Play();
                         stage = Stage.EndTurn;
                     }
                         break;
@@ -137,6 +144,7 @@ namespace Catapult.GameObjects
                     stage = Stage.Move;
                     gun.reload();
                     gun.shoot(ShootPower);
+                    shot.Play();
                     ShootPower = 5.0f;
                 }
             }

@@ -8,10 +8,10 @@ Collision in sphere
 Ammo Change+
 Health Bar+
 Power Bar+
-Pause Menu
+Pause Menu+
 Planet Enemy**
 Aim Guideline+
-Insert Sound
-Fix Collision
+Insert Sound+
+Fix Collision+
 Fix Angle
 Clean Code*********

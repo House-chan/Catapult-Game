@@ -214,3 +214,13 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\pause.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\starfield_alpha.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\uifont.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\BG\Mainmenu.ogg
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\BG\Mainmenu.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\BG\Stage.ogg
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\BG\Stage.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\BulletMove.ogg
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\BulletMove.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\Explosion.ogg
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\Explosion.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\shoot.ogg
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\shoot.xnb
