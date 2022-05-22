@@ -24,7 +24,7 @@ namespace Catapult
         }
 
         Turn turn;
-
+        
         Texture2D PlayerShip, EnemyShip, guideline, meteorite, gun, EnemyGun, box;
         Texture2D[] PlanetTexture = new Texture2D[11], Bullet = new Texture2D[7];
 
@@ -93,12 +93,7 @@ namespace Catapult
             Bullet[0] = Content.Load<Texture2D>("Bullet/bullet4");
             Bullet[1] = Content.Load<Texture2D>("Bullet/bullet2");
             Bullet[2] = Content.Load<Texture2D>("Bullet/bullet3");
-            Bullet[3] = Content.Load<Texture2D>("Bullet/bullet1");
-            Bullet[4] = Content.Load<Texture2D>("Bullet/Nyan-Cat-PNG");
-
-            font = Content.Load<SpriteFont>("Font");
-            pauseFont = Content.Load<SpriteFont>("pause");
-            uifont = Content.Load<SpriteFont>("uifont");
+            
             box = new Texture2D(_graphics.GraphicsDevice, 100, 5);
             Color[] color = new Color[100 * 5];
             for (int i = 0; i < color.Length; i++)
@@ -106,6 +101,15 @@ namespace Catapult
                 color[i] = Color.White;
             }
             box.SetData(color);
+
+            Bullet[3] = Content.Load<Texture2D>("Bullet/bullet1");
+            Bullet[4] = Content.Load<Texture2D>("Bullet/Nyan-Cat-PNG");
+            Bullet[5] = box;
+
+            font = Content.Load<SpriteFont>("Font");
+            pauseFont = Content.Load<SpriteFont>("pause");
+            uifont = Content.Load<SpriteFont>("uifont");
+
 
             //MAINMENU
             ship = Content.Load<Texture2D>("MainMenu/pirate");
