@@ -158,6 +158,14 @@ namespace Catapult.GameObjects
                     this.Velocity.Y = 0;
                 }
             }
+            if((this.Velocity.Y > 0 && Position.Y + height > Singleton.SCREENHEIGHT) || (this.Velocity.Y < 0 && Position.Y < 0))
+            {
+                this.Velocity.Y = 0;
+            }
+            else if((this.Velocity.X > 0 && Position.X + width > Singleton.SCREENWIDTH) || (this.Velocity.X < 0 && Position.X < 0))
+            {
+                this.Velocity.X = 0;
+            }
 
             Position += Velocity;
             gun.Position += Velocity;
