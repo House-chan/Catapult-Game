@@ -140,6 +140,7 @@ namespace Catapult.GameObjects
                         if((Velocity.Y < 1f && Velocity.Y > -1f) || (Velocity.X > -1f && Velocity.X < 1f))
                         {
                             end = true;
+                            break;
                         }
                     }
 

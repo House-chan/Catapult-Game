@@ -121,12 +121,6 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Ship\EnemyShip.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Ship\PlayerCanon.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Ship\PlayerShip.xnb
-E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Catapult.exe
-E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Catapult.deps.json
-E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Catapult.runtimeconfig.json
-E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Catapult.runtimeconfig.dev.json
-E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Catapult.dll
-E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Catapult.pdb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\MonoGame.Framework.dll
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libSDL2-2.0.so.0
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libopenal.so.1
@@ -142,8 +136,6 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\obj\Debug\netcoreapp3.1\Catapult.AssemblyInfo.cs
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\obj\Debug\netcoreapp3.1\Catapult.csproj.CoreCompileInputs.cache
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\obj\Debug\netcoreapp3.1\Catapult.csproj.CopyComplete
-E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\obj\Debug\netcoreapp3.1\Catapult.dll
-E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\obj\Debug\netcoreapp3.1\Catapult.pdb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\obj\Debug\netcoreapp3.1\Catapult.genruntimeconfig.cache
 E:\Year_2\Semester_2\Computer_Game\Catapult-Game\bin\Debug\netcoreapp3.1\Content\MainMenu\pirate.xnb
 E:\Year_2\Semester_2\Computer_Game\Catapult-Game\bin\Debug\netcoreapp3.1\Content\MainMenu\sky.xnb
@@ -226,3 +218,11 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\shoot.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\BG\stageComplete.ogg
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\BG\stageComplete.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Pirate The Final Frontier.exe
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Pirate The Final Frontier.deps.json
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Pirate The Final Frontier.runtimeconfig.json
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Pirate The Final Frontier.runtimeconfig.dev.json
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Pirate The Final Frontier.dll
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Pirate The Final Frontier.pdb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\obj\Debug\netcoreapp3.1\Pirate The Final Frontier.dll
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\obj\Debug\netcoreapp3.1\Pirate The Final Frontier.pdb
