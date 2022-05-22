@@ -224,3 +224,5 @@ E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\Explosion.xnb
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\shoot.ogg
 E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\Effect\shoot.xnb
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\BG\stageComplete.ogg
+E:\ハウス\Assignment\Kmitl\Year_2\Semester_2\Computer_Game\Catapult2\Catapult-Game\bin\Debug\netcoreapp3.1\Content\Sound\BG\stageComplete.xnb

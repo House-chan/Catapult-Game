@@ -67,7 +67,7 @@ namespace Catapult.GameObjects
                 haveMass = 1.0f;
                 _texture = texture[3];
                 laser_texture = texture[5];
-                damage = 5;
+                damage = 2;
             }
             else if(bullet == 4)
             {
