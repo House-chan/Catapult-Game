@@ -128,6 +128,31 @@ namespace Catapult.GameObjects
                     break;
 
                 case BulletType.Missile:
+                    Singleton.Instance.CurrentKey = Keyboard.GetState();
+                    if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.W))
+                    {
+                        Velocity *= 1.1f;
+                    }
+
+                    else if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.S))
+                    {
+                        Velocity /= 1.1f;
+                        if((Velocity.Y < 1f && Velocity.Y > -1f) || (Velocity.X > -1f && Velocity.X < 1f))
+                        {
+                            end = true;
+                        }
+                    }
+
+                    if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.A))
+                    {
+                        Velocity.Y += 1f;
+                    }
+                    if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.D))
+                    {
+                        Velocity.Y -= 1f;
+                    }
+
+
                     Velocity = gravity(planet);
                     Position += Velocity;
                     break;
