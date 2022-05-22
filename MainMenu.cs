@@ -22,6 +22,9 @@ namespace Catapult
         public menu page;
         public bool hit, exit;
         public int stage;
+        //Setting
+        float temp_music_volume = Singleton.Instance.music;
+        float temp_sound_volume = Singleton.Instance.sound;
 
         float transparent;
 
@@ -203,23 +206,22 @@ namespace Catapult
                 case menu.Setting:
                     Singleton.Instance.CurrentMouse = Mouse.GetState();
                     //Music
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= 410 && Singleton.Instance.CurrentMouse.Position.Y < 462) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= 320 && Singleton.Instance.CurrentMouse.Position.X < 1090))
+                    if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
                     {
-                        //Pressed
-                        if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
+                        if ((Singleton.Instance.CurrentMouse.Position.Y >= 410 && Singleton.Instance.CurrentMouse.Position.Y < 462) &&
+                            (Singleton.Instance.CurrentMouse.Position.X >= 320 && Singleton.Instance.CurrentMouse.Position.X < 1045))
                         {
-                            Singleton.Instance.music = (Singleton.Instance.CurrentMouse.Position.X - 320)/690;
+                            //Pressed
+                            temp_music_volume = (float)(Singleton.Instance.CurrentMouse.Position.X - 320) / (1045 - 320);   
+                            Singleton.Instance.music = temp_music_volume;
                         }
-                    }
-                    //Sound
-                    if ((Singleton.Instance.CurrentMouse.Position.Y >= 650 && Singleton.Instance.CurrentMouse.Position.Y < 702) &&
-                        (Singleton.Instance.CurrentMouse.Position.X >= 320 && Singleton.Instance.CurrentMouse.Position.X < 1090))
-                    {
-                        //Pressed
-                        if (Singleton.Instance.CurrentMouse.LeftButton == ButtonState.Pressed)
+                        //Sound
+                        if ((Singleton.Instance.CurrentMouse.Position.Y >= 650 && Singleton.Instance.CurrentMouse.Position.Y < 702) &&
+                            (Singleton.Instance.CurrentMouse.Position.X >= 320 && Singleton.Instance.CurrentMouse.Position.X < 1045))
                         {
-                            Singleton.Instance.sound = (Singleton.Instance.CurrentMouse.Position.X - 320) / 690;
+                            //Pressed
+                            temp_sound_volume = (float) (Singleton.Instance.CurrentMouse.Position.X - 320) / (1045 - 320);
+                            Singleton.Instance.sound = temp_sound_volume;
                         }
                     }
                     if ((Singleton.Instance.CurrentMouse.Position.Y >= BackPosition.Y && Singleton.Instance.CurrentMouse.Position.Y < BackPosition.Y + BackButton.Height) &&
@@ -268,12 +270,12 @@ namespace Catapult
                     spriteBatch.Draw(Soup, soupPosition, null, Color.White * 0.5f, 0f, Vector2.Zero, 1, SpriteEffects.None, 0f);
 
                     spriteBatch.Draw(box, new Rectangle(320, 410, 720, 52), null, Color.DarkGray, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
-                    spriteBatch.Draw(box, new Rectangle(335, 418, (int)(690 * Singleton.Instance.music), 30), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
-                    spriteBatch.Draw(box, new Rectangle((int)(280 + 690 * Singleton.Instance.music), 405, 65, 65), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(box, new Rectangle(335, 418, (int)(690 * temp_music_volume), 30), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(box, new Rectangle((int)(280 + 690 * temp_music_volume), 405, 65, 65), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
 
                     spriteBatch.Draw(box, new Rectangle(320, 650, 720, 52), null, Color.DarkGray, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
-                    spriteBatch.Draw(box, new Rectangle(335, 658, (int)(690 * Singleton.Instance.sound), 30), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
-                    spriteBatch.Draw(box, new Rectangle((int)(280 + 690 * Singleton.Instance.sound), 645, 65, 65), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(box, new Rectangle(335, 658, (int)(690 * temp_sound_volume), 30), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
+                    spriteBatch.Draw(box, new Rectangle((int)(280 + 690 * temp_sound_volume), 645, 65, 65), null, Color.OrangeRed, 0, new Vector2(1, 1), SpriteEffects.None, 0f);
                     spriteBatch.Draw(font, fontPosition, Color.Yellow);
                     break;
             }

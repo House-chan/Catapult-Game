@@ -148,6 +148,7 @@ namespace Catapult
 
             menuMusicInstance.Volume = 0.4f * Singleton.Instance.music;
             stageMusicInstance.Volume = 0.4f * Singleton.Instance.music;
+            
             bulletMove.Volume = Singleton.Instance.sound;
             shoot.Volume = Singleton.Instance.sound;
             explosion.Volume = Singleton.Instance.sound;
@@ -163,6 +164,12 @@ namespace Catapult
             {
                 case Stage.MainMenu:
                     mainmenu.Update(gameTime);
+                    menuMusicInstance.Volume = 0.4f * Singleton.Instance.music;
+                    stageMusicInstance.Volume = 0.4f * Singleton.Instance.music;
+
+                    bulletMove.Volume = Singleton.Instance.sound;
+                    shoot.Volume = Singleton.Instance.sound;
+                    explosion.Volume = Singleton.Instance.sound;
                     menuMusicInstance.Play();
                     if (mainmenu.stage != 0)
                     {

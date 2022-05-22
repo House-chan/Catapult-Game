@@ -40,7 +40,7 @@ namespace Catapult.GameObjects
                 bulletType = BulletType.Normal;
                 haveMass = true;
                 _texture = texture[0];
-                damage = 50;
+                damage = 25;
             }
             else if(bullet == 1)
             {
