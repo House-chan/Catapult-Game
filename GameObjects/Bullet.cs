@@ -20,6 +20,8 @@ namespace Catapult.GameObjects
         float laser_range;
         int bullet_screen_padding;
         Texture2D laser_texture;
+        float rand_dmg; // totol_damage = damage + rand_dmg
+        float p_dmg = 0.3f; // proportion of rand_dmg/damage.
         enum BulletType
         {
             Normal,
@@ -35,19 +37,21 @@ namespace Catapult.GameObjects
 
         public Bullet(Texture2D[] texture, int bullet, Vector2 Position)
         {
-            if(bullet == 0)
+            Random rand = new Random();
+            
+            if (bullet == 0)
             {
                 bulletType = BulletType.Normal;
                 haveMass = true;
                 _texture = texture[0];
-                damage = 25;
+                damage = 40;
             }
             else if(bullet == 1)
             {
                 bulletType = BulletType.Heavy;
                 haveMass = true;
                 _texture = texture[1];
-                damage = 50;
+                damage = 60;
             }
             else if (bullet == 2)
             {
@@ -63,7 +67,7 @@ namespace Catapult.GameObjects
                 haveMass = true;
                 _texture = texture[3];
                 laser_texture = texture[5];
-                damage = 1;
+                damage = 5;
             }
             else if(bullet == 4)
             {
@@ -81,10 +85,11 @@ namespace Catapult.GameObjects
             width = _texture.Width;
             height = _texture.Height;
             
-            //satellite = texture[5];
             this.Position = Position;
             bullet_screen_padding = 100;
-            //this.bullet = bullet;
+
+            rand_dmg = (float)rand.NextDouble() * 2 * p_dmg + (1f - p_dmg);
+            damage = (int)(damage * rand_dmg);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
