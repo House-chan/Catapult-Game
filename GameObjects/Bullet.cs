@@ -15,7 +15,7 @@ namespace Catapult.GameObjects
         int damage;
         Random rand = new Random();
         public bool end;
-        public bool haveMass;
+        public float haveMass;
         //for BulletType laser
         float laser_range;
         int bullet_screen_padding;
@@ -42,29 +42,29 @@ namespace Catapult.GameObjects
             if (bullet == 0)
             {
                 bulletType = BulletType.Normal;
-                haveMass = true;
+                haveMass = 1.0f;
                 _texture = texture[0];
                 damage = 40;
             }
             else if(bullet == 1)
             {
                 bulletType = BulletType.Heavy;
-                haveMass = true;
+                haveMass = 3.0f;
                 _texture = texture[1];
                 damage = 60;
             }
             else if (bullet == 2)
             {
                 bulletType = BulletType.Missile;
-                haveMass = true;
+                haveMass = 1.0f;
                 _texture = texture[2];
-                damage = 50;
+                damage = 60;
             }
             else if(bullet == 3)
             {
                 bulletType = BulletType.Laser;
                 laser_range = 1000;
-                haveMass = true;
+                haveMass = 1.0f;
                 _texture = texture[3];
                 laser_texture = texture[5];
                 damage = 5;
@@ -72,14 +72,14 @@ namespace Catapult.GameObjects
             else if(bullet == 4)
             {
                 bulletType = BulletType.NyanCat;
-                haveMass = true;
+                haveMass = 0.0f;
                 _texture = texture[4];
                 damage = 50;
             }
             else if(bullet == 5)
             {
                 bulletType = BulletType.Satellite;
-                haveMass = true;
+                haveMass = 0.0f;
                 damage = 50;
             }
             width = _texture.Width;

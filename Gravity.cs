@@ -51,5 +51,29 @@ namespace Catapult
 
             return new_Velocity;
         }
+        public static Vector2 CalVelocity(Vector2 position, Vector2 Velocity, float obj_mass, List<Planet> Planet)
+        {
+            Vector2 new_Velocity = Velocity;
+            Vector2 r_hat, sum = Vector2.Zero;
+            Vector2 r;
+            float dis;
+
+
+            foreach (Planet planet in Planet)
+            {
+                r = planet.Position - position;
+
+                dis = Vector2.Distance(position, planet.Position);
+                if (dis < planet.range && planet_diameter < dis)
+                {
+                    r_hat = Vector2.Normalize(Vector2.Subtract(planet.Position, position));
+                    sum = Vector2.Add(sum, Vector2.Multiply(r_hat, planet.Mass / (float)Math.Pow((dis - planet_diameter), 2)));
+                }
+            }
+            new_Velocity = Vector2.Multiply(sum, G * obj_mass) + Velocity;
+            
+
+            return new_Velocity;
+        }
     }
 }
